@@ -2,6 +2,7 @@ package tn.esprit.pidevbackend.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,5 +18,7 @@ public class Likes {
     @Id
     String idLike;
     String idPoste;
-    String id_user;
+    //String id_user;
+    @OneToOne
+    Poste poste;
 }

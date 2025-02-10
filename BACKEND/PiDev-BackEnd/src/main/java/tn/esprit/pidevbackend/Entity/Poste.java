@@ -1,9 +1,11 @@
 package tn.esprit.pidevbackend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import tn.esprit.pidevbackend.Entity.Enumeration.Topics;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,5 +22,12 @@ public class Poste {
     String Contenu;
     String id_user;
     String date;
-    String categorie;
+    Topics topic;
+    @ManyToOne
+    User user;
+    @OneToOne
+    Likes likes;
+    @OneToMany
+    Set<Comment> comments;
+
 }

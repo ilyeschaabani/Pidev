@@ -31,5 +31,9 @@ public class User {
     Set<Ressources> ressources;
     @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
     Set<Formation> formations;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    Set<Poste> postes;
+    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    Set<Event> events;
 
 }

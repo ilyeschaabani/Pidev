@@ -2,6 +2,7 @@ package tn.esprit.pidevbackend.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,8 +17,10 @@ import lombok.experimental.FieldDefaults;
 public class Comment {
     @Id
     String idComment;
-    String idPoste;
-    String id_user;
+  //  String id_user;
     String Contenu;
     String date;
+
+    @ManyToOne
+    Poste idPoste;
 }
