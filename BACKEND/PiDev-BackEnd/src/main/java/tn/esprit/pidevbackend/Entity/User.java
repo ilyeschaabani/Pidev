@@ -35,5 +35,7 @@ public class User {
     Set<Poste> postes;
     @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
     Set<Event> events;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    Set<Reclamation> reclamations;
 
 }

@@ -1,7 +1,9 @@
 package tn.esprit.pidevbackend.Entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import tn.esprit.pidevbackend.Entity.Enumeration.StatutRec;
@@ -24,4 +26,8 @@ public class Reclamation {
     Date dateReclamation;
     StatutRec etatReclamation;
     TypeReclamation typeReclamation;
+
+    @ManyToOne (cascade = CascadeType.ALL)
+    User user;
+
 }
