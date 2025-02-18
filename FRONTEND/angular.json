@@ -23,11 +23,25 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
+
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/css/demo.css",
+              "src/assets/vendor/css/core.css",
+              "src/assets/vendor/css/pages/front-page.css",
+              "src/assets/vendor/css/pages/front-page-landing.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/vendor/js/bootstrap.js",
+              "src/assets/vendor/js/dropdown-hover.js",
+              "src/assets/vendor/js/helpers.js",
+              "src/assets/vendor/js/mega-dropdown.js",
+              "src/assets/js/front-config.js",
+              "src/assets/js/front-main.js",
+              "src/assets/js/front-page-landing.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -88,11 +102,15 @@
             ],
             "styles": [
               "src/styles.css"
+
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a1406d68-7073-4285-8872-5b5f87fef9e6"
   }
 }

@@ -37,5 +37,10 @@ public class User {
     Set<Event> events;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     Set<Reclamation> reclamations;
+    @ManyToMany (mappedBy = "participantProjeccts",cascade = CascadeType.ALL)
+    Set<Projet> projets;
+
+    @ManyToMany (mappedBy = "participantsPFE",cascade = CascadeType.ALL)
+    Set<AccompagnementPFE> accompagnements;
 
 }

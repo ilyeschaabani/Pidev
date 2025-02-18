@@ -2,9 +2,12 @@ package tn.esprit.pidevbackend.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import tn.esprit.pidevbackend.Entity.Enumeration.StatutProjet;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,5 +26,8 @@ String porteurProjet;
 String Encadrant;
 Boolean espaceCollaboratif;
 StatutProjet statutProjet;
+
+@ManyToMany
+Set<User> participantProjeccts;
 
 }
