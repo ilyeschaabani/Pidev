@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Builder
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -27,4 +27,60 @@ public class AccompagnementPFE {
 
     // Stocke uniquement les IDs des utilisateurs (relation ManyToMany en SQL)
     List<String> participantsPFE;
+    public AccompagnementPFE(){}
+    public AccompagnementPFE(String etudiant, String encadrant, String sujet, Float avancement, List<String> participantsPFE) {
+        this.etudiant = etudiant;
+        this.encadrant = encadrant;
+        this.sujet = sujet;
+        this.avancement = avancement;
+        this.participantsPFE = participantsPFE;
+    }
+
+    public String getIdAccompagnement() {
+        return idAccompagnement;
+    }
+
+    public void setIdAccompagnement(String idAccompagnement) {
+        this.idAccompagnement = idAccompagnement;
+    }
+
+    public String getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(String etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    public String getEncadrant() {
+        return encadrant;
+    }
+
+    public void setEncadrant(String encadrant) {
+        this.encadrant = encadrant;
+    }
+
+    public String getSujet() {
+        return sujet;
+    }
+
+    public void setSujet(String sujet) {
+        this.sujet = sujet;
+    }
+
+    public Float getAvancement() {
+        return avancement;
+    }
+
+    public void setAvancement(Float avancement) {
+        this.avancement = avancement;
+    }
+
+    public List<String> getParticipantsPFE() {
+        return participantsPFE;
+    }
+
+    public void setParticipantsPFE(List<String> participantsPFE) {
+        this.participantsPFE = participantsPFE;
+    }
 }
