@@ -83,7 +83,7 @@ public enum Topics {
     PONYNET,
     KOTLINNATIVENET,
     CRYSTALNATIVENET,
-    C,
+
     CPP,
     CSHARPNETCORE,
     VBNETCORE,

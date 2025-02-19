@@ -1,14 +1,13 @@
 package tn.esprit.pidevbackend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Set;
+import java.util.List;
 
-@Entity
+@Document(collection = "accompagnementsPFE") // Spécifie la collection MongoDB
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,14 +16,15 @@ import java.util.Set;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AccompagnementPFE {
+
     @Id
-    String idAccompagnement;
+    String idAccompagnement; // MongoDB génère un ObjectId si laissé vide
+
     String etudiant;
     String encadrant;
     String sujet;
-    Float Avancement;
+    Float avancement;
 
-    @ManyToMany
-    Set<User> participantsPFE;
-
+    // Stocke uniquement les IDs des utilisateurs (relation ManyToMany en SQL)
+    List<String> participantsPFE;
 }

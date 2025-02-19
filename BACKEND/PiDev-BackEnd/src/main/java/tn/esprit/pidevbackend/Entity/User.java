@@ -1,13 +1,12 @@
 package tn.esprit.pidevbackend.Entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import tn.esprit.pidevbackend.Entity.Enumeration.Role;
 
-import java.util.Set;
-
-@Entity
+@Document(collection = "users") // Spécifie la collection MongoDB
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,8 +15,10 @@ import java.util.Set;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
+
     @Id
-    String idUser;
+    String idUser;  // L'ID sera géré automatiquement par MongoDB si non spécifié
+
     String nom;
     String prenom;
     String email;
@@ -26,21 +27,4 @@ public class User {
     String photo;
     String telephone;
     String adresse;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
-    Set<Ressources> ressources;
-    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
-    Set<Formation> formations;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    Set<Poste> postes;
-    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
-    Set<Event> events;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    Set<Reclamation> reclamations;
-    @ManyToMany (mappedBy = "participantProjeccts",cascade = CascadeType.ALL)
-    Set<Projet> projets;
-
-    @ManyToMany (mappedBy = "participantsPFE",cascade = CascadeType.ALL)
-    Set<AccompagnementPFE> accompagnements;
-
 }
