@@ -1,6 +1,7 @@
 package tn.esprit.pidevbackend.Services;
 
 import org.springframework.stereotype.Service;
+import tn.esprit.pidevbackend.Entity.Enumeration.StatutProjet;
 import tn.esprit.pidevbackend.Entity.Projet;
 import tn.esprit.pidevbackend.Repositories.ProjetRepository;
 
@@ -14,6 +15,22 @@ public class ProjetServices {
     // Injection de dépendance via constructeur (meilleure pratique)
     public ProjetServices(ProjetRepository projetRepository) {
         this.projetRepository = projetRepository;
+    }
+
+
+    public Projet validateOrRejectProjet(String id, boolean isValid, String rejectionMotif) {
+        return projetRepository.findById(id)
+                .map(projet -> {
+                    if (isValid) {
+                        projet.setStatutProjet(StatutProjet.EN_COURS);
+                    } else {
+                        projet.setStatutProjet(StatutProjet.EN_ATTEND);
+                        // Ajouter un motif de rejet (optionnel, car ce n'est pas dans l'entité actuelle)
+                        // Vous pouvez gérer cela au niveau du message de retour ou dans une autre structure.
+                    }
+                    return projetRepository.save(projet);
+                })
+                .orElseThrow(() -> new RuntimeException("Projet non trouvé avec l'ID : " + id));
     }
 
     // Ajouter un projet

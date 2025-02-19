@@ -38,4 +38,11 @@ public class ProjetController {
     public Projet getProjetById(@PathVariable String id) {
         return projetService.getProjetById(id);
     }
+
+    @PutMapping("/validate-or-reject/{id}")
+    public Projet validateOrRejectProjet(@PathVariable String id,
+                                         @RequestParam boolean isValid,
+                                         @RequestParam(required = false) String rejectionMotif) {
+        return projetService.validateOrRejectProjet(id, isValid, rejectionMotif);
+    }
 }
