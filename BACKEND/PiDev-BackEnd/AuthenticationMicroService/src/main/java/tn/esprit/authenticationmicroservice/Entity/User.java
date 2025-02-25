@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-//import tn.esprit.authentificationmicroservice.Entity.Enum.Role;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import tn.esprit.authenticationmicroservice.Entity.Enum.Role;
@@ -16,34 +15,19 @@ import tn.esprit.authenticationmicroservice.Entity.Enum.Role;
 import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "users") // MongoDB collection name
+@Document(collection = "users")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User implements UserDetails {
 
     @Id
-    String idUser; // Use String for MongoDB ID
-
-    @NotBlank
+    String idUser;
     String nom;
-
-    @NotBlank
     String prenom;
-
-    @Email
-    @NotBlank
     String email;
-
-    @NotBlank
     String password;
-
-    @NotNull
     Role role;
-
-    @NotBlank
     String telephone;
-
-    @NotBlank
     String adresse;
 
     @Override
