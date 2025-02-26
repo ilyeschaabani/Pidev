@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjetService } from 'src/app/projet-service/project.service';  // Assurez-vous de la bonne importation du service
+import { ProjetService } from 'src/app/projet/projet-service/project.service';  // Assurez-vous de la bonne importation du service
 import { Projet } from 'src/app/models/projet.model';
 @Component({
   selector: 'app-project-list',

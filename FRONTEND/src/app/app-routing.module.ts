@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectListComponent } from './projet/project-list/project-list.component';
+import { HomeComponent } from './home/home.component';
 const routes: Routes = [
-  {
-    path: 'projets',component: ProjectListComponent }
-
-  // Ajoutez d'autres routes si nécessaire
+  {path: '', component:HomeComponent},
+  { path: 'projets', component: ProjectListComponent }
 ];
 
 @NgModule({
