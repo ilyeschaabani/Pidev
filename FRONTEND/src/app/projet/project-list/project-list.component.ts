@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjetService } from 'src/app/projet/projet-service/project.service';  // Assurez-vous de la bonne importation du service
-import { Projet } from 'src/app/models/projet.model';
+import { Projet,StatutProjet  } from 'src/app/models/projet.model';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -8,7 +8,7 @@ import { Projet } from 'src/app/models/projet.model';
 })
 export class ProjectListComponent implements OnInit {
   projets: Projet[] = [];
-
+  StatutProjet =StatutProjet ;
   constructor(private projetService: ProjetService) { }
 
   ngOnInit(): void {

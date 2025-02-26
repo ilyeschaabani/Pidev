@@ -1,8 +1,54 @@
-<!-- project-list.component.html -->
-<div *ngFor="let projet of projets">
-    <h3>{{ projet.titre }}</h3>
-    <p>{{ projet.description }}</p>
-    <p><strong>Statut:</strong> {{ projet.statutProjet }}</p>
+<app-navbar></app-navbar>
+
+
+
+
+<div class="container-fluid mt-4">
+  <div class="row justify-content-center">
+    <div class="col-xl-15 col-lg-18">
+      <div class="card shadow-lg p-3">
+        <h4 class="text-center text-primary mb-3">Liste des Projets</h4>
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered">
+            <thead class="table-dark text-center">
+              <tr>
+                <th class="text-truncate">Titre</th>
+                <th class="text-truncate">Description</th>
+                <th class="text-truncate">Porteur de Projet</th>
+                <th class="text-truncate">Encadrant</th>
+                <th class="text-truncate">Espace Collaboratif</th>
+                <th class="text-truncate">Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let projet of projets" class="text-center align-middle">
+                <td class="text-truncate fw-bold">{{ projet.titre }}</td>
+                <td class="text-truncate">{{ projet.description }}</td>
+                <td class="text-truncate">{{ projet.porteurProjet }}</td>
+                <td class="text-truncate">{{ projet.encadrant }}</td>
+                <td class="text-truncate">
+                  <span *ngIf="projet.espaceCollaboratif; else nonCollab" class="badge bg-success rounded-pill px-3 py-2">Oui</span>
+                  <ng-template #nonCollab>
+                    <span class="badge bg-danger rounded-pill px-3 py-2">Non</span>
+                  </ng-template>
+                </td>
+                <td>
+                  <span 
+                    [ngClass]="{
+                      'bg-warning text-dark': projet.statutProjet === StatutProjet.EN_ATTEND,
+                      'bg-primary': projet.statutProjet === StatutProjet.EN_COURS,
+                      'bg-success': projet.statutProjet === StatutProjet.TERMINE
+                    }"
+                    class="badge rounded-pill px-3 py-2"
+                  >
+                    {{ projet.statutProjet }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  
-  
+</div>
