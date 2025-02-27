@@ -5,7 +5,7 @@ export enum StatutProjet {
   }
   
 export interface Projet {
-    idProjet: string;
+    idProjet?: string;
     titre: string;
     description: string;
     porteurProjet: string;

@@ -1,39 +1,54 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Projet } from '../../models/projet.model';  // Assurez-vous d'avoir un modèle de projet
+import { Observable, catchError, throwError } from 'rxjs';
+import { Projet } from '../../models/projet.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjetService {
+  private baseUrl = 'http://localhost:8082/api/projets';
 
-  private baseUrl = 'http://localhost:8082/api/projets';  // L'URL de votre backend Spring Boot
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  // Méthode pour obtenir tous les projets
   getAllProjets(): Observable<Projet[]> {
-    return this.http.get<Projet[]>(`${this.baseUrl}/all`);
+    return this.http.get<Projet[]>(`${this.baseUrl}/all`).pipe(
+      catchError(this.handleError('Erreur lors du chargement des projets'))
+    );
   }
 
-  // Méthode pour ajouter un projet
-  addProjet(projet: Projet): Observable<Projet> {
-    return this.http.post<Projet>(`${this.baseUrl}/add`, projet);
+  addProjet(projet: Partial<Projet>): Observable<Projet> {
+    return this.http.post<Projet>(`${this.baseUrl}/add`, projet).pipe(
+      catchError(this.handleError("Erreur lors de l'ajout du projet"))
+    );
   }
 
-  // Méthode pour obtenir un projet par son ID
   getProjetById(id: string): Observable<Projet> {
-    return this.http.get<Projet>(`${this.baseUrl}/get/${id}`);
+    return this.http.get<Projet>(`${this.baseUrl}/get/${id}`).pipe(
+      catchError(this.handleError('Projet introuvable'))
+    );
   }
 
-  // Méthode pour mettre à jour un projet
   updateProjet(id: string, projet: Projet): Observable<Projet> {
-    return this.http.put<Projet>(`${this.baseUrl}/update/${id}`, projet);
+    return this.http.put<Projet>(`${this.baseUrl}/update/${id}`, projet).pipe(
+      catchError(this.handleError('Erreur lors de la mise à jour'))
+    );
   }
 
-  // Méthode pour supprimer un projet
-  deleteProjet(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  deleteProjet(idProjet: string): Observable<any> {
+    console.log("Suppression du projet avec ID:", idProjet);  // Ajouter un log pour vérifier l'ID
+    return this.http.delete(`${this.baseUrl}/delete/${idProjet}`).pipe(
+      catchError(this.handleError('Erreur lors de la suppression du projet'))
+    );
+  }
+  
+  
+
+  // Centralisation de la gestion des erreurs
+  private handleError(message: string) {
+    return (error: any) => {
+      console.error(message, error);
+      return throwError(() => new Error(message + ' : ' + (error.message || error.statusText)));
+    };
   }
 }
