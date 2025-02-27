@@ -5,8 +5,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import tn.esprit.ressourcemicroservice.Entity.Enumeration.CategoryResource;
-import tn.esprit.ressourcemicroservice.Entity.Enumeration.TypeResource;
+import tn.esprit.ressourcemicroservice.Entity.Enumeration.CategoryRessource;
+import tn.esprit.ressourcemicroservice.Entity.Enumeration.TypeRessource;
 
 import java.util.Date;
 
@@ -28,11 +28,11 @@ public class Ressources {
     String description;
 
     // Enregistre en tant que chaîne pour éviter des erreurs avec MongoDB
-    TypeResource type;
+    TypeRessource type;
 
     Date date;
 
-    CategoryResource category;
+    CategoryRessource category;
 
     /* Relation ManyToOne non supportée par MongoDB directement
     @ManyToOne

@@ -1,0 +1,55 @@
+<div class="container">
+    <h2>Gestion des Ressources</h2>
+  
+    <!-- Formulaire -->
+    <div class="form-section">
+      <h3>Nouvelle Ressource</h3>
+      
+      <div class="form-group">
+        <label>Titre:</label>
+        <input [(ngModel)]="newRes.titre" placeholder="Entrez le titre">
+      </div>
+  
+      <div class="form-group">
+        <label>Description:</label>
+        <textarea [(ngModel)]="newRes.description"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label>Type:</label>
+        <select [(ngModel)]="newRes.type">
+          <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label>Catégorie:</label>
+        <select [(ngModel)]="newRes.category">
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+  
+    </div>
+  
+    <!-- Liste -->
+    <div class="list-section">
+      <h3>Liste des Ressources</h3>
+      
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+      
+      <div *ngIf="!ressources.length" class="empty">Aucune ressource disponible</div>
+  
+      <div class="ressource-card" *ngFor="let res of ressources">
+        <div class="header">
+          <h4>{{ res.titre }}</h4>
+          <button class="btn-delete" (click)="deleteRessource(res.idRessource)">X</button>
+        </div>
+        <p>{{ res.description }}</p>
+        <div class="meta">
+          <span>Type: {{ res.type }}</span>
+          <span>Catégorie: {{ res.category }}</span>
+          <span>Date: {{ res.date | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>

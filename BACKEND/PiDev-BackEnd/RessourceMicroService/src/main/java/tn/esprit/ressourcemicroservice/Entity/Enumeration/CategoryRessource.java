@@ -1,5 +1,5 @@
 package tn.esprit.ressourcemicroservice.Entity.Enumeration;
 
-public enum CategoryResource {
+public enum CategoryRessource {
     DATABASE, PROGRAMMING, DESIGN, NETWORKING, SECURITY, OTHER
 }
