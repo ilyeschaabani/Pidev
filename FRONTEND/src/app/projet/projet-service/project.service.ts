@@ -42,7 +42,9 @@ export class ProjetService {
     );
   }
   
-  
+  validateOrRejectProjet(id: string, isValid: boolean, rejectionMotif?: string): Observable<Projet> {
+    return this.http.put<Projet>(`${this.baseUrl}/validate-or-reject/${id}?isValid=${isValid}&rejectionMotif=${rejectionMotif || ''}`, {});
+  }
 
   // Centralisation de la gestion des erreurs
   private handleError(message: string) {
