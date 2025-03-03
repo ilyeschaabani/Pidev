@@ -30,6 +30,11 @@ public class CommentController {
         List<Comment> comments = commentService.getAllComments();
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
+    @GetMapping("/byTopicId/{id}")
+    public ResponseEntity<List<Comment>> getAllComments(@PathVariable String id) {
+        List<Comment> comments = commentService.getAllCommentsByTopicId(id);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
 
     // Lire un commentaire par son ID
     @GetMapping("/{id}")

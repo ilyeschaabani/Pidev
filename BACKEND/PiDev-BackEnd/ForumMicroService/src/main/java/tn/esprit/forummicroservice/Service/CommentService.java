@@ -80,6 +80,8 @@ public class CommentService {
     public Optional<Comment> getCommentById(String id) {
         return commentRepository.findById(id);
     }
-
+    public List<Comment> getAllCommentsByTopicId(String topicId){
+        return  commentRepository.findCommentsByEventTopicId(topicId);
+    }
     // Autres méthodes de service, si nécessaire
 }
