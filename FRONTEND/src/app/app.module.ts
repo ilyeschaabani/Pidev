@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RessourceListComponent } from './ressource/ressource-list/ressource-list.component';
 import { AddRessourceComponent } from './ressource/add-ressource/add-ressource.component';
+import { NavbarComponent } from './navbar/navbar/navbar.component';
 
 
 
@@ -14,7 +15,8 @@ import { AddRessourceComponent } from './ressource/add-ressource/add-ressource.c
   declarations: [
     AppComponent,
     RessourceListComponent,
-    AddRessourceComponent
+    AddRessourceComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
