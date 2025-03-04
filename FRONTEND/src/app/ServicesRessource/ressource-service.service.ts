@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ressource } from '../models/ressource.model';
+
 @Injectable({ providedIn: 'root' })
 export class RessourceService {
   private apiUrl = 'http://localhost:8082/api/ressources';

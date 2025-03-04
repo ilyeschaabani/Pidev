@@ -1,1 +1,40 @@
-<p>add-ressource works!</p>
+<div class="container">
+  <h2>Ajouter une ressource</h2>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <!-- Add Resource Form -->
+  <form (ngSubmit)="onSubmit()" class="form-section">
+    <div class="form-group">
+      <label>Titre:</label>
+      <input type="text" [(ngModel)]="ressource.titre" name="titre" required placeholder="Entrez le titre">
+    </div>
+
+    <div class="form-group">
+      <label>Description:</label>
+      <textarea [(ngModel)]="ressource.description" name="description" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Type:</label>
+      <select [(ngModel)]="ressource.type" name="type" required>
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Catégorie:</label>
+      <select [(ngModel)]="ressource.category" name="category" required>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-submit">Ajouter</button>
+      <button type="button" class="btn-reset" (click)="resetForm()">Réinitialiser</button>
+    </div>
+  </form>
+</div>

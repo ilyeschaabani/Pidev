@@ -5,11 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RessourceListComponent } from './ressource/ressource-list/ressource-list.component';
+import { AddRessourceComponent } from './ressource/add-ressource/add-ressource.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    RessourceListComponent
+    RessourceListComponent,
+    AddRessourceComponent
   ],
   imports: [
     BrowserModule,
