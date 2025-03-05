@@ -25,7 +25,7 @@ export class ProjetService {
 
   getProjetById(id: string): Observable<Projet> {
     return this.http.get<Projet>(`${this.baseUrl}/get/${id}`).pipe(
-      catchError(this.handleError('Projet introuvable'))
+      catchError(this.handleError('Erreur lors de la récupération du projet'))
     );
   }
 
@@ -36,17 +36,24 @@ export class ProjetService {
   }
 
   deleteProjet(idProjet: string): Observable<any> {
-    console.log("Suppression du projet avec ID:", idProjet);  // Ajouter un log pour vérifier l'ID
     return this.http.delete(`${this.baseUrl}/delete/${idProjet}`).pipe(
       catchError(this.handleError('Erreur lors de la suppression du projet'))
     );
   }
-  
+
   validateOrRejectProjet(id: string, isValid: boolean, rejectionMotif?: string): Observable<Projet> {
-    return this.http.put<Projet>(`${this.baseUrl}/validate-or-reject/${id}?isValid=${isValid}&rejectionMotif=${rejectionMotif || ''}`, {});
+    return this.http.put<Projet>(
+      `${this.baseUrl}/validate-or-reject/${id}?isValid=${isValid}&rejectionMotif=${rejectionMotif || ''}`, 
+      {}
+    );
   }
 
-  // Centralisation de la gestion des erreurs
+  assignEncadrant(projetId: string, encadrantId: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/assign-encadrant/${projetId}/${encadrantId}`, {}).pipe(
+      catchError(this.handleError('Erreur lors de l’assignation de l’encadrant'))
+    );
+  }
+
   private handleError(message: string) {
     return (error: any) => {
       console.error(message, error);

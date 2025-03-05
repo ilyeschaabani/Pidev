@@ -5,12 +5,14 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import tn.esprit.projectmicroservice.Entity.Enumeration.StatutProjet;
-import java.util.Set;
+
+import java.util.List;
 
 @Document(collection = "projets") // Spécifie que c'est un document MongoDB
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -20,74 +22,28 @@ public class Projet {
     String titre;
     String description;
     String porteurProjet;
-    String Encadrant;
+    String encadrant;
     Boolean espaceCollaboratif;
     StatutProjet statutProjet;
-    public Projet(){}
-    public Projet(String titre, String description, String porteurProjet, String encadrant, Boolean espaceCollaboratif, StatutProjet statutProjet) {
+    String email;
+    String telephone;
+    String technologies;
+    String objectifs;
+    String benefices;
+    String rejectionMotif; // Ajout du motif de rejet
+    public Projet(String titre, String description, String porteurProjet, String encadrant, Boolean espaceCollaboratif, StatutProjet statutProjet, String email, String telephone, String technologies, String objectifs, String benefices,  String rejectionMotif) {
         this.titre = titre;
         this.description = description;
         this.porteurProjet = porteurProjet;
-        Encadrant = encadrant;
+        this.encadrant = encadrant;
         this.espaceCollaboratif = espaceCollaboratif;
         this.statutProjet = statutProjet;
+        this.email = email;
+        this.telephone = telephone;
+        this.technologies = technologies;
+        this.objectifs = objectifs;
+        this.benefices = benefices;
+        this.rejectionMotif = rejectionMotif;
     }
-
-    public String getIdProjet() {
-        return idProjet;
-    }
-
-    public void setIdProjet(String idProjet) {
-        this.idProjet = idProjet;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPorteurProjet() {
-        return porteurProjet;
-    }
-
-    public void setPorteurProjet(String porteurProjet) {
-        this.porteurProjet = porteurProjet;
-    }
-
-    public String getEncadrant() {
-        return Encadrant;
-    }
-
-    public void setEncadrant(String encadrant) {
-        Encadrant = encadrant;
-    }
-
-    public Boolean getEspaceCollaboratif() {
-        return espaceCollaboratif;
-    }
-
-    public void setEspaceCollaboratif(Boolean espaceCollaboratif) {
-        this.espaceCollaboratif = espaceCollaboratif;
-    }
-
-    public StatutProjet getStatutProjet() {
-        return statutProjet;
-    }
-
-    public void setStatutProjet(StatutProjet statutProjet) {
-        this.statutProjet = statutProjet;
-    }
-
 
 }

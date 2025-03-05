@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <br><br><br>
 <div class="container-fluid mt-4">
-  <img _ngcontent-ng-c187211749="" src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="hero background" data-speed="1" class="position-absolute top-0 start-50 translate-middle-x object-fit-cover w-100 h-100">
+  <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="hero background" class="position-absolute top-0 start-50 translate-middle-x object-fit-cover w-100 h-100">
   <div class="row justify-content-center">
     <div class="col-xl-15 col-lg-15">
       <div class="card shadow-lg p-3">
@@ -17,19 +17,16 @@
             <thead class="table-dark text-center">
               <tr>
                 <th class="text-truncate">Titre</th>
-              
                 <th class="text-truncate">Porteur de Projet</th>
-                <th class="text-truncate">Encadrant</th>
                 <th class="text-truncate">Espace Collaboratif</th>
                 <th class="text-truncate">Statut</th>
-                <th class="text-truncate">Actions</th> <!-- Nouvelle colonne -->
+                <th class="text-truncate">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let projet of projets" class="text-center align-middle">
                 <td class="text-truncate fw-bold">{{ projet.titre }}</td>
                 <td class="text-truncate">{{ projet.porteurProjet }}</td>
-                <td class="text-truncate">{{ projet.encadrant }}</td>
                 <td class="text-truncate">
                   <span *ngIf="projet.espaceCollaboratif; else nonCollab" class="badge bg-success rounded-pill px-3 py-2">Oui</span>
                   <ng-template #nonCollab>
@@ -37,52 +34,41 @@
                   </ng-template>
                 </td>
                 <td>
-                  
-                    <span 
-                      [ngClass]="{
-                        'bg-warning text-dark': projet.statutProjet === StatutProjet.EN_ATTEND,
-                        'bg-primary': projet.statutProjet === StatutProjet.EN_COURS,
-                        'bg-success': projet.statutProjet === StatutProjet.TERMINE
-                      }"
-                      class="badge rounded-pill px-3 py-2"
-                    >
-                      {{ projet.statutProjet }}
-                    </span>
-                  </td>
-                  
-                
-                <!-- Ajout de la colonne Actions -->
+                  <span 
+                    [ngClass]="{
+                      'bg-warning text-dark': projet.statutProjet === StatutProjet.EN_ATTENTE,
+                      'bg-primary': projet.statutProjet === StatutProjet.EN_COURS,
+                      'bg-success': projet.statutProjet === StatutProjet.TERMINE
+                    }"
+                    class="badge rounded-pill px-3 py-2"
+                  >
+                    {{ projet.statutProjet }}
+                  </span>
+                </td>
                 <td>
                   <div class="d-flex align-items-center justify-content-center">
-                    <a href="javascript:;" 
-                    class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect delete-record"
-                    data-bs-toggle="tooltip" title="Supprimer"
-                    (click)="projet.idProjet && supprimerProjet(projet.idProjet)"> <!-- Vérifiez que idProjet est défini -->
-                   <i class="ri-delete-bin-7-line ri-22px"></i>
-                 </a>
-                    <a href="app-user-view-account.html" 
-                       class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect"
-                       data-bs-toggle="tooltip" title="Aperçu">
+                    <a href="javascript:;" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect delete-record" data-bs-toggle="tooltip" title="Supprimer" (click)="confirmDelete(projet.idProjet)">
+                      <i class="ri-delete-bin-7-line ri-22px"></i>
+                    </a>
+
+                    <a class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect" 
+                       data-bs-toggle="tooltip"  
+                       title="Aperçu" 
+                       (click)="afficherDetailsProjet(projet.idProjet)">
                       <i class="ri-eye-line ri-22px"></i>
                     </a>
 
-                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow"
-                            data-bs-toggle="dropdown">
+                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                       <i class="ri-more-2-line ri-22px"></i>
                     </button>
-                    
+
                     <div class="dropdown-menu dropdown-menu-end m-0">
-                      <a href="app-user-view-account.html" class="dropdown-item">
-                        <i class="ri-eye-line me-2"></i><span>Voir</span>
-                      </a>
                       <a href="javascript:;" class="dropdown-item" (click)="modifierProjet(projet)">
                         <i class="ri-edit-box-line me-2"></i><span>Modifier</span>
                       </a>
-                      <a href="javascript:;" 
-                      class="dropdown-item delete-record" 
-                      (click)="projet.idProjet && supprimerProjet(projet.idProjet)"> <!-- Vérifiez que idProjet est défini -->
-                     <i class="ri-delete-bin-7-line me-2"></i><span>Supprimer</span>
-                   </a>
+                      <a href="javascript:;" class="dropdown-item delete-record" (click)="confirmDelete(projet.idProjet)">
+                        <i class="ri-delete-bin-7-line me-2"></i><span>Supprimer</span>
+                      </a>
                     </div>
                   </div>
                 </td>
@@ -90,7 +76,25 @@
             </tbody>
           </table>
         </div>
-
+        <!-- Modal de confirmation de suppression -->
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmation de suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer ce projet ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="supprimerProjet()">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Offcanvas pour l'ajout de projet -->
         <!-- Offcanvas pour l'ajout de projet -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddProject">
           <div class="offcanvas-header">
@@ -111,10 +115,7 @@
                 <label for="porteurProjet" class="form-label">Porteur du Projet</label>
                 <input type="text" class="form-control" id="porteurProjet" [(ngModel)]="newProjet.porteurProjet" name="porteurProjet">
               </div>
-              <div class="mb-3">
-                <label for="encadrant" class="form-label">Encadrant</label>
-                <input type="text" class="form-control" id="encadrant" [(ngModel)]="newProjet.encadrant" name="encadrant">
-              </div>
+            
               <div class="mb-3">
                 <label for="espaceCollaboratif" class="form-label">Espace Collaboratif</label>
                 <select class="form-control" [(ngModel)]="newProjet.espaceCollaboratif" name="espaceCollaboratif">
@@ -125,10 +126,30 @@
               <div class="mb-3">
                 <label for="statutProjet" class="form-label">Statut du Projet</label>
                 <select class="form-control" [(ngModel)]="newProjet.statutProjet" name="statutProjet">
-                  <option value="EN_ATTEND">En attente</option>
+                  <option value="EN_ATTENTE">En attente</option>
                   <option value="EN_COURS">En cours</option>
                   <option value="TERMINE">Terminé</option>
                 </select>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="newProjet.email" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="telephone" class="form-label">Téléphone</label>
+                <input type="text" class="form-control" id="telephone" [(ngModel)]="newProjet.telephone" name="telephone">
+              </div>
+              <div class="mb-3">
+                <label for="technologies" class="form-label">Technologies</label>
+                <input type="text" class="form-control" id="technologies" [(ngModel)]="newProjet.technologies" name="technologies">
+              </div>
+              <div class="mb-3">
+                <label for="objectifs" class="form-label">Objectifs</label>
+                <textarea class="form-control" id="objectifs" [(ngModel)]="newProjet.objectifs" name="objectifs"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="benefices" class="form-label">Bénéfices</label>
+                <textarea class="form-control" id="benefices" [(ngModel)]="newProjet.benefices" name="benefices"></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
@@ -137,4 +158,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
