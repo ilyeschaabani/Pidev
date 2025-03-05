@@ -21,7 +21,6 @@ import java.util.Date;
 public class Ressources {
 
     @Id
-    @Field("idRessource") // Nom du champ dans MongoDB
     String idRessource;
 
     String titre;
@@ -33,9 +32,6 @@ public class Ressources {
     Date date;
 
     CategoryRessource category;
+    String fileName;
 
-    /* Relation ManyToOne non supportée par MongoDB directement
-    @ManyToOne
-    User user;
-    */
 }

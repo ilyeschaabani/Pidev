@@ -50,6 +50,7 @@ public class RessourcesService {
     // Supprimer une ressource
     public void deleteRessource(String id) {
         if (!ressourcesRepository.existsById(id)) {
+            System.out.println("NOT FOUND ! ");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ressource non trouvée avec l'ID : " + id);
         }
         ressourcesRepository.deleteById(id);

@@ -1,11 +1,16 @@
 package tn.esprit.ressourcemicroservice.Controller;
 
-import org.springframework.http.ResponseEntity;
+ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.ressourcemicroservice.Entity.Ressources;
 import tn.esprit.ressourcemicroservice.Service.RessourcesService;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
+;
 
 @CrossOrigin(origins = "http://localhost:4200") // Autorise les requêtes depuis Angular
 @RestController
@@ -49,4 +54,5 @@ public class RessourcesController {
         ressourcesService.deleteRessource(id);
         return ResponseEntity.noContent().build();
     }
+
 }

@@ -1,0 +1,33 @@
+<form (ngSubmit)="onSubmit()" class="form-section">
+    <div class="mb-3">
+      <label for="titre" class="form-label">Titre:</label>
+      <input type="text" class="form-control" id="titre" [(ngModel)]="ressource.titre" name="titre" required placeholder="Entrez le titre">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description:</label>
+      <textarea class="form-control" id="description" [(ngModel)]="ressource.description" name="description" required placeholder="Entrez la description"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="type" class="form-label">Type:</label>
+      <select class="form-select" id="type" [(ngModel)]="ressource.type" name="type"  (change)="onTypeChange()" required >
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Catégorie:</label>
+      <select class="form-select" id="category" [(ngModel)]="ressource.category" name="category" required>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+        <input type="file" (change)="onFileSelected($event)" />
+        <!-- Trigger the upload file manually with a button -->
+        <button type="button" class="btn btn-secondary" (click)="uploadFile()">Upload File</button>
+      </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="ressource.fileName===''">Ajouter</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Réinitialiser</button>
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </form>

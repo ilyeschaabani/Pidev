@@ -25,7 +25,9 @@ export class RessourceService {
     return this.http.put<Ressource>(`${this.apiUrl}/${id}`, res);
   }
 
-  delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  delete(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
+  
+  
 }

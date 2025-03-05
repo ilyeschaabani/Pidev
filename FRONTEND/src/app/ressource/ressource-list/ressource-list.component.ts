@@ -36,42 +36,34 @@ export class RessourceListComponent implements OnInit {
       error: (err) => this.errorMessage = 'Erreur de chargement: ' + err.message
     });
   }
-
-  deleteRessource(id: string): void {
+  deleteRessource(id: any): void {
     if (confirm('Confirmer suppression ?')) {
+      console.log(id);
       this.service.delete(id).subscribe({
         next: () => {
           this.ressources = this.ressources.filter(r => r.idRessource !== id);
         },
-        error: (err) => this.errorMessage = 'Erreur suppression: ' + err.message
+        error: (err) => {
+          console.error('Erreur de suppression:', err); // Ajoutez cette ligne
+          this.errorMessage = 'Erreur suppression: ' + (err.error.message || err.message || 'Erreur inconnue');
+        }
       });
     }
   }
 
-  onSubmit(): void {
-    this.service.create(this.ressource).subscribe({
-      next: () => {
-        this.successMessage = 'Ressource ajoutée avec succès';
-        this.resetForm();
-        this.loadData(); // Recharge la liste des ressources après ajout
-      },
-      error: () => {
-        this.successMessage = '';
-        this.errorMessage = 'Erreur lors de l\'ajout de la ressource';
-      }
-    });
+  onSubmitNotifaciton(): void {
+  this.loadData();
+  const closeButton = document.getElementById('closeButton');
+if (closeButton) {
+  closeButton.click(); // This will simulate the click event and close the offcanvas
+}
+  }
+  downloadFile(type:string,name:string){
+    const url=`http://localhost:8082/api/download/${type}/${name}`;
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;  // Optional: Set the download attribute to suggest a file name
+    link.click();
   }
 
-  resetForm(): void {
-    this.ressource = { 
-      idRessource: '', 
-      titre: '', 
-      description: '', 
-      type: TypeRessource.DOCUMENT, 
-      date: new Date(), 
-      category: CategoryRessource.OTHER 
-    };
-    this.successMessage = '';
-    this.errorMessage = '';
-  }
 }

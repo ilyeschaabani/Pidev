@@ -21,6 +21,7 @@
                 <th>Description</th>
                 <th>Type</th>
                 <th>Catégorie</th>
+                <th>Resource file </th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -29,7 +30,13 @@
                 <td>{{ ressource.titre }}</td>
                 <td>{{ ressource.description }}</td>
                 <td>{{ ressource.type }}</td>
-                <td>{{ ressource.category }}</td>
+                <td>
+                  {{ ressource.fileName ?? '' }}
+                  <!-- Check if fileName exists, then show the download button -->
+                  <button class="btn btn-priamry" *ngIf="ressource.fileName" (click)="downloadFile(ressource.type,ressource.fileName)">
+                    Download
+                  </button>
+                </td>                <td>{{ ressource.category }}</td>
                 <td>
                   <button class="btn btn-danger btn-sm" (click)="deleteRessource(ressource.idRessource)">Supprimer</button>
                 </td>
@@ -41,37 +48,10 @@
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddRessource">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title">Ajouter une Ressource</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closeButton"></button>
           </div>
           <div class="offcanvas-body">
-            <form (ngSubmit)="onSubmit()" class="form-section">
-              <div class="mb-3">
-                <label for="titre" class="form-label">Titre:</label>
-                <input type="text" class="form-control" id="titre" [(ngModel)]="ressource.titre" name="titre" required placeholder="Entrez le titre">
-              </div>
-              <div class="mb-3">
-                <label for="description" class="form-label">Description:</label>
-                <textarea class="form-control" id="description" [(ngModel)]="ressource.description" name="description" required placeholder="Entrez la description"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="type" class="form-label">Type:</label>
-                <select class="form-select" id="type" [(ngModel)]="ressource.type" name="type" required>
-                  <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="category" class="form-label">Catégorie:</label>
-                <select class="form-select" id="category" [(ngModel)]="ressource.category" name="category" required>
-                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                </select>
-              </div>
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Ajouter</button>
-                <button type="button" class="btn btn-secondary" (click)="resetForm()">Réinitialiser</button>
-              </div>
-              <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-              <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-            </form>
+            <app-add-ressource  (resourceAdded)="onSubmitNotifaciton()"></app-add-ressource>
           </div>
         </div>
       </div>

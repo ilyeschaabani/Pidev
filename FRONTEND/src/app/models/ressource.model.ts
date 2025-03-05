@@ -1,11 +1,12 @@
 
 export interface Ressource {
-  idRessource: string;
+  idRessource?: string;
   titre: string;
   description: string;
   type: TypeRessource;
   date: Date;
   category: CategoryRessource;
+  fileName?:string
 }
 
 export enum TypeRessource {
