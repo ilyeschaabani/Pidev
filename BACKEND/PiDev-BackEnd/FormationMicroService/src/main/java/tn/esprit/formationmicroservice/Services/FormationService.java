@@ -29,12 +29,12 @@ public class FormationService {
     public Formation updateFormation(String id, Formation newFormation) {
         return formationRepository.findById(id)
                 .map(existingFormation -> {
-                    existingFormation.setImage(newFormation.getImage());
                     existingFormation.setTitreFormation(newFormation.getTitreFormation());
                     existingFormation.setDescription(newFormation.getDescription());
                     existingFormation.setDateDebut(newFormation.getDateDebut());
                     existingFormation.setDateFin(newFormation.getDateFin());
                     existingFormation.setCategorie(newFormation.getCategorie());
+                    existingFormation.setPrix(newFormation.getPrix());
                     existingFormation.setRating(newFormation.getRating());
                     return formationRepository.save(existingFormation);
                 })

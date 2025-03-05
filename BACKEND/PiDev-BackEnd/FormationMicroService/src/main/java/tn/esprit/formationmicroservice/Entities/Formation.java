@@ -24,13 +24,14 @@ import java.util.Set;
 public class Formation {
     @Id
     String idFormation;
-    String image;
     String titreFormation;
     String description;
     Date dateDebut;
     Date dateFin;
     CategoryResource categorie;
+    double prix;
     double rating;
+
 
     /*
     @OneToOne
