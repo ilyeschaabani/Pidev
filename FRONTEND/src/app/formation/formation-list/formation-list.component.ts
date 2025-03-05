@@ -65,4 +65,7 @@ export class FormationListComponent implements OnInit {
   editFormation(id: number): void {
     this.router.navigate(['/formations/edit', id]);
   }
+  addFormation(): void {
+    this.router.navigate(['/formations/add']);
+  }
 }

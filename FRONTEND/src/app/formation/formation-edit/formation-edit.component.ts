@@ -34,7 +34,8 @@ export class FormationEditComponent implements OnInit {
       categorie: ['', Validators.required],
       dateDebut: ['', Validators.required],
       dateFin: ['', Validators.required],
-      statut: ['']
+      prix: ['', [Validators.required, Validators.min(0)]],
+      rating: ['', [Validators.required, Validators.min(0), Validators.max(5)]]
     });
 
     // ✅ Fetch the formation data and fill the form

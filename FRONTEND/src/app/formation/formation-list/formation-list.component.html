@@ -7,6 +7,7 @@
 
 <div class="card">
     <h5 class="card-header">Liste des Formations</h5>
+    <button class="btn btn-primary btn-lg float-end" type="button" (click)="addFormation()">Ajouter une Formation</button>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead class="table-dark">
@@ -16,7 +17,8 @@
             <th>Catégorie</th>
             <th>Date Début</th>
             <th>Date Fin</th>
-            <th>Statut</th>
+            <th>Prix</th> <!-- Replaced Statut with Prix -->
+            <th>Rating</th> <!-- Added Rating Column -->
             <th>Actions</th>
           </tr>
         </thead>
@@ -27,16 +29,9 @@
             <td>{{ formation.categorie }}</td>
             <td>{{ formation.dateDebut | date:'dd/MM/yyyy' }}</td>
             <td>{{ formation.dateFin | date:'dd/MM/yyyy' }}</td>
+            <td>{{ formation.prix | currency:'EUR' }}</td> <!-- Display price with currency -->
             <td>
-              <span [ngClass]="{
-                'badge bg-label-primary': formation.statut === 'Active',
-                'badge bg-label-success': formation.statut === 'Completed',
-                'badge bg-label-info': formation.statut === 'Scheduled',
-                'badge bg-label-warning': formation.statut === 'Pending'
-              }">
-                {{ formation.statut }}
-              </span>
-
+              <span class="badge bg-label-warning">{{ formation.rating }} / 5</span> <!-- Display rating -->
             </td>
             <td>
               <!-- Delete Button -->
@@ -47,7 +42,7 @@
               <!-- Edit Button -->
               <button type="button" class="btn btn-icon btn-primary" (click)="editFormation(formation.idFormation)">
                 <i class="bx bx-edit-alt"></i> 
-            </button>
+              </button>
             </td>            
           </tr>
         </tbody>
