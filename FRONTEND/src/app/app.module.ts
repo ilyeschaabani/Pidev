@@ -9,6 +9,8 @@ import { FormationAddComponent } from './formation/formation-add/formation-add.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormationEditComponent } from './formation/formation-edit/formation-edit.component';
+import { FormationStatsComponent } from './formation/formation-stats/formation-stats.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -17,14 +19,16 @@ import { FormationEditComponent } from './formation/formation-edit/formation-edi
     FormationListComponent,
     FormationAddComponent,
     NavbarComponent,
-    FormationEditComponent
+    FormationEditComponent,
+    FormationStatsComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
