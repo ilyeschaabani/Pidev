@@ -1,40 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient ,HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { SignUpRequest, SignInRequest, AuthResponse } from "../Models/User.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8089/AuthenticationMicroService/api/auth'; // API Gateway
+  private apiUrl = 'http://localhost:9006/api/auth'; // API Gateway
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getHeaders() {
-    const token = this.getToken();
-    return token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : new HttpHeaders();
-  }
-  signup(user: any) {
-    return this.http.post(`${this.apiUrl}/signup`, user);
-  }
-  signin(credentials: any) {
-    return this.http.post(`${this.apiUrl}/signin`, credentials);
-  }
-  refreshToken(refreshToken: string) {
-    return this.http.post(`${this.apiUrl}/refreshToken`, { refreshToken });
-  }
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
+  signUp(user: SignUpRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/signup`, user);
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+  signIn(credentials: SignInRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/signin`, credentials);
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
-  }
-
-  logout() {
-    localStorage.removeItem('token');
+    return !!localStorage.getItem('token');
   }
 }
