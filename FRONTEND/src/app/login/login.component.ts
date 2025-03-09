@@ -11,16 +11,6 @@ export class LoginComponent {
   password = '';
 
   constructor(private authService: AuthService) { }
-  login() {
-    this.authService.signin({ username: this.username, password: this.password }).subscribe(
-      (response: any) => {
-        this.authService.saveToken(response.token);
-        alert('Login successful!');
-      },
-      error => {
-        alert('Invalid credentials');
-      }
-    );
-  }
+
 
 }
