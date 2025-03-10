@@ -18,7 +18,7 @@ export interface SignUpRequest {
     email: string;
     telephone: string;
     password: string;
-    roles: Role[]; 
+    role: Role[]; 
 }
 
 
