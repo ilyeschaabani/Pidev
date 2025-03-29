@@ -13,7 +13,8 @@ export interface Projet {
   titre: string;
   description: string;
   porteurProjet: string;
-  encadrant: string;
+  
+  encadrant?: string; // Contiendra maintenant le username
   espaceCollaboratif: boolean;
   statutProjet: StatutProjet;  // Statut du projet comme une valeur de l'énumération
   email?: string; // Optionnel en fonction du backend

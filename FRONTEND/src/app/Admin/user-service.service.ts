@@ -10,11 +10,8 @@ export class UserServiceService {
 
   constructor(private http: HttpClient) {}
 
-  getEncadrants(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/encadrants`);
-  }
 
-  assignEncadrant(projetId: string, encadrantId: string): Observable<any> {
-    return this.http.put(`${this.baseUrl}/assign-encadrant/${projetId}/${encadrantId}`, {});
+  getEncadrants() {
+    return this.http.get<any[]>(`${this.baseUrl}/encadrants`);
   }
 }

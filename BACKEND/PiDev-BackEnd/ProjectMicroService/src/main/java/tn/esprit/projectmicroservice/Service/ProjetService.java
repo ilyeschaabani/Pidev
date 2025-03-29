@@ -2,8 +2,10 @@ package tn.esprit.projectmicroservice.Service;
 
 import org.springframework.stereotype.Service;
 import tn.esprit.projectmicroservice.Entity.Projet;
+import tn.esprit.projectmicroservice.Entity.User;
 import tn.esprit.projectmicroservice.Repository.ProjetRepository;
 import tn.esprit.projectmicroservice.Entity.Enumeration.StatutProjet;
+import tn.esprit.projectmicroservice.Repository.UserRepository;
 
 import java.util.List;
 
@@ -11,9 +13,12 @@ import java.util.List;
 public class ProjetService {
 
     private final ProjetRepository projetRepository;
+    private final UserRepository userRepository;
 
-    public ProjetService(ProjetRepository projetRepository) {
+
+    public ProjetService(ProjetRepository projetRepository, UserRepository userRepository) {
         this.projetRepository = projetRepository;
+        this.userRepository = userRepository;
     }
 
     public Projet addProjet(Projet projet) {
@@ -51,7 +56,16 @@ public class ProjetService {
     }
 
     public List<Projet> getAllProjets() {
-        return projetRepository.findAll();
+        List<Projet> projets = projetRepository.findAll();
+
+        projets.forEach(projet -> {
+            if(projet.getEncadrant() != null && !projet.getEncadrant().isEmpty()) {
+                userRepository.findById(projet.getEncadrant())
+                        .ifPresent(user -> projet.setEncadrant(user.getUsername()));
+            }
+        });
+
+        return projets;
     }
 
     public Projet getProjetById(String id) {
@@ -73,17 +87,21 @@ public class ProjetService {
                 })
                 .orElseThrow(() -> new RuntimeException("Projet non trouvé avec l'ID : " + id));
     }
-    public Projet assignEncadrant(String id, String encadrant) {
-        return projetRepository.findById(id)
+
+    public Projet assignEncadrant(String projetId, String encadrantId) {
+        return projetRepository.findById(projetId)
                 .map(projet -> {
-                    if (projet.getStatutProjet() == StatutProjet.EN_COURS) {
-                        projet.setEncadrant(encadrant);  // Assign the "encadrant"
-                        return projetRepository.save(projet);
-                    } else {
-                        throw new RuntimeException("Le projet doit être validé avant d'attribuer un encadrant.");
+                    User encadrant = userRepository.findById(encadrantId)
+                            .orElseThrow(() -> new RuntimeException("Encadrant non trouvé"));
+
+                    if(!"ENCADRANT".equals(encadrant.getRole())) {
+                        throw new RuntimeException("L'utilisateur n'est pas un encadrant");
                     }
+
+                    projet.setEncadrant(encadrant.getUsername()); // Stocker le username au lieu de l'ID
+                    return projetRepository.save(projet);
                 })
-                .orElseThrow(() -> new RuntimeException("Projet non trouvé avec l'ID : " + id));
+                .orElseThrow(() -> new RuntimeException("Projet non trouvé"));
     }
 
 }

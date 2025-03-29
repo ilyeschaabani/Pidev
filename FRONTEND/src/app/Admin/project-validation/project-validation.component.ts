@@ -21,6 +21,7 @@ export class ProjectValidationComponent implements OnInit {
   encadrants: any[] = [];
   selectedEncadrant: string = '';
   searchEncadrant: string = '';
+  
 
   // Statistiques des projets
   totalProjets: number = 0;
@@ -47,12 +48,24 @@ export class ProjectValidationComponent implements OnInit {
       this.createChart();
     });
   }
-
   loadEncadrants(): void {
-    this.userService.getEncadrants().subscribe((data) => {
-      this.encadrants = data;
+    this.userService.getEncadrants().subscribe({
+      next: (data) => {
+        this.encadrants = data;
+      },
+      error: (err) => {
+        console.error('Erreur de chargement des encadrants:', err);
+        this.encadrants = [];
+      }
     });
   }
+
+  filteredEncadrants(): any[] {
+    return this.encadrants.filter(e =>
+      e.username.toLowerCase().includes(this.searchEncadrant.toLowerCase()) ||
+      e.email.toLowerCase().includes(this.searchEncadrant.toLowerCase())
+    );
+  } 
 
   calculateStats(): void {
     this.totalProjets = this.projets.length;
@@ -146,14 +159,12 @@ openRejectionModal(projet: Projet): void {
     }
 
     this.projetService.validateOrRejectProjet(id, isValid, isValid ? undefined : this.rejectionMotif)
-      .subscribe({
-        next: () => {
-          if (isValid) {
-            const validatedProjet = this.projets.find(p => p.idProjet === id);
-            if (validatedProjet) {
-              this.selectedProjet = validatedProjet;
-              this.showEncadrantModal();
-            }
+    .subscribe({
+      next: (updatedProjet) => { // Récupérez le projet mis à jour
+        if (isValid) {
+          this.selectedProjet = updatedProjet; // Utilisez le projet retourné
+          this.showEncadrantModal();
+        
           } else {
             this.loadProjets();
           }
@@ -210,9 +221,4 @@ openRejectionModal(projet: Projet): void {
 
   
 
-  filteredEncadrants(): any[] {
-    return this.encadrants.filter(encadrant =>
-      encadrant.username.toLowerCase().includes(this.searchEncadrant.toLowerCase())
-    );
-  }
 }

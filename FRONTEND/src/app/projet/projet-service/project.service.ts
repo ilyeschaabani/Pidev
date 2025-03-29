@@ -48,8 +48,11 @@ export class ProjetService {
     );
   }
 
-  assignEncadrant(projetId: string, encadrantId: string): Observable<any> {
-    return this.http.put(`${this.baseUrl}/assign-encadrant/${projetId}/${encadrantId}`, {}).pipe(
+  assignEncadrant(projetId: string, encadrantId: string): Observable<Projet> {
+    return this.http.put<Projet>(
+      `${this.baseUrl}/assignEncadrant/${projetId}?encadrant=${encadrantId}`, 
+      {}
+    ).pipe(
       catchError(this.handleError('Erreur lors de l’assignation de l’encadrant'))
     );
   }
@@ -60,4 +63,7 @@ export class ProjetService {
       return throwError(() => new Error(message + ' : ' + (error.message || error.statusText)));
     };
   }
+
+
+  
 }

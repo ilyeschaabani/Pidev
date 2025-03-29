@@ -1,6 +1,8 @@
 package tn.esprit.projectmicroservice.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.projectmicroservice.Entity.Projet;
 import tn.esprit.projectmicroservice.Entity.User;
@@ -52,27 +54,17 @@ public class ProjetController {
         return projetService.validateOrRejectProjet(id, isValid, rejectionMotif);
     }
 
+
     @PutMapping("/assignEncadrant/{projetId}")
-    public String assignEncadrant(@PathVariable String projetId,
-                                  @RequestParam String encadrantId,
-                                  @RequestParam String adminId) {
+    public ResponseEntity<Projet> assignEncadrant(
+            @PathVariable String projetId,
+            @RequestParam String encadrant) {
 
-        // Retrieve the admin user by ID
-        User admin = userService.getUserById(adminId);
-
-        // Check if the user is an admin
-        if (userService.isAdmin(admin)) {
-            try {
-                // Attempt to assign the encadrant to the project
-                projetService.assignEncadrant(projetId, encadrantId);
-                return "Encadrant attribué avec succès au projet.";
-            } catch (RuntimeException e) {
-                // Return any error message thrown during the process
-                return e.getMessage();
-            }
-        } else {
-            // If the user is not an admin
-            return "Erreur : Seul un administrateur peut attribuer un encadrant.";
+        try {
+            Projet updatedProjet = projetService.assignEncadrant(projetId, encadrant);
+            return ResponseEntity.ok(updatedProjet);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 

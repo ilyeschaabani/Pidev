@@ -35,6 +35,7 @@ public class Projet {
         this.titre = titre;
         this.description = description;
         this.porteurProjet = porteurProjet;
+
         this.encadrant = encadrant;
         this.espaceCollaboratif = espaceCollaboratif;
         this.statutProjet = statutProjet;
