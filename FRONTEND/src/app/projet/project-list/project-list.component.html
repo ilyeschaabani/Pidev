@@ -45,6 +45,7 @@
                     {{ projet.statutProjet }}
                   </span>
                 </td>
+
                 <td>
                   <div class="d-flex align-items-center justify-content-center">
                     <a href="javascript:;" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect delete-record" data-bs-toggle="tooltip" title="Supprimer" (click)="confirmDelete(projet.idProjet)">
@@ -71,7 +72,19 @@
                       </a>
                     </div>
                   </div>
+                                  <!-- Ajoutez cette colonne dans le tableau -->
+
+  <button class="btn btn-sm btn-info" 
+          *ngIf="projet.statutProjet === StatutProjet.EN_COURS"
+          (click)="accederEspaceCollaboratif(projet.idProjet)">
+    <i class="fas fa-users"></i> Espace Collaboratif
+  </button>
+  <span *ngIf="projet.statutProjet !== StatutProjet.EN_COURS" class="text-muted">
+    Non disponible
+  </span>
+
                 </td>
+                
               </tr>
             </tbody>
           </table>

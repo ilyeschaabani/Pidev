@@ -104,4 +104,17 @@ public class ProjetService {
                 .orElseThrow(() -> new RuntimeException("Projet non trouvé"));
     }
 
+
+    // Ajouter cette méthode de vérification d'accès
+    public boolean hasAccess(String projectId, String token) {
+        // Implémentez la logique de vérification du token et des permissions
+        // Exemple basique :
+        Projet projet = projetRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Projet non trouvé"));
+
+        // Vérification simplifiée (à adapter)
+        return projet.getStatutProjet() == StatutProjet.EN_COURS;
+    }
+
+
 }

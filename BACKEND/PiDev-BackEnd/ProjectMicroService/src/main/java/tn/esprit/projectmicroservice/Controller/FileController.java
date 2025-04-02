@@ -1,14 +1,19 @@
 package tn.esprit.projectmicroservice.Controller;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.projectmicroservice.Entity.ProjectFile;
 import tn.esprit.projectmicroservice.Service.FileService;
+import tn.esprit.projectmicroservice.Service.ProjetService;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 // FileController.java
 @RestController
@@ -16,9 +21,12 @@ import java.io.IOException;
 public class FileController {
 
     private final FileService fileService;
+    private final ProjetService projetService; // Ajout
 
-    public FileController(FileService fileService) {
+    public FileController(FileService fileService, ProjetService projetService) {
         this.fileService = fileService;
+        this.projetService = projetService; // Injection du service
+
     }
 
     @PostMapping("/upload/{projectId}")
@@ -51,5 +59,24 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(file.getFileType()))
                 .body(file.getContent());
     }
-    
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<?> getProjectFiles(@PathVariable String projectId) {
+        try {
+            // Vérifier si l'ID est un ObjectId MongoDB valide
+            if (!ObjectId.isValid(projectId)) {
+                return ResponseEntity.badRequest().body("ID de projet invalide");
+            }
+
+            List<ProjectFile> files = fileService.findByProjectId(projectId);
+
+            if (files.isEmpty()) {
+                return ResponseEntity.ok().body(Collections.emptyList());
+            }
+
+            return ResponseEntity.ok(files);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Erreur serveur");
+        }
+    }
 }

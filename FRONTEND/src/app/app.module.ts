@@ -11,6 +11,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ProjectDetailsComponent } from './projet/project-details/project-details.component';
 import { ProjectValidationComponent } from './Admin/project-validation/project-validation.component';
 import { AssignEncadrantComponent } from './Admin/assign-encadrant/assign-encadrant.component';
+import { FileManagerComponent } from './files/file-manager/file-manager.component';
+import { CollaborativeSpaceComponent } from './projet/collaborative-space/collaborative-space.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { AssignEncadrantComponent } from './Admin/assign-encadrant/assign-encadr
     ProjectDetailsComponent,
     ProjectValidationComponent,
     AssignEncadrantComponent,
+    FileManagerComponent,
+    CollaborativeSpaceComponent,
 
   ],
   imports: [
