@@ -13,9 +13,14 @@ import { ProjectValidationComponent } from './Admin/project-validation/project-v
 import { AssignEncadrantComponent } from './Admin/assign-encadrant/assign-encadrant.component';
 import { FileManagerComponent } from './files/file-manager/file-manager.component';
 import { CollaborativeSpaceComponent } from './projet/collaborative-space/collaborative-space.component';
+import { TaskListComponent } from './projet/task-list/task-list.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgChartsModule } from 'ng2-charts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     ProjectListComponent,
     HomeComponent,
@@ -26,13 +31,17 @@ import { CollaborativeSpaceComponent } from './projet/collaborative-space/collab
     AssignEncadrantComponent,
     FileManagerComponent,
     CollaborativeSpaceComponent,
+    TaskListComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    DragDropModule,
+    NgChartsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

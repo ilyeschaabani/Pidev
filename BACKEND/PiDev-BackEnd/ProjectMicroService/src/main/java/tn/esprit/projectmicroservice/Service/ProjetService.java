@@ -1,30 +1,56 @@
 package tn.esprit.projectmicroservice.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.projectmicroservice.Entity.Enumeration.NotificationType;
+import tn.esprit.projectmicroservice.Entity.Enumeration.TaskStatus;
+import tn.esprit.projectmicroservice.Entity.Notification;
 import tn.esprit.projectmicroservice.Entity.Projet;
+import tn.esprit.projectmicroservice.Entity.Task;
 import tn.esprit.projectmicroservice.Entity.User;
-import tn.esprit.projectmicroservice.Repository.ProjetRepository;
+import tn.esprit.projectmicroservice.Repository.*;
 import tn.esprit.projectmicroservice.Entity.Enumeration.StatutProjet;
-import tn.esprit.projectmicroservice.Repository.UserRepository;
 
 import java.util.List;
 
 @Service
 public class ProjetService {
+    private final TaskRepository taskRepository;
+    private final CommentRepository commentRepository;
+    private final NotificationRepository notificationRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
     private final ProjetRepository projetRepository;
     private final UserRepository userRepository;
 
 
-    public ProjetService(ProjetRepository projetRepository, UserRepository userRepository) {
+    @Autowired
+    public ProjetService(
+            ProjetRepository projetRepository,
+            UserRepository userRepository,
+            TaskRepository taskRepository,
+            CommentRepository commentRepository,
+            NotificationRepository notificationRepository,
+            SimpMessagingTemplate messagingTemplate
+    ){
         this.projetRepository = projetRepository;
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
+        this.commentRepository = commentRepository;
+        this.notificationRepository = notificationRepository;
+        this.messagingTemplate = messagingTemplate;
     }
 
     public Projet addProjet(Projet projet) {
         // Ajoute directement le projet sans gestion des fichiers
         return projetRepository.save(projet);
     }
+    public List<Task> getTasksByProject(String projectId) {
+        return taskRepository.findByProjectId(projectId);
+    }
+
 
     public Projet updateProjet(String id, Projet newProjet) {
         return projetRepository.findById(id)
@@ -103,18 +129,62 @@ public class ProjetService {
                 })
                 .orElseThrow(() -> new RuntimeException("Projet non trouvé"));
     }
+    public List<Task> getUserTasks(String projectId, String email) {
+        return taskRepository.findByProjectIdAndAssignedTo(projectId, email);
+    }
+    @Transactional
+    public Task createTask(String projectId, Task task, String currentUser) {
+        task.setCreatedBy(currentUser);
+        Task savedTask = taskRepository.save(task);
 
+        sendNotification(savedTask.getAssignedTo(),
+                "Nouvelle tâche assignée: " + task.getTitle(),
+                NotificationType.TASK_ASSIGNMENT);
 
-    // Ajouter cette méthode de vérification d'accès
-    public boolean hasAccess(String projectId, String token) {
-        // Implémentez la logique de vérification du token et des permissions
-        // Exemple basique :
-        Projet projet = projetRepository.findById(projectId)
-                .orElseThrow(() -> new RuntimeException("Projet non trouvé"));
+        return savedTask;
+    }
 
-        // Vérification simplifiée (à adapter)
-        return projet.getStatutProjet() == StatutProjet.EN_COURS;
+    private void sendNotification(String userId, String message, NotificationType type) {
+        Notification notification = new Notification();
+        notification.setUserId(userId);
+        notification.setMessage(message);
+        notification.setType(type);
+        notificationRepository.save(notification);
+
+        messagingTemplate.convertAndSendToUser(
+                userId,
+                "/queue/notifications",
+                notification
+        );
     }
 
 
+    // Update Task Status
+    public Task updateTaskStatus(String taskId, TaskStatus newStatus) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        task.setStatus(newStatus);
+        return taskRepository.save(task);
+    }
+
+    // Update Task Details
+    public Task updateTask(String taskId, Task updatedTask) {
+        Task existingTask = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+
+        existingTask.setTitle(updatedTask.getTitle()); // Use 'title' instead of 'name'
+        existingTask.setDescription(updatedTask.getDescription());
+        existingTask.setDeadline(updatedTask.getDeadline());
+        return taskRepository.save(existingTask);
+    }
+
+
+    // Delete Task
+    public void deleteTask(String taskId) {
+        if (!taskRepository.existsById(taskId)) {
+            throw new RuntimeException("Task not found");
+        }
+        taskRepository.deleteById(taskId);
+    }
 }
+

@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.projectmicroservice.Entity.Enumeration.TaskStatus;
 import tn.esprit.projectmicroservice.Entity.Projet;
+import tn.esprit.projectmicroservice.Entity.Task;
 import tn.esprit.projectmicroservice.Entity.User;
 import tn.esprit.projectmicroservice.Service.ProjetService;
 import tn.esprit.projectmicroservice.Service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/projets")
@@ -68,5 +72,35 @@ public class ProjetController {
         }
     }
 
+    @GetMapping("/{projectId}/tasks")
+    public ResponseEntity<List<Task>> getProjectTasks(@PathVariable String projectId) {
+        return ResponseEntity.ok(projetService.getTasksByProject(projectId));
+    }
+
+    @PostMapping("/{projectId}/tasks")
+    public ResponseEntity<Task> createTask(
+            @PathVariable String projectId,
+            @Valid @RequestBody Task task) { // Retirer @AuthenticationPrincipal si non utilisé
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(projetService.createTask(projectId, task, "email@exemple.com")); // Temporaire
+    }
+
+    @PutMapping("/tasks/{taskId}/status")
+    public Task updateTaskStatus(@PathVariable String taskId, @RequestBody Map<String, String> body) {
+        TaskStatus newStatus = TaskStatus.valueOf(body.get("status"));
+        return projetService.updateTaskStatus(taskId, newStatus);
+    }
+
+    @PutMapping("/tasks/{taskId}")
+    public Task updateTask(@PathVariable String taskId, @RequestBody Task task) {
+        return projetService.updateTask(taskId, task);
+    }
+
+    @DeleteMapping("/tasks/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable String taskId) {
+        projetService.deleteTask(taskId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
