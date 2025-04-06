@@ -1,13 +1,15 @@
 package tn.esprit.pidevbackend.Entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,8 +17,12 @@ import java.util.Set;
 @Builder
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
+// MongoDB : Remplace @Entity
+@Document(collection = "formations")
 public class Formation {
-    @Id
+
+    @Id  // MongoDB utilise une clé de type String automatiquement générée
     String idFormation;
     String image;
     String titreFormation;
@@ -26,13 +32,16 @@ public class Formation {
     String video;
     String categorie;
 
-    @OneToOne
-    Evaluation evaluation;
-    @ManyToMany(cascade = CascadeType.ALL)
-    Set<User> users;
-    @OneToOne (mappedBy = "formation")
-    Rating rating;
-    @ManyToOne
-    Panier panier;
-
+    // Relations en MongoDB avec @DBRef
+    @DBRef
+    private List<Evaluation> evaluations;
+//
+//    @DBRef
+//    private Set<User> users;
+//
+//    @DBRef
+//    private Rating rating;
+//
+//    @DBRef
+//    private Panier panier;
 }
