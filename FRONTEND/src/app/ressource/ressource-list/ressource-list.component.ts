@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Assurez-vous d'importer HttpClient
-import { RessourceService } from 'src/app/ServicesRessource/ressource-service.service';
-import { Ressource, TypeRessource, CategoryRessource } from 'src/app/models/ressource.model';
-
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Assurez-vous d'importer HttpClient 
+import { CategoryRessource, Ressource, TypeRessource } from '../../models/ressource.model';
+import { RessourceService } from '../../ServicesRessource/ressource-service.service';
+ 
 @Component({
   selector: 'app-ressource-list',
   templateUrl: './ressource-list.component.html',
@@ -10,26 +10,21 @@ import { Ressource, TypeRessource, CategoryRessource } from 'src/app/models/ress
 })
 export class RessourceListComponent implements OnInit {
   ressources: Ressource[] = [];
-  ressource: Ressource = {
-    idRessource: '',
-    titre: '',
-    description: '',
-    type: TypeRessource.DOCUMENT, // Assurez-vous que ce type est défini dans votre modèle
-    date: new Date(),
-    category: CategoryRessource.OTHER // Assurez-vous que cette catégorie est définie
-  };
+ 
   types = Object.values(TypeRessource);
   categories = Object.values(CategoryRessource);
-  
+  selectedFileName:String="";
+  selectedResource:Ressource|null=null;
+
   successMessage: string = '';
   errorMessage: string = '';
+  @ViewChild('exampleModal', { static: false }) modal!: ElementRef;
 
   constructor(private service: RessourceService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.loadData();
   }
-
   private loadData(): void {
     this.service.getAll().subscribe({
       next: (data) => this.ressources = data,
@@ -57,6 +52,8 @@ export class RessourceListComponent implements OnInit {
 if (closeButton) {
   closeButton.click(); // This will simulate the click event and close the offcanvas
 }
+  this.selectedResource=null;
+
   }
   downloadFile(type:string,name:string){
     const url=`http://localhost:8082/api/download/${type}/${name}`;
@@ -64,6 +61,19 @@ if (closeButton) {
     link.href = url;
     link.download = name;  // Optional: Set the download attribute to suggest a file name
     link.click();
+  }
+  isApdfWordDocument(fileName:string){
+    const fileExtension = fileName.toLowerCase();
+
+    // Check if the file ends with .pdf or .docx
+    return fileExtension.endsWith('.pdf') || fileExtension.endsWith('.docx');
+  
+  }
+  resumeFile(fileName:string){
+    this.selectedFileName=fileName
+  }
+  onModifyClick(resource:Ressource){
+    this.selectedResource=resource;
   }
 
 }

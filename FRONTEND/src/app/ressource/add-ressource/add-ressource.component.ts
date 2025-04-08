@@ -1,50 +1,89 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Ressource, TypeRessource, CategoryRessource } from 'src/app/models/ressource.model';
-import { RessourceService } from 'src/app/ServicesRessource/ressource-service.service';
-import { FileUploadService } from 'src/app/services/file-upload.service';
-
+import { CategoryRessource, Ressource, TypeRessource } from '../../models/ressource.model';
+import { RessourceService } from '../../ServicesRessource/ressource-service.service';
+import { FileUploadService } from '../../services/file-upload.service';
+  
 @Component({
   selector: 'app-add-ressource',
   templateUrl: './add-ressource.component.html',
   styleUrls: ['./add-ressource.component.css']
 })
-export class AddRessourceComponent {
-  @Output() resourceAdded = new EventEmitter<Ressource>(); // Notify parent
+export class AddRessourceComponent implements OnChanges {
+  @Output() resourceUpdated = new EventEmitter<Ressource>(); // Notify parent
 
+  @Input() selectedResource!: Ressource | null;
+
+  // Initialize ressource with default values
   ressource: Ressource = {
-     titre: '',
+    titre: '',
     description: '',
-    type: TypeRessource.DOCUMENT, // Assurez-vous que ce type est défini dans votre modèle
+    type: TypeRessource.DOCUMENT, // Default type
     date: new Date(),
-    category: CategoryRessource.OTHER,
-    fileName:'', // Assurez-vous que cette catégorie est définie
+    category: CategoryRessource.OTHER, // Default category
+    fileName: '', // Default filename
   };
+
   types = Object.values(TypeRessource);
   categories = Object.values(CategoryRessource);
-  
+
   successMessage: string = '';
   errorMessage: string = '';
   selectedFile: File | null = null;
   uploadMessage: string | null = null;
-  constructor(private service: RessourceService,private fileUploadService:FileUploadService,    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
-  ){
 
+  constructor(
+    private service: RessourceService,
+    private fileUploadService: FileUploadService,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+  ) {}
+
+  // ngOnChanges will be triggered whenever @Input() selectedResource changes
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedResource']) {
+      this.ressource = changes['selectedResource'].currentValue || {
+        titre: '',
+        description: '',
+        type: TypeRessource.DOCUMENT,
+        date: new Date(),
+        category: CategoryRessource.OTHER,
+        fileName: ''
+      };
+      this.cdr.detectChanges(); // Ensure that Angular detects changes when the input changes
+    }
   }
   onSubmit(): void {
     console.log(this.ressource);
-    this.service.create(this.ressource).subscribe({
-      next: () => {
-        this.successMessage = 'Ressource ajoutée avec succès';
-        this.resetForm();
-      this.resourceAdded.emit(); // Emit event to parent
 
-      },
-      error: () => {
-        this.successMessage = '';
-        this.errorMessage = 'Erreur lors de l\'ajout de la ressource';
-      }
-    });
+    if(this.selectedResource!=null){
+      //update 
+      this.service.update(this.selectedResource.idRessource||"",this.ressource).subscribe({
+        next: () => {
+          this.successMessage = 'Ressource ajoutée avec succès';
+          this.resetForm();
+        this.resourceUpdated.emit(); // Emit event to parent
+  
+        },
+        error: () => {
+          this.successMessage = '';
+          this.errorMessage = 'Erreur lors de l\'ajout de la ressource';
+        }
+      })
+    }else {
+      this.service.create(this.ressource).subscribe({
+        next: () => {
+          this.successMessage = 'Ressource ajoutée avec succès';
+          this.resetForm();
+        this.resourceUpdated.emit(); // Emit event to parent
+  
+        },
+        error: () => {
+          this.successMessage = '';
+          this.errorMessage = 'Erreur lors de l\'ajout de la ressource';
+        }
+      });
+    }
+    
   }
   
   resetForm(): void {

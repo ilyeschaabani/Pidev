@@ -31,13 +31,18 @@
                 <td>{{ ressource.description }}</td>
                 <td>{{ ressource.type }}</td>
                 <td>
-                  {{ ressource.fileName ?? '' }}
-                  <!-- Check if fileName exists, then show the download button -->
-                  <button class="btn btn-priamry" *ngIf="ressource.fileName" (click)="downloadFile(ressource.type,ressource.fileName)">
+                   <!-- Check if fileName exists, then show the download button -->
+                  <button class="btn btn-priamry me-2" *ngIf="ressource.fileName" (click)="downloadFile(ressource.type,ressource.fileName)">
                     Download
                   </button>
-                </td>                <td>{{ ressource.category }}</td>
+                  <button class="btn btn-priamry" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResumeRessource" *ngIf="ressource.fileName && isApdfWordDocument(ressource.fileName)" (click)="resumeFile(ressource.fileName)">
+                    Resume
+                  </button>
+                </td>
+                 <td>{{ ressource.category }}</td>
                 <td>
+                  <button class="btn btn-warning btn-sm" (click)="onModifyClick(ressource)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddRessource">Modifier</button>
+
                   <button class="btn btn-danger btn-sm" (click)="deleteRessource(ressource.idRessource)">Supprimer</button>
                 </td>
               </tr>
@@ -45,16 +50,27 @@
           </table>
         </div>
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddRessource">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Ajouter une Ressource</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closeButton"></button>
-          </div>
-          <div class="offcanvas-body">
-            <app-add-ressource  (resourceAdded)="onSubmitNotifaciton()"></app-add-ressource>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddRessource">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Ajouter une Ressource</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closeButton"></button>
+    </div>
+    <div class="offcanvas-body">
+      <app-add-ressource [selectedResource]="selectedResource"  (resourceUpdated)="onSubmitNotifaciton()"></app-add-ressource>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasResumeRessource">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Resume Resource</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" id="closeButton"></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- You can put a component or template to handle the resume functionality here -->  
+       <app-resume *ngIf="selectedFileName!=''" [fileName]="selectedFileName"> </app-resume>
+    </div>
+</div>
 </div>

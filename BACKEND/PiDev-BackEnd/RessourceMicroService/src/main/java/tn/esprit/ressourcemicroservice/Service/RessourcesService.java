@@ -43,6 +43,12 @@ public class RessourcesService {
             ressource.setType(updatedRessource.getType());
             ressource.setDate(updatedRessource.getDate());
             ressource.setCategory(updatedRessource.getCategory());
+
+            // Use an if statement instead of the ternary operator for setting the file name
+            if (updatedRessource.getFileName() != null) {
+                ressource.setFileName(updatedRessource.getFileName());
+            }
+
             return ressourcesRepository.save(ressource);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ressource non trouvée avec l'ID : " + id));
     }

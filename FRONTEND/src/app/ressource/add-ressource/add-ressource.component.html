@@ -25,7 +25,7 @@
         <button type="button" class="btn btn-secondary" (click)="uploadFile()">Upload File</button>
       </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" [disabled]="ressource.fileName===''">Ajouter</button>
+        <button type="submit" class="btn btn-primary" [disabled]="ressource.fileName===''">{{selectedResource?"Modifier":"Ajouter "}}</button>
         <button type="button" class="btn btn-secondary" (click)="resetForm()">Réinitialiser</button>
     </div>
     <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>

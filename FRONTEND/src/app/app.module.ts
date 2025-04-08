@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { RessourceListComponent } from './ressource/ressource-list/ressource-list.component';
 import { AddRessourceComponent } from './ressource/add-ressource/add-ressource.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
+import { ResumeComponent } from './ressource/resume/resume.component';
 
 
 
@@ -16,7 +17,8 @@ import { NavbarComponent } from './navbar/navbar/navbar.component';
     AppComponent,
     RessourceListComponent,
     AddRessourceComponent,
-    NavbarComponent
+    NavbarComponent,
+    ResumeComponent
   ],
   imports: [
     BrowserModule,

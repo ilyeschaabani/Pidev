@@ -1,16 +1,21 @@
 package tn.esprit.ressourcemicroservice.Controller;
 
+ import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.ressourcemicroservice.Entity.Ressources;
-import tn.esprit.ressourcemicroservice.Service.RessourcesService;
+ import tn.esprit.ressourcemicroservice.Service.FileStorageService;
+ import tn.esprit.ressourcemicroservice.Service.RessourcesService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-;
+ import java.io.IOException;
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
+ ;
 
 @CrossOrigin(origins = "http://localhost:4200") // Autorise les requêtes depuis Angular
 @RestController
@@ -18,10 +23,13 @@ import java.util.List;
 public class RessourcesController {
 
     private final RessourcesService ressourcesService;
+    private final FileStorageService fileStorageService;
 
     // Injection par constructeur (meilleure pratique)
-    public RessourcesController(RessourcesService ressourcesService) {
+    public RessourcesController(RessourcesService ressourcesService,FileStorageService fileStorageService) {
         this.ressourcesService = ressourcesService;
+        this.fileStorageService=fileStorageService;
+
     }
 
     // Créer une ressource
@@ -34,6 +42,28 @@ public class RessourcesController {
     @GetMapping
     public ResponseEntity<List<Ressources>> getAllRessources() {
         return ResponseEntity.ok(ressourcesService.getAllRessources());
+    }
+
+    @GetMapping("/resume/{fileName}")
+
+    public ResponseEntity<Map<String, Object>> getResume(@PathVariable String fileName) {
+        try {
+            // Assuming resumeDocument returns a String (summary of the document)
+            String resume = fileStorageService.resumeDocument(fileName);
+
+            // Create a Map for the successful response
+            Map<String, Object> response = new HashMap<>();
+            response.put("summary", resume);
+
+            return ResponseEntity.ok().body(response);
+        } catch (IOException e) {
+            // Create a Map for error response
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Error processing file");
+
+            // Return error response with INTERNAL_SERVER_ERROR status
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
     }
 
     // Récupérer une ressource par ID

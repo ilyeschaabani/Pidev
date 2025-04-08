@@ -28,6 +28,9 @@ export class RessourceService {
   delete(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+  getResume(fileName:String):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/resume/${fileName}`)
+  }
   
   
 }
