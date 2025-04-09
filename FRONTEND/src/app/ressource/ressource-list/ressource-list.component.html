@@ -31,19 +31,29 @@
                 <td>{{ ressource.description }}</td>
                 <td>{{ ressource.type }}</td>
                 <td>
-                   <!-- Check if fileName exists, then show the download button -->
-                  <button class="btn btn-priamry me-2" *ngIf="ressource.fileName" (click)="downloadFile(ressource.type,ressource.fileName)">
-                    Download
-                  </button>
-                  <button class="btn btn-priamry" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResumeRessource" *ngIf="ressource.fileName && isApdfWordDocument(ressource.fileName)" (click)="resumeFile(ressource.fileName)">
-                    Resume
-                  </button>
+                  <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-primary btn-sm" 
+                            *ngIf="ressource.fileName" 
+                            (click)="downloadFile(ressource.type, ressource.fileName)">
+                      <i class="bx bx-download"></i> Download
+                    </button>
+                
+                    <button class="btn btn-secondary btn-sm" 
+                            *ngIf="ressource.fileName && isApdfWordDocument(ressource.fileName)" 
+                            data-bs-toggle="offcanvas" 
+                            data-bs-target="#offcanvasResumeRessource" 
+                            (click)="resumeFile(ressource.fileName)">
+                      <i class="bx bx-show"></i> Resume
+                    </button>
+                  </div>
                 </td>
+                
                  <td>{{ ressource.category }}</td>
                 <td>
-                  <button class="btn btn-warning btn-sm" (click)="onModifyClick(ressource)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddRessource">Modifier</button>
+                  <button class="btn btn-warning btn-sm me-2" (click)="onModifyClick(ressource)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddRessource">Modifier</button>
 
                   <button class="btn btn-danger btn-sm" (click)="deleteRessource(ressource.idRessource)">Supprimer</button>
+                  
                 </td>
               </tr>
             </tbody>
