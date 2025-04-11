@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("api/auth/**").permitAll()
                         .requestMatchers("AuthenticationMicroService/**").permitAll()
+                        .requestMatchers("/forgotPassword/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // Allow access to H2 console
                         .requestMatchers("/api/Admin/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/api/Etudiant/**").hasAnyAuthority("ETUDIANT")
