@@ -26,4 +26,6 @@ export class LoginComponent {
       }
     });
   }
+  // add methode to handel forget pwd from the backend
+ 
 }
