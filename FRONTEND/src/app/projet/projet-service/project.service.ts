@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Projet } from '../../models/projet.model';
-
+import { Milestone } from 'src/app/models/Milestone.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,10 +24,11 @@ export class ProjetService {
   }
 
   getProjetById(id: string): Observable<Projet> {
-    return this.http.get<Projet>(`${this.baseUrl}/get/${id}`).pipe(
+    return this.http.get<Projet>(`${this.baseUrl}/${id}`).pipe(
       catchError(this.handleError('Erreur lors de la récupération du projet'))
     );
   }
+  
 
   updateProjet(id: string, projet: Projet): Observable<Projet> {
     return this.http.put<Projet>(`${this.baseUrl}/update/${id}`, projet).pipe(
@@ -62,6 +63,10 @@ export class ProjetService {
       console.error(message, error);
       return throwError(() => new Error(message + ' : ' + (error.message || error.statusText)));
     };
+  }
+   // Récupérer les milestones d'un projet
+   getProjectMilestones(projectId: string): Observable<Milestone[]> {
+    return this.http.get<Milestone[]>(`${this.baseUrl}/${projectId}/milestones`);
   }
 
 

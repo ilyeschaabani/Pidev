@@ -30,10 +30,7 @@ export class ProjectListComponent implements OnInit {
     this.loadProjets();
   }
 
-  // Dans ProjectListComponent
-accederEspaceCollaboratif(projectId: string) {
-  this.router.navigate(['/collaborative-space', projectId]);
-}
+
   loadProjets(): void {
     this.projetService.getAllProjets().subscribe({
       next: (data) => {
@@ -109,4 +106,6 @@ supprimerProjet(): void {
   modifierProjet(projet: Projet): void {
     // Implémenter la logique pour modifier le projet
   }
+
+  
 }

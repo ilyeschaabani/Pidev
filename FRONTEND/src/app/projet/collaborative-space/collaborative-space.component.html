@@ -5,7 +5,32 @@
  
 <div class="container mt-4">
     <h3>Espace Collaboratif du Projet</h3>
-    
+     <!-- Section Milestones -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Milestones du Projet</h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date d'échéance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let milestone of milestones">
+            <td>{{ milestone.title }}</td>
+            <td>{{ milestone.description }}</td>
+            <td>{{ milestone.dueDate | date:'medium' }}</td>
+            <td>{{ milestone.completed ? 'Complété' : 'Non complété' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
     <!-- Section Upload -->
     <div class="card mb-4">
       <div class="card-header">

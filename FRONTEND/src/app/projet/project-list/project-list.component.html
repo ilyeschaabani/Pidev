@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <br><br><br>
+<!-- project-list.component.html -->
+
+
 <div class="container-fluid mt-4">
   <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="hero background" class="position-absolute top-0 start-50 translate-middle-x object-fit-cover w-100 h-100">
   <div class="row justify-content-center">
@@ -18,7 +21,6 @@
               <tr>
                 <th class="text-truncate">Titre</th>
                 <th class="text-truncate">Porteur de Projet</th>
-                <th class="text-truncate">Espace Collaboratif</th>
                 <th class="text-truncate">Statut</th>
                 <th class="text-truncate">Actions</th>
               </tr>
@@ -27,12 +29,7 @@
               <tr *ngFor="let projet of projets" class="text-center align-middle">
                 <td class="text-truncate fw-bold">{{ projet.titre }}</td>
                 <td class="text-truncate">{{ projet.porteurProjet }}</td>
-                <td class="text-truncate">
-                  <span *ngIf="projet.espaceCollaboratif; else nonCollab" class="badge bg-success rounded-pill px-3 py-2">Oui</span>
-                  <ng-template #nonCollab>
-                    <span class="badge bg-danger rounded-pill px-3 py-2">Non</span>
-                  </ng-template>
-                </td>
+               
                 <td>
                   <span 
                     [ngClass]="{
@@ -74,14 +71,7 @@
                   </div>
                                   <!-- Ajoutez cette colonne dans le tableau -->
 
-  <button class="btn btn-sm btn-info" 
-          *ngIf="projet.statutProjet === StatutProjet.EN_COURS"
-          (click)="accederEspaceCollaboratif(projet.idProjet)">
-    <i class="fas fa-users"></i> Espace Collaboratif
-  </button>
-  <span *ngIf="projet.statutProjet !== StatutProjet.EN_COURS" class="text-muted">
-    Non disponible
-  </span>
+ 
 
                 </td>
                 

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from '../../files/file-service.service';
 import { ProjetService } from '../projet-service/project.service';
 import { ProjectFile } from '../../models/project-file.model';
+import { Milestone } from 'src/app/models/Milestone.model';
 @Component({
   selector: 'app-collaborative-space',
   templateUrl: './collaborative-space.component.html',
@@ -14,6 +15,7 @@ export class CollaborativeSpaceComponent implements OnInit {
   newFile: File | null = null;
   files: ProjectFile[] = [];
   isLoading = false;
+  milestones: Milestone[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,8 +35,12 @@ export class CollaborativeSpaceComponent implements OnInit {
       this.router.navigate(['/projects']);
       return;
     }
+    
+    // Load both files and milestones
     this.loadFiles();
+    this.loadMilestones();
   }
+  
   loadFiles(): void {
     this.isLoading = true;
   
@@ -91,4 +97,25 @@ export class CollaborativeSpaceComponent implements OnInit {
       URL.revokeObjectURL(objectUrl);
     });
   }
+
+  
+
+  loadMilestones(): void {
+    this.isLoading = true;
+    this.projetService.getProjectMilestones(this.projectId).subscribe({
+      next: (milestones) => {
+        if (milestones.length === 0) {
+          console.warn('Aucune milestone trouvée pour ce projet');
+        }
+        this.milestones = milestones;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erreur détaillée:', err.error);
+        this.isLoading = false;
+        this.handleError(err);
+      }
+    });
+  }
+
 }

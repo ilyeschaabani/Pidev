@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjetService } from '../projet-service/project.service';
 import { Projet } from 'src/app/models/projet.model';
+import { Router } from '@angular/router'; // Importer Router pour la navigation
 
+import { StatutProjet } from 'src/app/models/projet.model';
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
@@ -11,10 +13,13 @@ import { Projet } from 'src/app/models/projet.model';
 })
 export class ProjectDetailsComponent implements OnInit {
   projet: Projet | null = null;
+  StatutProjet = StatutProjet;
+
 
   constructor(
     private route: ActivatedRoute,
-    private projetService: ProjetService
+    private projetService: ProjetService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +28,10 @@ export class ProjectDetailsComponent implements OnInit {
       this.loadProjetDetails(projetId);
     }
   }
-
+  // Dans ProjectListComponent
+  accederEspaceCollaboratif(projectId: string) {
+    this.router.navigate(['/collaborative-space', projectId]);
+  }
   loadProjetDetails(id: string): void {
     this.projetService.getProjetById(id).subscribe({
       next: (data) => {

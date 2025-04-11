@@ -163,14 +163,15 @@
                               </div>
                   
                               <div class="info-card">
-                                <h5 class="text-primary mb-3"><i class="fas fa-users-cog me-2"></i>Espace Collaboratif</h5>
-                                <div class="d-flex align-items-center">
-                                  <div class="switch me-3" [class.active]="projet.espaceCollaboratif"></div>
-                                  <span class="fw-medium" [class.text-success]="projet.espaceCollaboratif" 
-                                        [class.text-danger]="!projet.espaceCollaboratif">
-                                    {{ projet.espaceCollaboratif ? 'Activé' : 'Désactivé' }}
-                                  </span>
-                                </div>
+                                <button class="btn btn-info"
+          *ngIf="projet.statutProjet === StatutProjet.EN_COURS"
+          (click)="accederEspaceCollaboratif(projet.idProjet)">
+    <i class="fas fa-users"></i> Espace Collaboratif
+  </button>
+  <span *ngIf="projet.statutProjet !== StatutProjet.EN_COURS" class="text-muted">
+    Non disponible
+  </span>
+
                               </div>
                   
                               <div class="row g-3">

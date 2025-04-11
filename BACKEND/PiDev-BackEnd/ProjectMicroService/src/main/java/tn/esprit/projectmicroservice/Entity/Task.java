@@ -13,6 +13,7 @@ import tn.esprit.projectmicroservice.Entity.Enumeration.TaskStatus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,6 +33,8 @@ public class Task {
     private LocalDate deadline;
     private String assignedTo;
     private List<String> deliverables = new ArrayList<>();
+    private Date startDate;
+    private Date dueDate;
 
     @CreatedBy
     private String createdBy;

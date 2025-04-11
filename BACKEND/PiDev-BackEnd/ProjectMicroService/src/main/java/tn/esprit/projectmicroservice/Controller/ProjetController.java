@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.projectmicroservice.Entity.Enumeration.TaskStatus;
+import tn.esprit.projectmicroservice.Entity.Milestone;
 import tn.esprit.projectmicroservice.Entity.Projet;
 import tn.esprit.projectmicroservice.Entity.Task;
 import tn.esprit.projectmicroservice.Entity.User;
+import tn.esprit.projectmicroservice.Service.MilestoneService;
 import tn.esprit.projectmicroservice.Service.ProjetService;
 import tn.esprit.projectmicroservice.Service.UserService;
 
@@ -21,6 +23,9 @@ public class ProjetController {
 
     @Autowired
     private ProjetService projetService;
+    @Autowired
+    private MilestoneService milestoneService;
+
 
     @Autowired
     private UserService userService;  // Service pour récupérer un utilisateur par ID
@@ -101,6 +106,36 @@ public class ProjetController {
     public ResponseEntity<Void> deleteTask(@PathVariable String taskId) {
         projetService.deleteTask(taskId);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/{projectId}/milestones")
+    public ResponseEntity<List<Milestone>> getProjectMilestones(@PathVariable String projectId) {
+        return ResponseEntity.ok(milestoneService.getMilestonesByProjectId(projectId));
+    }
+
+    @PostMapping("/{projectId}/milestones")
+    public ResponseEntity<Milestone> addMilestone(@PathVariable String projectId, @RequestBody Milestone milestone) {
+        milestone.setProjectId(projectId);
+        return ResponseEntity.ok(milestoneService.addMilestone(milestone));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Milestone> updateMilestone(@PathVariable String id, @RequestBody Milestone milestone) {
+        return ResponseEntity.ok(milestoneService.updateMilestone(id, milestone));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMilestone(@PathVariable String id) {
+        milestoneService.deleteMilestone(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Endpoint pour marquer comme complété
+    // Endpoint corrigé
+    @PatchMapping("/milestones/{id}/complete")
+    public ResponseEntity<Milestone> markAsCompleted(@PathVariable String id) {
+        // Utiliser getMilestoneById au lieu de findByProjectId
+        Milestone milestone = milestoneService.getMilestoneById(id);
+        milestone.setCompleted(true);
+        return ResponseEntity.ok(milestoneService.updateMilestone(id, milestone));
     }
 
 }

@@ -1,0 +1,39 @@
+/* project-list.component.css */
+.alert-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 10px;
+    max-width: 300px;
+  }
+  
+  .alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .alert .status {
+    font-weight: bold;
+  }
+  
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
