@@ -32,14 +32,4 @@ public class Formation {
     double prix;
     double rating;
 
-
-    /*
-    @OneToOne
-    Evaluation evaluation;
-    @ManyToMany(cascade = CascadeType.ALL)
-    Set<User> users;
-
-    @ManyToOne
-    Panier panier;
-*/
 }

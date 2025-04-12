@@ -16,7 +16,9 @@
       <!-- Category -->
       <div class="mb-6">
         <label class="form-label" for="formation-category">Category</label>
-        <input type="text" class="form-control" id="formation-category" placeholder="Category" formControlName="categorie">
+        <select class="form-select" id="formation-category" formControlName="categorie">
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
       </div>
 
       <!-- Dates -->

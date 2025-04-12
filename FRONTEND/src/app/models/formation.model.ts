@@ -7,11 +7,17 @@ export interface Formation {
     dateFin: Date;
     categorie: CategoryResource; // Define this enum if needed
     rating: number;
+    prix: number;
   }
   
   // Optional: If using CategoryResource as enum
   export enum CategoryResource {
-    DEVELOPMENT = 'DEVELOPMENT',
+    PROGRAMMING = 'PROGRAMMING',
+    DATABASE = 'DATABASE',
     DESIGN = 'DESIGN',
-    BUSINESS = 'BUSINESS'
+    NETWORKING = 'NETWORKING',
+    SECURITY = 'SECURITY',
+    OTHER ='OTHER'
+
+
   }

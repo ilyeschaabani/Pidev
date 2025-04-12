@@ -11,6 +11,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormationEditComponent } from './formation/formation-edit/formation-edit.component';
 import { FormationStatsComponent } from './formation/formation-stats/formation-stats.component';
 import { NgChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { PanierComponent } from './panier/panier.component';
+
 
 
 @NgModule({
@@ -20,7 +26,10 @@ import { NgChartsModule } from 'ng2-charts';
     FormationAddComponent,
     NavbarComponent,
     FormationEditComponent,
-    FormationStatsComponent
+    FormationStatsComponent,
+    LandingPageComponent,
+    PanierComponent,
+  
 
   ],
   imports: [
@@ -28,7 +37,10 @@ import { NgChartsModule } from 'ng2-charts';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

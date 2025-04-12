@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormationService } from '../../services/formation.service';
 import { Router } from '@angular/router';
+import { CategoryResource } from 'src/app/models/formation.model';
 
 @Component({
   selector: 'app-formation-add',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class FormationAddComponent {
   formationForm: FormGroup;
+  categories = Object.values(CategoryResource);
 
   constructor(
     private fb: FormBuilder,
