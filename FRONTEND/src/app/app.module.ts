@@ -8,6 +8,12 @@ import { RessourceListComponent } from './ressource/ressource-list/ressource-lis
 import { AddRessourceComponent } from './ressource/add-ressource/add-ressource.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { ResumeComponent } from './ressource/resume/resume.component';
+import { FilterByTitrePipe } from './pipes/filter-by-titre.pipe';
+import { PreivewComponent } from './ressource/preivew/preivew.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { SafeUrlPipe } from './safe-url.pipe';
+import { DocumentEditorContainerAllModule } from '@syncfusion/ej2-angular-documenteditor';
+
 
 
 
@@ -18,13 +24,18 @@ import { ResumeComponent } from './ressource/resume/resume.component';
     RessourceListComponent,
     AddRessourceComponent,
     NavbarComponent,
-    ResumeComponent
+    ResumeComponent,
+    FilterByTitrePipe,
+    PreivewComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,NgxDocViewerModule,
+    DocumentEditorContainerAllModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

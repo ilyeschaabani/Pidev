@@ -15,8 +15,7 @@ export class RessourceListComponent implements OnInit {
   categories = Object.values(CategoryRessource);
   selectedFileName:String="";
   selectedResource:Ressource|null=null;
-
-  successMessage: string = '';
+   successMessage: string = '';
   errorMessage: string = '';
   @ViewChild('exampleModal', { static: false }) modal!: ElementRef;
 
@@ -49,7 +48,7 @@ export class RessourceListComponent implements OnInit {
   onSubmitNotifaciton(): void {
   this.loadData();
   const closeButton = document.getElementById('closeButton');
-if (closeButton) {
+if (closeButton instanceof HTMLElement) {
   closeButton.click(); // This will simulate the click event and close the offcanvas
 }
   this.selectedResource=null;
@@ -75,5 +74,7 @@ if (closeButton) {
   onModifyClick(resource:Ressource){
     this.selectedResource=resource;
   }
+ 
+ 
 
 }

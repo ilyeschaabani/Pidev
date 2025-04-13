@@ -3,7 +3,8 @@ package tn.esprit.ressourcemicroservice.Controller;
  import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.ressourcemicroservice.Entity.Ressources;
+ import tn.esprit.ressourcemicroservice.Entity.Enumeration.TypeRessource;
+ import tn.esprit.ressourcemicroservice.Entity.Ressources;
  import tn.esprit.ressourcemicroservice.Service.FileStorageService;
  import tn.esprit.ressourcemicroservice.Service.RessourcesService;
 
@@ -83,6 +84,24 @@ public class RessourcesController {
     public ResponseEntity<Void> deleteRessource(@PathVariable String id) {
         ressourcesService.deleteRessource(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/recherche")
+    public ResponseEntity<?> rechercherParType(@RequestParam("type") String typeStr) {
+        try {
+            TypeRessource type = TypeRessource.valueOf(typeStr.toUpperCase());
+            List<Ressources> ressources = ressourcesService.rechercherParType(type);
+            return ResponseEntity.ok(ressources);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Type invalide : " + typeStr);
+        }
+    }
+
+    // Recherche par mot-clé
+    @GetMapping("/search")
+    public ResponseEntity<List<Ressources>> searchRessources(@RequestParam("keyword") String keyword) {
+        List<Ressources> resultats = ressourcesService.searchRessources(keyword);
+        return ResponseEntity.ok(resultats);
     }
 
 }

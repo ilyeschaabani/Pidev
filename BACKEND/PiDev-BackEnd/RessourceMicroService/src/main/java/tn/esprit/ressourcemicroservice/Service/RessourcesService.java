@@ -1,11 +1,14 @@
 package tn.esprit.ressourcemicroservice.Service;
 
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import tn.esprit.ressourcemicroservice.Entity.Enumeration.TypeRessource;
 import tn.esprit.ressourcemicroservice.Entity.Ressources;
 import tn.esprit.ressourcemicroservice.Repository.RessourcesRepository;
 
+import javax.management.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,4 +64,13 @@ public class RessourcesService {
         }
         ressourcesRepository.deleteById(id);
     }
+    public List<Ressources> rechercherParType(TypeRessource type) {
+        return ressourcesRepository.findByType(type);
+    }
+
+    public List<Ressources> searchRessources(String keyword) {
+        return ressourcesRepository.findByTitreContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword, keyword);
+    }
+
+
 }
