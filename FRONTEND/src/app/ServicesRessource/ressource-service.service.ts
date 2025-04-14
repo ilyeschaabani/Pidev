@@ -52,19 +52,20 @@ export class RessourceService {
     return this.http.get<Ressource[]>(`${this.apiUrl}/search`, { params });
   }
  
+  search(keyword?: string, type?: string): Observable<Ressource[]> {
+    let params = new HttpParams();
+    if (keyword) params = params.append('keyword', keyword);
+    if (type) params = params.append('type', type);
+    
+    return this.http.get<Ressource[]>(`${this.apiUrl}/search`, { params });
+  }
 
-search(keyword: string, type: string) {
-  let params = new HttpParams();
-  if (keyword) params = params.append('keyword', keyword);
-  if (type) params = params.append('type', type);
-  return this.http.get<Ressource[]>('http://localhost:8082/api/search', { params });
-}
-
-sort(sortBy: string, direction: string) {
-  let params = new HttpParams()
-    .append('sortBy', sortBy)
-    .append('direction', direction);
-  return this.http.get<Ressource[]>('http://localhost:8082/api/sort', { params });
-}
+  sortRessources(sortBy: string = 'titre', direction: string = 'asc'): Observable<Ressource[]> {
+    const params = new HttpParams()
+      .set('sortBy', sortBy)
+      .set('direction', direction);
+    
+    return this.http.get<Ressource[]>(`${this.apiUrl}/sort`, { params });
+  }
 
 }

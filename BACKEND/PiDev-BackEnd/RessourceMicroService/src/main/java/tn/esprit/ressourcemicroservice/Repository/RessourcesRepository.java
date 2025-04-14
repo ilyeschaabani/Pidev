@@ -17,7 +17,7 @@ public interface RessourcesRepository extends MongoRepository<Ressources, String
             "]}, " +
             "{'type': {$regex: ?1, $options: 'i'}} " +
             "]}")
-    List<Ressources> searchByKeywordAndType(String keyword, String type);
+    List<Ressources> searchByKeywordAndType(String keyword);
 
     List<Ressources> findByType(TypeRessource type);
 

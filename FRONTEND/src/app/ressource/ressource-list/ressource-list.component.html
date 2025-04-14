@@ -2,45 +2,53 @@
 
 <div class="modern-container position-relative py-5 px-3 px-md-5">
   <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="Background" class="modern-bg" />
-  <!-- Barre de recherche -->
-<div class="row mb-3">
-  <div class="col-md-6">
-    <input type="text" class="form-control" [(ngModel)]="searchKeyword" (input)="searchRessources()" placeholder="Rechercher...">
+  
+  <!-- Search Bar -->
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input type="text" class="form-control" 
+             [(ngModel)]="searchKeyword" 
+             (input)="onSearch()" 
+             placeholder="Rechercher...">
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" 
+              [(ngModel)]="searchType" 
+              (change)="onSearch()">
+        <option value="">Tous les types</option>
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+   
   </div>
-  <div class="col-md-4">
-    <select class="form-select" [(ngModel)]="selectedType" (change)="searchRessources()">
-      <option value="">Tous les types</option>
-      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-    </select>
-  </div>
-  <div class="col-md-2">
-    <button class="btn btn-secondary w-100" (click)="searchRessources()">Rechercher</button>
-  </div>
-</div>
 
-<!-- Tri -->
-<div class="row mb-3">
-  <div class="col-md-12">
-    <div class="d-flex justify-content-end gap-2">
-      <button class="btn btn-outline-primary" (click)="sortRessources('titre')">
-        Titre
-        <i class="mdi" [class.mdi-arrow-up]="sortField === 'titre' && sortDirection === 'asc'"
-                    [class.mdi-arrow-down]="sortField === 'titre' && sortDirection === 'desc'"></i>
-      </button>
-      <button class="btn btn-outline-primary" (click)="sortRessources('type')">
-        Type
-        <i class="mdi" [class.mdi-arrow-up]="sortField === 'type' && sortDirection === 'asc'"
-                    [class.mdi-arrow-down]="sortField === 'type' && sortDirection === 'desc'"></i>
-      </button>
+  <!-- Sort Buttons -->
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-outline-primary" (click)="changeSort('titre')">
+          Titre
+          <i class="mdi" 
+             [class.mdi-arrow-up]="sortBy === 'titre' && sortDirection === 'asc'"
+             [class.mdi-arrow-down]="sortBy === 'titre' && sortDirection === 'desc'"></i>
+        </button>
+        <button class="btn btn-outline-primary" (click)="changeSort('type')">
+          Type
+          <i class="mdi" 
+             [class.mdi-arrow-up]="sortBy === 'type' && sortDirection === 'asc'"
+             [class.mdi-arrow-down]="sortBy === 'type' && sortDirection === 'desc'"></i>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-
 
   <div class="card glass-card shadow-lg p-4">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
       <h2 class="text-gradient fw-bold m-0">📚 Ressources Disponibles</h2>
-      <button class="btn btn-gradient" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddRessource">
+      <button class="btn btn-gradient" 
+              data-bs-toggle="offcanvas" 
+              data-bs-target="#offcanvasAddRessource"
+              (click)="selectedResource = null">
         <i class="bx bx-plus"></i> Ajouter
       </button>
     </div>
@@ -106,25 +114,28 @@
     </div>
   </div>
 
-  <!-- Offcanvas ajout -->
+  <!-- Add Resource Offcanvas -->
   <div class="offcanvas offcanvas-end xlCanvas" tabindex="-1" id="offcanvasAddRessource">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title">Ajouter une Ressource</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      <h5 class="offcanvas-title">{{ selectedResource ? 'Modifier' : 'Ajouter' }} une Ressource</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <app-add-ressource [selectedResource]="selectedResource" (resourceUpdated)="onSubmitNotifaciton()"></app-add-ressource>
+      <app-add-ressource 
+        [selectedResource]="selectedResource" 
+        (resourceUpdated)="onSubmitNotifaciton()">
+      </app-add-ressource>
     </div>
   </div>
 
-  <!-- Offcanvas résumé -->
+  <!-- Resume Offcanvas -->
   <div class="offcanvas offcanvas-end xlCanvas" tabindex="-1" id="offcanvasResumeRessource">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title">Résumé de la Ressource</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <app-resume *ngIf="selectedFileName !== ''" [fileName]="selectedFileName"></app-resume>
+      <app-resume *ngIf="selectedFileName" [fileName]="selectedFileName"></app-resume>
     </div>
   </div>
 </div>

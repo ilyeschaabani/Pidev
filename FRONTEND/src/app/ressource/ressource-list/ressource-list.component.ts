@@ -21,43 +21,35 @@ export class RessourceListComponent implements OnInit {
 
    // 🔍🔽 Variables pour recherche et tri
    searchKeyword: string = '';
-   selectedType: string = '';
-   sortField: string = 'titre';
-   sortDirection: string = 'asc';
+  searchType: string = '';
+  sortBy: string = 'titre';
+  sortDirection: string = 'asc';
 
   constructor(private service: RessourceService, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadRessources();
+
   }
-  private loadData(): void {
-    this.service.getAll().subscribe({
-      next: (data) => this.ressources = data,
-      error: (err) => this.errorMessage = 'Erreur de chargement: ' + err.message
-    });
+  loadRessources(): void {
+    this.service.sortRessources(this.sortBy, this.sortDirection)
+      .subscribe(data => this.ressources = data);
   }
-    // 🔍 Recherche
-    searchRessources(): void {
-      this.service.search(this.searchKeyword, this.selectedType).subscribe({
-        next: (data) => this.ressources = data,
-        error: (err) => this.errorMessage = 'Erreur de recherche: ' + err.message
-      });
-    }
-  
-    // 🔽 Tri
-    sortRessources(field: string): void {
-      if (this.sortField === field) {
-        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-      } else {
-        this.sortField = field;
-        this.sortDirection = 'asc';
-      }
-  
-      this.service.sort(this.sortField, this.sortDirection).subscribe({
-        next: (data) => this.ressources = data,
-        error: (err) => this.errorMessage = 'Erreur de tri: ' + err.message
-      });
-    }
+
+  onSearch(): void {
+    this.service.search(this.searchKeyword, this.searchType)
+      .subscribe(data => this.ressources = data);
+  }
+
+  onSort(): void {
+    this.service.sortRessources(this.sortBy, this.sortDirection)
+      .subscribe(data => this.ressources = data);
+  }
+
+  toggleSortDirection(): void {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.onSort();
+  }
   deleteRessource(id: any): void {
     if (confirm('Confirmer suppression ?')) {
       console.log(id);
@@ -74,7 +66,7 @@ export class RessourceListComponent implements OnInit {
   }
 
   onSubmitNotifaciton(): void {
-  this.loadData();
+  this.loadRessources();
   const closeButton = document.getElementById('closeButton');
 if (closeButton instanceof HTMLElement) {
   closeButton.click(); // This will simulate the click event and close the offcanvas
@@ -103,6 +95,16 @@ if (closeButton instanceof HTMLElement) {
   onModifyClick(resource:Ressource){
     this.selectedResource=resource;
   }
+  changeSort(criterion: string): void {
+    if (this.sortBy === criterion) {
+      this.toggleSortDirection(); // inverse si on reclique sur la même colonne
+    } else {
+      this.sortBy = criterion;
+      this.sortDirection = 'asc';
+      this.onSort();
+    }
+  }
+  
  
  
 
