@@ -19,6 +19,12 @@ export class RessourceListComponent implements OnInit {
   errorMessage: string = '';
   @ViewChild('exampleModal', { static: false }) modal!: ElementRef;
 
+   // 🔍🔽 Variables pour recherche et tri
+   searchKeyword: string = '';
+   selectedType: string = '';
+   sortField: string = 'titre';
+   sortDirection: string = 'asc';
+
   constructor(private service: RessourceService, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -30,6 +36,28 @@ export class RessourceListComponent implements OnInit {
       error: (err) => this.errorMessage = 'Erreur de chargement: ' + err.message
     });
   }
+    // 🔍 Recherche
+    searchRessources(): void {
+      this.service.search(this.searchKeyword, this.selectedType).subscribe({
+        next: (data) => this.ressources = data,
+        error: (err) => this.errorMessage = 'Erreur de recherche: ' + err.message
+      });
+    }
+  
+    // 🔽 Tri
+    sortRessources(field: string): void {
+      if (this.sortField === field) {
+        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        this.sortField = field;
+        this.sortDirection = 'asc';
+      }
+  
+      this.service.sort(this.sortField, this.sortDirection).subscribe({
+        next: (data) => this.ressources = data,
+        error: (err) => this.errorMessage = 'Erreur de tri: ' + err.message
+      });
+    }
   deleteRessource(id: any): void {
     if (confirm('Confirmer suppression ?')) {
       console.log(id);
@@ -54,6 +82,7 @@ if (closeButton instanceof HTMLElement) {
   this.selectedResource=null;
 
   }
+
   downloadFile(type:string,name:string){
     const url=`http://localhost:8082/api/download/${type}/${name}`;
     const link = document.createElement('a');

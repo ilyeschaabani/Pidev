@@ -86,22 +86,23 @@ public class RessourcesController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/recherche")
-    public ResponseEntity<?> rechercherParType(@RequestParam("type") String typeStr) {
-        try {
-            TypeRessource type = TypeRessource.valueOf(typeStr.toUpperCase());
-            List<Ressources> ressources = ressourcesService.rechercherParType(type);
-            return ResponseEntity.ok(ressources);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Type invalide : " + typeStr);
-        }
+    @GetMapping("/search")
+    public ResponseEntity<List<Ressources>> searchRessources(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String type) {
+
+        List<Ressources> results = ressourcesService.searchRessources(keyword, type);
+        return ResponseEntity.ok(results);
+    }
+    @GetMapping("/sort")
+    public ResponseEntity<List<Ressources>> sortRessources(
+            @RequestParam(defaultValue = "titre") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+
+        List<Ressources> results = ressourcesService.sortRessources(sortBy, direction);
+        return ResponseEntity.ok(results);
     }
 
-    // Recherche par mot-clé
-    @GetMapping("/search")
-    public ResponseEntity<List<Ressources>> searchRessources(@RequestParam("keyword") String keyword) {
-        List<Ressources> resultats = ressourcesService.searchRessources(keyword);
-        return ResponseEntity.ok(resultats);
-    }
+
 
 }

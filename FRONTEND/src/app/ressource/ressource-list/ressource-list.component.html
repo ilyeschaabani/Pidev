@@ -2,6 +2,40 @@
 
 <div class="modern-container position-relative py-5 px-3 px-md-5">
   <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="Background" class="modern-bg" />
+  <!-- Barre de recherche -->
+<div class="row mb-3">
+  <div class="col-md-6">
+    <input type="text" class="form-control" [(ngModel)]="searchKeyword" (input)="searchRessources()" placeholder="Rechercher...">
+  </div>
+  <div class="col-md-4">
+    <select class="form-select" [(ngModel)]="selectedType" (change)="searchRessources()">
+      <option value="">Tous les types</option>
+      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-secondary w-100" (click)="searchRessources()">Rechercher</button>
+  </div>
+</div>
+
+<!-- Tri -->
+<div class="row mb-3">
+  <div class="col-md-12">
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-outline-primary" (click)="sortRessources('titre')">
+        Titre
+        <i class="mdi" [class.mdi-arrow-up]="sortField === 'titre' && sortDirection === 'asc'"
+                    [class.mdi-arrow-down]="sortField === 'titre' && sortDirection === 'desc'"></i>
+      </button>
+      <button class="btn btn-outline-primary" (click)="sortRessources('type')">
+        Type
+        <i class="mdi" [class.mdi-arrow-up]="sortField === 'type' && sortDirection === 'asc'"
+                    [class.mdi-arrow-down]="sortField === 'type' && sortDirection === 'desc'"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
 
   <div class="card glass-card shadow-lg p-4">
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">

@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 import tn.esprit.ressourcemicroservice.Entity.Enumeration.TypeRessource;
 import tn.esprit.ressourcemicroservice.Entity.Ressources;
 import tn.esprit.ressourcemicroservice.Repository.RessourcesRepository;
+import org.springframework.data.domain.Sort;
 
 import javax.management.Query;
 import java.util.List;
@@ -64,13 +65,31 @@ public class RessourcesService {
         }
         ressourcesRepository.deleteById(id);
     }
-    public List<Ressources> rechercherParType(TypeRessource type) {
-        return ressourcesRepository.findByType(type);
-    }
+    public List<Ressources> searchRessources(String keyword, String typeStr) {
+        if ((keyword == null || keyword.isEmpty()) &&
+                (typeStr == null || typeStr.isEmpty())) {
+            return ressourcesRepository.findAll();
+        }
 
-    public List<Ressources> searchRessources(String keyword) {
-        return ressourcesRepository.findByTitreContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword, keyword);
-    }
+        if (keyword == null || keyword.isEmpty()) {
+            try {
+                TypeRessource type = TypeRessource.valueOf(typeStr.toUpperCase());
+                return ressourcesRepository.findByType(type);
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Type invalide : " + typeStr);
+            }
+        }
 
+        if (typeStr == null || typeStr.isEmpty()) {
+            return ressourcesRepository.findByTitreContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword, keyword);
+        }
+
+        return ressourcesRepository.searchByKeywordAndType(keyword, typeStr);
+    }
+    public List<Ressources> sortRessources(String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        return ressourcesRepository.findAll(sort);
+    }
 
 }
