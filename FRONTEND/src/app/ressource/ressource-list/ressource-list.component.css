@@ -82,4 +82,9 @@
   .glass-card {
     padding: 1.5rem 1rem;
   }
+  .search-card {
+    border-radius: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e3e6f0;
+  }
 }

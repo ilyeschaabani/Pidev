@@ -84,7 +84,7 @@ public class RessourcesService {
             return ressourcesRepository.findByTitreContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword, keyword);
         }
 
-        return ressourcesRepository.searchByKeywordAndType(keyword, typeStr);
+        return ressourcesRepository.searchByKeywordAndType(keyword);
     }
     public List<Ressources> sortRessources(String sortBy, String direction) {
         Sort sort = direction.equalsIgnoreCase("desc") ?

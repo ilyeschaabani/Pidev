@@ -2,39 +2,40 @@
 
 <div class="modern-container position-relative py-5 px-3 px-md-5">
   <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="Background" class="modern-bg" />
-  
-  <!-- Search Bar -->
-  <div class="row mb-3">
-    <div class="col-md-6">
-      <input type="text" class="form-control" 
-             [(ngModel)]="searchKeyword" 
-             (input)="onSearch()" 
-             placeholder="Rechercher...">
-    </div>
-    <div class="col-md-4">
-      <select class="form-select" 
-              [(ngModel)]="searchType" 
-              (change)="onSearch()">
-        <option value="">Tous les types</option>
-        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-      </select>
-    </div>
-   
-  </div>
 
-  <!-- Sort Buttons -->
-  <div class="row mb-3">
-    <div class="col-md-12">
-      <div class="d-flex justify-content-end gap-2">
-        <button class="btn btn-outline-primary" (click)="changeSort('titre')">
+  <!-- Barre de recherche et tri -->
+  <div class="card shadow-sm p-4 mb-4 search-card">
+    <h4 class="fw-bold mb-3 text-gradient">🔎 Filtrer les ressources</h4>
+    <div class="row g-3">
+      <!-- Recherche par mot-clé -->
+      <div class="col-md-6">
+        <input type="text" class="form-control shadow-sm"
+               [(ngModel)]="searchKeyword"
+               (input)="onSearch()"
+               placeholder="Rechercher par mot-clé...">
+      </div>
+
+      <!-- Filtrer par type -->
+      <div class="col-md-4">
+        <select class="form-select shadow-sm"
+                [(ngModel)]="searchType"
+                (change)="onSearch()">
+          <option value="">Tous les types</option>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <!-- Tri -->
+      <div class="col-md-2 d-flex justify-content-end gap-2">
+        <button class="btn btn-outline-secondary w-100" (click)="changeSort('titre')">
           Titre
-          <i class="mdi" 
+          <i class="mdi"
              [class.mdi-arrow-up]="sortBy === 'titre' && sortDirection === 'asc'"
              [class.mdi-arrow-down]="sortBy === 'titre' && sortDirection === 'desc'"></i>
         </button>
-        <button class="btn btn-outline-primary" (click)="changeSort('type')">
+        <button class="btn btn-outline-secondary w-100" (click)="changeSort('type')">
           Type
-          <i class="mdi" 
+          <i class="mdi"
              [class.mdi-arrow-up]="sortBy === 'type' && sortDirection === 'asc'"
              [class.mdi-arrow-down]="sortBy === 'type' && sortDirection === 'desc'"></i>
         </button>
