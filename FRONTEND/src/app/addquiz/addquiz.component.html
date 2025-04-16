@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4>Créer un nouveau Quiz</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #quizForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label">Titre *</label>
+            <input [(ngModel)]="evaluation.titre" name="title" class="form-control" required>
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea [(ngModel)]="evaluation.description" name="description" class="form-control" rows="3"></textarea>
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Note maximale *</label>
+              <input [(ngModel)]="evaluation.maxMarks" name="maxMarks" type="number" class="form-control" required min="1">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Nombre de questions *</label>
+              <input [(ngModel)]="evaluation.noOfQuestions" name="noOfQuestions" type="number" class="form-control" required min="1">
+            </div>
+          </div>
+  
+          <div class="mb-3 form-check">
+            <input [(ngModel)]="evaluation.active" name="active" type="checkbox" class="form-check-input" id="activeCheck">
+            <label class="form-check-label" for="activeCheck">Activer immédiatement</label>
+          </div>
+  
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Créer le Quiz</span>
+            <span *ngIf="isLoading">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Création en cours...
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>

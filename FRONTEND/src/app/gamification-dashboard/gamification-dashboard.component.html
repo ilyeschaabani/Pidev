@@ -1,0 +1,95 @@
+<div class="container mt-5">
+    <div *ngIf="isLoading" class="text-center">
+      <div class="spinner-border text-primary"></div>
+      <p>Chargement en cours...</p>
+    </div>
+  
+    <div *ngIf="!isLoading">
+      <!-- Section Statistiques -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card stat-card">
+            <div class="card-body">
+              <h5 class="card-title">Niveau Actuel</h5>
+              <p class="display-4">{{ userStats?.level || 1 }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card stat-card">
+            <div class="card-body">
+              <h5 class="card-title">Points</h5>
+              <p class="display-4">{{ userStats?.totalPoints || 0 }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card stat-card">
+            <div class="card-body">
+              <h5 class="card-title">Progression</h5>
+              <div class="progress">
+                <div class="progress-bar" [style.width.%]="currentLevelProgress"></div>
+              </div>
+              <p class="mt-2">{{ currentLevelProgress }}% vers le niveau {{ (userStats?.level || 0) + 1 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Section Résultats -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4>Historique des Quiz</h4>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover" *ngIf="quizResults.length > 0">
+            <thead>
+              <tr>
+                <th>Quiz</th>
+                <th>Score</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let result of quizResults">
+                <td>{{ result.evaluationId }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'bg-success': result.score >= 80,
+                    'bg-warning': result.score >= 50 && result.score < 80,
+                    'bg-danger': result.score < 50
+                  }">
+                    {{ result.score }}%
+                  </span>
+                </td>
+                <td>{{ result.completionDate | date:'mediumDate' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="quizResults.length === 0" class="alert alert-info">
+            Aucun résultat de quiz disponible.
+          </div>
+        </div>
+      </div>
+  
+      <!-- Section Badges -->
+      <div class="card">
+        <div class="card-header">
+          <h4>Badges Obtenus</h4>
+        </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap gap-3">
+            <div *ngFor="let badge of badges" class="badge-item">
+              <div class="badge-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="badge-label">{{ badge }}</div>
+            </div>
+          </div>
+          <div *ngIf="badges.length === 0" class="alert alert-warning">
+            Aucun badge obtenu pour le moment.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

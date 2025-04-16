@@ -27,6 +27,27 @@ import { FormationstatComponent } from './formation/formationstat/formationstat.
 import { DashbordadminComponent } from './dashbordadmin/dashbordadmin.component';
 import { PanierComponent } from './panier/panier.component';
 import { NgChartsModule } from 'ng2-charts';
+import { AddquizComponent } from './addquiz/addquiz.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AddquestionComponent } from './addquestion/addquestion.component';
+import { DashbordevaluationComponent } from './dashbordevaluation/dashbordevaluation.component';
+import { ModifiequestionComponent } from './modifiequestion/modifiequestion.component';
+import { AssignQuestionsComponent } from './assign-questions/assign-questions.component';
+import { ToastrModule } from 'ngx-toastr';
+import { EvaluationListComponent } from './evaluation-list/evaluation-list.component';
+import { ViewQuizQuestionsComponent } from './view-quiz-questions/view-quiz-questions.component';
+import { GamificationDashboardComponent } from './gamification-dashboard/gamification-dashboard.component';
+import { QuizSessionComponent } from './quiz-session/quiz-session.component';
+import { QuizAPIComponent } from './quiz-api/quiz-api.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +69,16 @@ import { NgChartsModule } from 'ng2-charts';
     FormationstatComponent,
     DashbordadminComponent,
     PanierComponent,
+    AddquizComponent,
+    AddquestionComponent,
+    DashbordevaluationComponent,
+    ModifiequestionComponent,
+    AssignQuestionsComponent,
+    EvaluationListComponent,
+    ViewQuizQuestionsComponent,
+    GamificationDashboardComponent,
+    QuizSessionComponent,
+    QuizAPIComponent,
     
 
   ],
@@ -60,7 +91,20 @@ import { NgChartsModule } from 'ng2-charts';
     BrowserAnimationsModule,
     MatTabsModule,
     MatCardModule,
-    NgChartsModule
+    NgChartsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatIconModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatIconModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
