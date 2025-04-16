@@ -12,6 +12,7 @@ import { CollaborativeSpaceComponent } from './projet/collaborative-space/collab
 import { TaskListComponent } from './projet/task-list/task-list.component';
 import { StudentsProjectComponent } from './accompagnemenet/components/students-project/students-project.component';
 import { ProjetPfeListComponent } from './accompagnemenet/components/projet-pfe-list/projet-pfe-list.component';
+import { PfeDetailsComponent } from './accompagnemenet/components/pfe-details/pfe-details.component';
 const routes: Routes = [
   {path: '', component:HomeComponent},
   { path: 'projets', component: ProjectListComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
 
   { path: 'student', component: StudentsProjectComponent },
   { path: 'PfeList', component: ProjetPfeListComponent },
+  { path: 'project-details/:id', component: PfeDetailsComponent },
 
 
 ];

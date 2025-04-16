@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import tn.esprit.accompagnementpfemicroservice.Entities.*;
 import tn.esprit.accompagnementpfemicroservice.Repositories.PFEProjectRepository;
 import tn.esprit.accompagnementpfemicroservice.Repositories.UserRepository;
@@ -31,6 +32,15 @@ public class PFEProjectController {
         String topics = geminiService.generatePfeTopics(studentProfile);
         return ResponseEntity.ok(topics);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PFEProject> getProjectById(@PathVariable String id) {
+        return projectService.getProjectById(id)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Projet non trouvé"));
+    }
+
+
     @GetMapping
     public List<PFEProject> getAllProjects() {
         return projectService.getAllProjects();

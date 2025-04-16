@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PfeDetailsComponent } from './accompagnemenet/components/pfe-details/pfe-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TaskListComponent,
     StudentsProjectComponent,
     ProjetPfeListComponent,
+    PfeDetailsComponent,
 
   ],
   imports: [

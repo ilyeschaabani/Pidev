@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PfeProjectService } from '../../Services/pfe-project.service';
 import { PFEProject } from '../../models/pfe-project.model';
 import * as bootstrap from 'bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projet-pfe-list',
@@ -27,15 +28,14 @@ export class ProjetPfeListComponent implements OnInit {
   keywords: string = '';
   generatedTopics: string[] = [];
 
-  constructor(private projectService: PfeProjectService) {}
+  constructor(private projectService: PfeProjectService,private router: Router) {}
 
   ngOnInit(): void {
     this.fetchProjects();
   }
 
-  viewDetails(project: PFEProject): void {
-    this.selectedProject = project;
-    alert(`Détails du projet:\nTitre: ${project.title}\nDescription: ${project.description}\nMentor: ${project.mentorId}\nStatut: ${project.stage}`);
+  viewDetails(projectId: string): void {
+    this.router.navigate(['/project-details', projectId]);
   }
 
   editProject(project: PFEProject): void {

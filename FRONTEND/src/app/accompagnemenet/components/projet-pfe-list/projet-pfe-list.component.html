@@ -32,8 +32,8 @@
     <td class="text-truncate">{{ projet.mentorId }}</td>
     <td class="text-truncate">{{ projet.stage }}</td>
     <td>
-      <button class="btn btn-sm btn-info me-1" (click)="viewDetails(projet)">Détails</button>
-      <button class="btn btn-sm btn-warning me-1" (click)="editProject(projet)">Modifier</button>
+        <button class="btn btn-sm btn-info me-1" (click)="viewDetails(projet.id!)">Détails</button>
+        <button class="btn btn-sm btn-warning me-1" (click)="editProject(projet)">Modifier</button>
       <button class="btn btn-sm btn-danger" (click)="deleteProject(projet.id!)">Supprimer</button>
     </td>
   </tr>

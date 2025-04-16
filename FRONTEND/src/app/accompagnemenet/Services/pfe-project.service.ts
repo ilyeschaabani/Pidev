@@ -38,7 +38,7 @@ export class PfeProjectService {
  
 
   getProjectById(projetId: string): Observable<PFEProject> {
-    return this.http.get<PFEProject>(`${this.apiUrl}/projects/${projetId}`);
+    return this.http.get<PFEProject>(`${this.apiUrl}/${projetId}`);
   }
   generateTopics(keywords: { keywords: string }): Observable<string[]> {
     return this.http.post<string[]>(`${this.apiUrl}/generate-topics`, keywords);
