@@ -25,6 +25,12 @@ import { ViewQuizQuestionsComponent } from './view-quiz-questions/view-quiz-ques
 import { GamificationDashboardComponent } from './gamification-dashboard/gamification-dashboard.component';
 import { QuizSessionComponent } from './quiz-session/quiz-session.component';
 import { QuizAPIComponent } from './quiz-api/quiz-api.component';
+import { ColaborativespaceComponent } from './colaborativespace/colaborativespace.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { ProjectlistComponent } from './projectlist/projectlist.component';
+import { FilemanagerComponent } from './files/filemanager/filemanager.component';
+import { AssignEncadrantComponent } from './assign-encadrant/assign-encadrant.component';
+import { ProjectValidationComponent } from './project-validation/project-validation.component';
 
 
 
@@ -52,6 +58,15 @@ const routes: Routes = [
    {  path: 'Gamification', component: GamificationDashboardComponent}, 
    {  path: 'quiz/:id', component: QuizSessionComponent},
    { path: 'quiz', component:QuizAPIComponent}, 
+   { path: 'projet/:id', component: ProjectDetailsComponent },
+   { path: 'projets', component: ProjectlistComponent },
+   { path: 'projects/:id/files', component: FilemanagerComponent},
+   { path: 'dashbord/assign-encadrant', component: AssignEncadrantComponent },
+   {path: 'validationsProjet', component: ProjectValidationComponent},
+   { 
+    path: 'collaborative-space/:id', 
+    component:ColaborativespaceComponent
+  },
    {
     path: 'admin/evaluations/edit/:idEvaluation',
     component:ModifiequestionComponent,

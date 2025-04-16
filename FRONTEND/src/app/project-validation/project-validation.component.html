@@ -1,0 +1,324 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid px-4 py-5">
+  <!-- Section Statistiques -->
+  <div class="row g-4 mb-4">
+    <div class="col-12 col-md-4">
+      <div class="card statistic-card bg-primary-hover border-0 h-100">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-uppercase text-white opacity-75 mb-2">Projets Totals</h6>
+            <h2 class="text-white mb-0">{{ totalProjets }}</h2>
+          </div>
+          <i class="fas fa-chart-pie fa-3x text-white opacity-50"></i>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-12 col-md-4">
+      <div class="card statistic-card bg-warning-hover border-0 h-100">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-uppercase text-dark opacity-75 mb-2">En Attente</h6>
+            <h2 class="text-dark mb-0">{{ projetsEnAttente }}</h2>
+          </div>
+          <i class="fas fa-hourglass-half fa-3x text-dark opacity-50"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="card statistic-card bg-success-hover border-0 h-100">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="text-uppercase text-white opacity-75 mb-2">Terminés</h6>
+            <h2 class="text-white mb-0">{{ projetsTermines }}</h2>
+          </div>
+          <i class="fas fa-check-double fa-3x text-white opacity-50"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Principale -->
+  <div class="row g-4">
+    <!-- Graphique amélioré -->
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="card-title mb-0">Répartition des Projets</h5>
+        </div>
+        <div class="card-body pt-0 position-relative">
+          <div class="chart-container">
+            <canvas #projectsChart></canvas>
+          </div>
+          <div class="chart-center-label position-absolute start-50 top-50 translate-middle text-center">
+            <h4 class="mb-0">{{ totalProjets }}</h4>
+            <small class="text-muted">Total</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">Projets à Valider</h5>
+          <span class="badge bg-primary">{{ projets.length }} en attente</span>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive custom-scrollbar">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="ps-4">Titre</th>
+                  <th>Porteur</th>
+                  <th>Encadrant</th> <!-- Nouvelle colonne ajoutée -->
+                  <th>Statut</th>
+                  <th class="pe-4 text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let projet of projets">
+                  <td class="ps-4 fw-semibold text-truncate max-w-150">{{ projet.titre }}</td>
+                  <td>{{ projet.porteurProjet }}</td>
+                
+                  <td>
+  {{ projet.encadrant || 'Non assigné' }}
+</td>
+                  <td>
+                    <span class="badge rounded-pill py-2 px-3" 
+                      [ngClass]="{
+                        'bg-warning text-dark': projet.statutProjet === 'EN_ATTENTE',
+                        'bg-primary': projet.statutProjet === 'EN_COURS',
+                        'bg-success': projet.statutProjet === 'TERMINE'
+                      }">
+                      {{ projet.statutProjet | titlecase }}
+                    </span>
+                  </td>
+                  <td class="pe-4 text-end">
+                    <div class="d-flex gap-2 justify-content-end">
+                        <button class="btn btn-sm btn-success px-3" 
+                        (click)="validateOrReject(projet.idProjet, true)">
+                  <i class="fas fa-check me-1"></i>Valider
+                </button>
+                      <button class="btn btn-sm btn-danger px-3" (click)="openRejectionModal(projet)">
+                        <i class="fas fa-times me-1"></i>Rejeter
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal de rejet -->
+<div class="modal fade" id="rejectionModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title">Motif de rejet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <textarea [(ngModel)]="rejectionMotif" class="form-control" rows="4" 
+                  placeholder="Veuillez saisir le motif de rejet..."></textarea>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="validateOrReject(selectedProjet?.idProjet || '', false)">
+          Confirmer le rejet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- New Encadrant Assignment Modal -->
+
+<!-- Modal d'assignation d'encadrant -->
+<div class="modal fade" id="assignEncadrantModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Assigner un Encadrant</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <input type="text" 
+                 class="form-control form-control-lg" 
+                 placeholder="Rechercher un encadrant..."
+                 [(ngModel)]="searchEncadrant">
+        </div>
+        
+        <div class="list-group list-group-flush">
+          <div *ngIf="filteredEncadrants().length === 0" 
+               class="text-center py-4 text-muted">
+            <i class="fas fa-user-slash fa-2x mb-2"></i>
+            <p>Aucun encadrant trouvé</p>
+          </div>
+
+          <button *ngFor="let encadrant of filteredEncadrants()"
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  (click)="selectedEncadrant = encadrant.id">
+            <div class="me-3">
+              <i class="fas fa-user-tie fa-2x text-primary"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h6 class="mb-1 fw-bold">{{ encadrant.username }}</h6>
+              <small class="text-muted">{{ encadrant.email }}</small>
+            </div>
+            <div>
+              <span *ngIf="selectedEncadrant === encadrant.id" 
+                    class="badge bg-success rounded-pill p-2">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" 
+                class="btn btn-secondary" 
+                data-bs-dismiss="modal">Annuler</button>
+        <button type="button" 
+                class="btn btn-primary" 
+                (click)="assignEncadrantToProject()"
+                [disabled]="!selectedEncadrant">
+          <i class="fas fa-user-check me-2"></i>Assigner
+        </button>
+      </div>
+    </div>
+  </div>
+</div><style>
+    :root {
+      --chart-height: 200px;
+      --chart-center-size: 50px;
+    }
+    
+    .statistic-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 12px !important;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Ajout des dégradés de couleur */
+    .bg-primary-hover { 
+      background: linear-gradient(45deg, #3b82f6, #6366f1);
+      color: white !important;
+    }
+    
+    .bg-warning-hover { 
+      background: linear-gradient(45deg, #f59e0b, #fbbf24);
+      color: #1a1a1a !important;
+    }
+    
+    .bg-success-hover { 
+      background: linear-gradient(45deg, #10b981, #34d399);
+      color: white !important;
+    }
+    
+    .statistic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Correction des couleurs de texte pour la carte warning */
+    .bg-warning-hover .text-dark {
+      color: #1a1a1a !important;
+    }
+    
+    .chart-container {
+      position: relative;
+      height: var(--chart-height);
+      padding: 1rem;
+    }
+    
+    .chart-center-label {
+      background: white;
+      border-radius: 50%;
+      width: var(--chart-center-size);
+      height: var(--chart-center-size);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      pointer-events: none;
+    }
+    
+    /* Ajout des styles manquants pour la table */
+    .table {
+      --bs-table-hover-bg: #f8f9fa;
+      font-size: 0.9em;
+    }
+    
+    .custom-scrollbar {
+      max-height: calc(var(--chart-height) + 100px);
+      overflow-y: auto;
+    }
+    
+    .max-w-150 {
+      max-width: 150px;
+    }
+    
+    .btn-sm {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85em;
+    }
+    
+    .badge {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    
+    .modal-content {
+      border-radius: 12px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+
+
+    /* Add these styles to your CSS file */
+.list-group-item {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.modal-content {
+  border-radius: 12px;
+}
+
+.list-group {
+  max-height: 300px;
+  overflow-y: auto;
+}
+    </style>

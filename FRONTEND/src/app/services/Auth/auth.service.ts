@@ -71,6 +71,9 @@ export class AuthService {
       })
     );
   }
+  getEncadrants() {
+    return this.http.get<any[]>(`${this.apiUrl}/encadrants`);
+  }
   
   
 

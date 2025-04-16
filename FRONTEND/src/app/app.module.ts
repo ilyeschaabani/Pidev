@@ -48,6 +48,12 @@ import { ViewQuizQuestionsComponent } from './view-quiz-questions/view-quiz-ques
 import { GamificationDashboardComponent } from './gamification-dashboard/gamification-dashboard.component';
 import { QuizSessionComponent } from './quiz-session/quiz-session.component';
 import { QuizAPIComponent } from './quiz-api/quiz-api.component';
+import { ColaborativespaceComponent } from './colaborativespace/colaborativespace.component';
+import { FilemanagerComponent } from './files/filemanager/filemanager.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { ProjectlistComponent } from './projectlist/projectlist.component';
+import { ProjectValidationComponent } from './project-validation/project-validation.component';
+import { AssignEncadrantComponent } from './assign-encadrant/assign-encadrant.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +85,12 @@ import { QuizAPIComponent } from './quiz-api/quiz-api.component';
     GamificationDashboardComponent,
     QuizSessionComponent,
     QuizAPIComponent,
+    ColaborativespaceComponent,
+    FilemanagerComponent,
+    ProjectDetailsComponent,
+    ProjectlistComponent,
+    ProjectValidationComponent,
+    AssignEncadrantComponent,
     
 
   ],

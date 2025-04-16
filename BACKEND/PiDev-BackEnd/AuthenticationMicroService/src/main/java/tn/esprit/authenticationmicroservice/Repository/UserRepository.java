@@ -1,6 +1,7 @@
 package tn.esprit.authenticationmicroservice.Repository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,7 +16,7 @@ import tn.esprit.authenticationmicroservice.Entity.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> { // Use String as the ID type for MongoDB
     Optional<User> findByEmail(String email);
-    User findByRole(Role role);
+    List<User> findByRole(String role);
 
     // Password update implementation for MongoDB
     @Query("{ 'email' : ?0 }")

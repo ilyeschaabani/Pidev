@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.authenticationmicroservice.Entity.User;
+import tn.esprit.authenticationmicroservice.Repository.UserRepository;
 import tn.esprit.authenticationmicroservice.Service.Authentication.AuthenticationServiceImpl;
 import tn.esprit.authenticationmicroservice.dto.JwtAuthenticationResponse;
 import tn.esprit.authenticationmicroservice.dto.RefreshTokenrequest;
 import tn.esprit.authenticationmicroservice.dto.SignInRequest;
 import tn.esprit.authenticationmicroservice.dto.SignUpRequest;
+
+import java.util.List;
 
 
 @RestController
@@ -19,6 +22,8 @@ import tn.esprit.authenticationmicroservice.dto.SignUpRequest;
 public class AuthentificationRestAPI {
 
     private final AuthenticationServiceImpl authenticationService;
+    private final UserRepository userRepository;
+
 
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@Valid @RequestBody SignUpRequest signUpRequest){
@@ -35,5 +40,9 @@ public class AuthentificationRestAPI {
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(authenticationService.getCurrentUser(token));
+    }
+    @GetMapping("/encadrants")
+    public List<User> getEncadrants() {
+        return userRepository.findByRole("ENCADRANT");
     }
 }
