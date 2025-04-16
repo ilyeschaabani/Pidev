@@ -20,6 +20,13 @@
 					<li class="nav-item">
 						<a class="nav-link fw-medium " href="#">Acceuil</a>
 					</li>
+					<li>
+						<a routerLink="formations/stat" class="btn btn-primary">
+						  <span class="d-none d-md-block">
+							<span class="tf-icons bx bx-user me-md-1"></span>Connection
+						  </span>
+						</a>
+					  </li>
 					<li class="nav-item">
 						<a class="nav-link fw-medium" href="/formations/add">Formation</a>
 					</li>
@@ -62,7 +69,7 @@
 					  <li><div class="dropdown-divider"></div></li>
 					  <li><a class="dropdown-item" routerLink="/profile"><i class="bx bx-user me-2"></i>Mon profile</a></li>
 					  <li *ngIf="user.roles?.includes('ADMIN')">
-						<a class="dropdown-item" routerLink="#"><i class="bx bxs-dashboard me-2"></i>Panel Admin</a>
+						<a class="dropdown-item" routerLink="/dashbord"><i class="bx bxs-dashboard me-2"></i>Panel Admin</a>
 					  </li>
 					  <li><a class="dropdown-item" routerLink="#"><i class="bx bx-cog me-2"></i>Parametres</a></li>
 					  <li><div class="dropdown-divider"></div></li>

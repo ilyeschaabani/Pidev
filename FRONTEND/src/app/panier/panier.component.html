@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4" *ngIf="panier">
+  <h4 class="mb-4">🛒 Mon Panier</h4>
+
+  <div *ngIf="panier.formations.length > 0; else empty">
+    <ul class="list-group mb-4">
+      <li class="list-group-item p-4" *ngFor="let f of panier.formations">
+        <div class="d-flex gap-4 flex-sm-row flex-column align-items-center">
+          <div class="flex-shrink-0">
+            <img src="https://via.placeholder.com/100x100?text=F" alt="formation image" class="w-px-100 rounded">
+          </div>
+          <div class="flex-grow-1 w-100">
+            <div class="row">
+              <div class="col-md-8 text-center text-md-start">
+                <p class="fw-medium mb-1">{{ f.titreFormation }}</p>
+                <p class="text-muted mb-2">{{ f.description }}</p>
+                <div class="badge bg-success mb-2">Disponible</div>
+                <div>
+                  <span class="text-warning me-2">★ {{ f.rating }}/5</span>
+                  <span class="text-primary fw-bold">{{ f.prix }} €</span>
+                </div>
+              </div>
+              <div class="col-md-4 text-center text-md-end">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm mb-2"
+                  (click)="removeFormation(f.idFormation)">
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <h5 class="text-end">Total : <span class="text-primary">{{ panier.total }} €</span></h5>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-success" (click)="checkout()">💳 Passer au paiement</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="alert alert-warning text-center">
+      Votre panier est vide.
+    </div>
+  </ng-template>
+</div>

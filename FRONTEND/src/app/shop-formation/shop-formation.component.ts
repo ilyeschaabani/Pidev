@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Formation, CategoryResource } from '../Models/formations.model';
 import { FormationsService } from '../services/Formations/formations.service';
 import { Router } from '@angular/router';
-// import { PanierService } from '../services/panier.service'; // adjust path if needed
+import { PanierService } from '../services/panier/panier.service'; // adjust path if needed
 
 @Component({
   selector: 'app-shop-formation',
@@ -15,7 +15,7 @@ export class ShopFormationComponent {
   userId: number = 1;
 
   constructor(private formationService: FormationsService,
-    // private panierService: PanierService,
+    private panierService: PanierService,
     private router: Router
   ) {}
 
@@ -38,17 +38,17 @@ export class ShopFormationComponent {
     alert(`Formation "${formation.titreFormation}" added to cart!`);
   }
 
-  // addToCart(userId: number, formationId: string) {
-  //   this.panierService.addFormation(userId, formationId).subscribe({
-  //     next: (res) => {
-  //       console.log('Added to cart:', res);
-  //       alert('Formation added to cart!');
-  //     },
-  //     error: (err) => {
-  //       console.error('Error adding to cart:', err);
-  //       alert('Failed to add formation to cart.');
-  //     }
-  //   });
-  // }
+  addToCart(userId: number, formationId: string) {
+    this.panierService.addFormation(userId, formationId).subscribe({
+      next: (res) => {
+        console.log('Added to cart:', res);
+        alert('Formation added to cart!');
+      },
+      error: (err) => {
+        console.error('Error adding to cart:', err);
+        alert('Failed to add formation to cart.');
+      }
+    });
+  }
 
 }

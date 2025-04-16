@@ -24,6 +24,9 @@ import { FormationlistComponent } from './formation/formationlist/formationlist.
 import { FormationaddComponent } from './formation/formationadd/formationadd.component';
 import { FormationeditComponent } from './formation/formationedit/formationedit.component';
 import { FormationstatComponent } from './formation/formationstat/formationstat.component';
+import { DashbordadminComponent } from './dashbordadmin/dashbordadmin.component';
+import { PanierComponent } from './panier/panier.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { FormationstatComponent } from './formation/formationstat/formationstat.
     FormationaddComponent,
     FormationeditComponent,
     FormationstatComponent,
+    DashbordadminComponent,
+    PanierComponent,
+    
 
   ],
   imports: [
@@ -54,6 +60,7 @@ import { FormationstatComponent } from './formation/formationstat/formationstat.
     BrowserAnimationsModule,
     MatTabsModule,
     MatCardModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
