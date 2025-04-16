@@ -23,7 +23,6 @@ const routes: Routes = [
   {path:'login-success', component:LoginSuccessComponent  }, 
   {path: 'profile',component:ProfileComponent},
   {path: 'shop-formation', component: ShopFormationComponent}, 
- { path: 'formations/add', component: FormationaddComponent }
 ];
 
 @NgModule({
