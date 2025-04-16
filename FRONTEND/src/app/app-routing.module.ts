@@ -6,6 +6,12 @@ import { SignupComponent } from './signup/signup.component';
 import { EmailInputComponent } from './email-input/email-input.component';
 import { OTPverificationComponent } from './otpverification/otpverification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LoginSuccessComponent } from './login-success/login-success.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ShopFormationComponent } from './shop-formation/shop-formation.component'; 
+import { FormationaddComponent } from './formation/formationadd/formationadd.component';
+
+
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -14,6 +20,10 @@ const routes: Routes = [
   {path:'email-input',component:EmailInputComponent},
   {path: 'otpverification',component:OTPverificationComponent },
   {path: 'reset',component:ResetPasswordComponent},
+  {path:'login-success', component:LoginSuccessComponent  }, 
+  {path: 'profile',component:ProfileComponent},
+  {path: 'shop-formation', component: ShopFormationComponent}, 
+ { path: 'formations/add', component: FormationaddComponent }
 ];
 
 @NgModule({

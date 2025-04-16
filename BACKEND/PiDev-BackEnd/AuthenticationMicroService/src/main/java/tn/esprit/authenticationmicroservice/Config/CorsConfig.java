@@ -11,15 +11,14 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:4200"); // Origine autorisée
-
-
-
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        config.setAllowCredentials(true); // Allow cookies/credentials
+        config.addAllowedOrigin("http://localhost:4200"); // Angular app origin
+        config.addAllowedHeader("*"); // Allow all headers
+        config.addAllowedMethod("*"); // Allow all HTTP methods
+        config.addExposedHeader("Authorization"); // Expose Authorization header
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/**", config); // Apply to all paths
 
         return new CorsFilter(source);
     }

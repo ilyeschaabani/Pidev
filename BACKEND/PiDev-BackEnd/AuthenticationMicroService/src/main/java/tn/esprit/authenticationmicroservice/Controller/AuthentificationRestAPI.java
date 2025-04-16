@@ -32,7 +32,8 @@ public class AuthentificationRestAPI {
     public ResponseEntity<JwtAuthenticationResponse> refreshToken(@Valid @RequestBody RefreshTokenrequest refreshTokenrequest){
         return ResponseEntity.ok(authenticationService.refreshToken( refreshTokenrequest));
     }
-
-
-
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(authenticationService.getCurrentUser(token));
+    }
 }

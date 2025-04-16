@@ -6,8 +6,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import tn.esprit.authenticationmicroservice.Entity.User;
+import tn.esprit.authenticationmicroservice.Service.OAuth2.CustomOAuth2User;
 
 import java.security.Key;
 import java.util.Date;
@@ -53,5 +56,18 @@ public class JWTServiceImpl implements JWTService {
     }
     private boolean isTokenexpired (String token) {
         return extractClaim(token, Claims::getExpiration).before(new Date());
+    }
+    public String generateJwtTokenForOAuthUser(Authentication authentication) {
+        System.out.println("Authentication object: " + authentication);
+        CustomOAuth2User oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+        User user = oauthUser.getUser();
+
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("roles", user.getRole().name())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 24h
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
     }
 }

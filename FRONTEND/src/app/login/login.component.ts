@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/Auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +25,11 @@ export class LoginComponent {
         this.message = 'Login failed. Please check your credentials and try again.';
       }
     });
+  }
+
+  
+  loginWithGoogle() {
+    window.location.href = 'http://localhost:9006/oauth2/authorization/google';
   }
   // add methode to handel forget pwd from the backend
  

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import tn.esprit.authenticationmicroservice.Entity.Enum.Role;
 import tn.esprit.authenticationmicroservice.Entity.User;
 import tn.esprit.authenticationmicroservice.Repository.UserRepository;
 
@@ -23,6 +24,20 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
         user.setPassword(newPassword);
         userRepository.save(user);
+    }
+    public User processOAuth2User(String email, String name) {
+        // Check if user exists
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    // Create new user if not found
+                    User newUser = new User();
+                    newUser.setEmail(email);
+                    newUser.setNom(name);
+                    newUser.setRole(Role.CONSULTANT); // Set default role
+                    return userRepository.save(newUser);
+                });
+
+        return user;
     }
 
 }

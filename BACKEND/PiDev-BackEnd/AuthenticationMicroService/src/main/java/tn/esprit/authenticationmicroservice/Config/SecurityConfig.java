@@ -14,7 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import tn.esprit.authenticationmicroservice.Service.JWT.JWTService;
+import tn.esprit.authenticationmicroservice.Service.OAuth2.CustomOAuth2UserService;
 import tn.esprit.authenticationmicroservice.Service.User.UserService;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 
 
 @Configuration
@@ -24,6 +30,9 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final UserService userService;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final JWTService jwtUtils;
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,6 +40,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/oauth2/**", // Allow OAuth2 endpoints
+                                "/login/oauth2/code/**" // OAuth2 redirect URL
+                        ).permitAll()
                         .requestMatchers("api/auth/**").permitAll()
                         .requestMatchers("AuthenticationMicroService/**").permitAll()
                         .requestMatchers("/forgotPassword/**").permitAll()
@@ -40,6 +53,16 @@ public class SecurityConfig {
                         .requestMatchers("/api/Encadrant/**").hasAnyAuthority("ENCADRANT")
                         .requestMatchers("/api/Consultant/**").hasAnyAuthority("CONSULTANT")
                         .anyRequest().authenticated() // Require authentication for all other endpoints
+                )
+                .oauth2Login(oauth -> oauth // Add OAuth2 configuration
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService) // Use custom OAuth2 user service
+                        )
+                        .successHandler((request, response, authentication) -> {
+                            // Redirect to frontend with JWT token after OAuth2 login
+                            String jwtToken = jwtUtils.generateJwtTokenForOAuthUser(authentication);
+                            response.sendRedirect("http://localhost:4200?token=" + jwtToken);
+                        })
                 )
                 .authenticationProvider(authentificationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

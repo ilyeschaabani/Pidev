@@ -7,8 +7,11 @@ import tn.esprit.authenticationmicroservice.dto.RefreshTokenrequest;
 import tn.esprit.authenticationmicroservice.dto.SignInRequest;
 import tn.esprit.authenticationmicroservice.dto.SignUpRequest;
 
+import java.util.Map;
+
 public interface AuthenticationService {
     User singUp(SignUpRequest signUpRequest);
     JwtAuthenticationResponse login(SignInRequest signInRequest);
     JwtAuthenticationResponse refreshToken(RefreshTokenrequest refreshTokenrequest);
+    Map<String, Object> getCurrentUser(String token);
 }

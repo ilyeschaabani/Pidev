@@ -14,6 +14,16 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { EmailInputComponent } from './email-input/email-input.component';
 import { OTPverificationComponent } from './otpverification/otpverification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LoginSuccessComponent } from './login-success/login-success.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ShopFormationComponent } from './shop-formation/shop-formation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { FormationlistComponent } from './formation/formationlist/formationlist.component';
+import { FormationaddComponent } from './formation/formationadd/formationadd.component';
+import { FormationeditComponent } from './formation/formationedit/formationedit.component';
+import { FormationstatComponent } from './formation/formationstat/formationstat.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +36,13 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     EmailInputComponent,
     OTPverificationComponent,
     ResetPasswordComponent,
+    LoginSuccessComponent,
+    ProfileComponent,
+    ShopFormationComponent,
+    FormationlistComponent,
+    FormationaddComponent,
+    FormationeditComponent,
+    FormationstatComponent,
 
   ],
   imports: [
@@ -34,6 +51,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

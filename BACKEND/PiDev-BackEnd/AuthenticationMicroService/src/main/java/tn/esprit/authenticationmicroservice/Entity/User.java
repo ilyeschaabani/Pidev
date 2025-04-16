@@ -29,6 +29,7 @@ public class User implements UserDetails {
     Role role;
     String telephone;
     String adresse;
+    String profileImageUrl;
 
     ForgotPassword forgotPassword;
 

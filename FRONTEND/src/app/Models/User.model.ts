@@ -19,6 +19,7 @@ export interface SignUpRequest {
     telephone: string;
     password: string;
     role: Role[]; 
+    image: File;
 }
 
 
@@ -34,5 +35,6 @@ export interface AuthResponse {
     username: string;
     email: string;
     role: string;
+    profileImageUrl?: string;
   };
 }
