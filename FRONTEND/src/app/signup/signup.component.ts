@@ -25,7 +25,7 @@ export class SignupComponent {
       telephone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      image: [null, Validators.required],  // Change to accept file
+      //image: [null, Validators.required],  // Change to accept file
 
       role: ['', Validators.required]  // Change to single role
     });

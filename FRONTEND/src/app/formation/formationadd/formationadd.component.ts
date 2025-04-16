@@ -36,7 +36,7 @@ export class FormationaddComponent {
 
     this.formationService.addFormation(this.formationForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/formations'], { queryParams: { success: 'Formation added successfully!' } });
+        this.router.navigate(['/formations/list'], { queryParams: { success: 'Formation added successfully!' } });
       },
       error: (err) => {
         console.error('Error:', err);

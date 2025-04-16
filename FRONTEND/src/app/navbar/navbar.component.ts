@@ -37,5 +37,8 @@ export class NavbarComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  goToCart(): void {
+    this.router.navigate(['/panier']);
+  }
 
 }

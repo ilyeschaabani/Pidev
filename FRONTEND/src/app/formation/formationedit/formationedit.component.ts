@@ -55,7 +55,7 @@ export class FormationeditComponent {
       this.formationService.updateFormation(this.formationId, this.formationForm.value).subscribe({
         next: () => {
           console.log("✅ Formation mise à jour avec succès !");
-          this.router.navigate(['/formations'], { queryParams: { success: "Formation mise à jour avec succès!" } });
+          this.router.navigate(['/formations/list'], { queryParams: { success: "Formation mise à jour avec succès!" } });
         },
         error: (err) => {
           console.error("❌ Erreur lors de la mise à jour de la formation:", err);
