@@ -1,61 +1,59 @@
-<div class="form-container">
-  <form (ngSubmit)="onSubmit()" class="form-section">
-    <h2 class="form-title">{{ selectedResource ? 'Modifier' : 'Ajouter' }} une ressource</h2>
+<div class="form-container-modern">
+  <form (ngSubmit)="onSubmit()" class="form-section-modern">
+    <h2 class="form-title-modern">{{ selectedResource ? 'Modifier' : 'Ajouter' }} une ressource</h2>
 
     <!-- Titre -->
-    <div class="form-group">
-      <label for="titre" class="form-label">Titre</label>
-      <input type="text" class="form-input" id="titre" [(ngModel)]="ressource.titre" name="titre" required>
+    <div class="form-group-modern">
+      <label for="titre">Titre</label>
+      <input type="text" id="titre" [(ngModel)]="ressource.titre" name="titre" required />
     </div>
 
     <!-- Description -->
-    <div class="form-group">
-      <label for="description" class="form-label">Description</label>
-      <textarea class="form-input textarea" id="description" [(ngModel)]="ressource.description" name="description" required></textarea>
+    <div class="form-group-modern">
+      <label for="description">Description</label>
+      <textarea id="description" [(ngModel)]="ressource.description" name="description" required></textarea>
     </div>
 
     <!-- Type et Catégorie -->
-    <div class="select-group">
-      <div class="form-group">
-        <label for="type" class="form-label">Type</label>
-        <select class="form-select" id="type" [(ngModel)]="ressource.type" name="type" (change)="onTypeChange()" required>
+    <div class="form-row">
+      <div class="form-group-modern">
+        <label for="type">Type</label>
+        <select id="type" [(ngModel)]="ressource.type" name="type" (change)="onTypeChange()" required>
           <option *ngFor="let type of types" [value]="type">{{ type }}</option>
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="category" class="form-label">Catégorie</label>
-        <select class="form-select" id="category" [(ngModel)]="ressource.category" name="category" required>
+      <div class="form-group-modern">
+        <label for="category">Catégorie</label>
+        <select id="category" [(ngModel)]="ressource.category" name="category" required>
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
       </div>
     </div>
 
-    <!-- Téléversement de fichier -->
-    <div class="file-upload-group">
-      <div class="file-upload">
-        <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
-        <label for="fileInput" class="upload-label">
-          <i class="upload-icon"></i>
-          <span>{{ selectedFile ? selectedFile.name : 'Choisir un fichier' }}</span>
-        </label>
-        <button type="button" class="upload-button" (click)="uploadFile()">Téléverser</button>
-      </div>
+    <!-- Upload (vertical layout) -->
+    <div class="upload-container-vertical">
+      <label for="fileInput" class="upload-label-modern">
+        <span class="upload-icon">📎</span>
+        {{ selectedFile ? selectedFile.name : 'Choisir un fichier' }}
+      </label>
+      <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden />
+
+      <button type="button" class="violet-button" (click)="uploadFile()">Téléverser</button>
+
       <div class="upload-message" *ngIf="uploadMessage">{{ uploadMessage }}</div>
     </div>
 
     <!-- Boutons -->
-    <div class="form-actions">
-      <button type="submit" class="submit-button" [disabled]="ressource.fileName === ''">
+    <div class="form-actions-modern">
+      <button type="submit" class="violet-button" [disabled]="ressource.fileName === ''">
         {{ selectedResource ? 'Modifier' : 'Ajouter' }}
       </button>
-      <button type="button" class="reset-button" (click)="resetForm()">Réinitialiser</button>
+      <button type="button" class="cancel-button" (click)="resetForm()">Réinitialiser</button>
     </div>
 
-    <!-- Messages de succès ou d'erreur -->
-    <div class="alert-container">
-      <div *ngIf="successMessage" class="alert success">{{ successMessage }}</div>
-      <div *ngIf="errorMessage" class="alert error">{{ errorMessage }}</div>
-    </div>
+    <!-- Alertes -->
+    <div class="alert-message success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="alert-message error" *ngIf="errorMessage">{{ errorMessage }}</div>
   </form>
 </div>

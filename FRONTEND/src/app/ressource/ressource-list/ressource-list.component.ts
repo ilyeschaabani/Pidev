@@ -76,7 +76,7 @@ if (closeButton instanceof HTMLElement) {
   }
 
   downloadFile(type:string,name:string){
-    const url=`http://localhost:8082/api/download/${type}/${name}`;
+    const url=`http://localhost:8082/api/download/${type}/${name}?preview=false`;
     const link = document.createElement('a');
     link.href = url;
     link.download = name;  // Optional: Set the download attribute to suggest a file name
