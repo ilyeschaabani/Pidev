@@ -87,4 +87,29 @@ public class PFEProjectService {
         project.setEvaluation(evaluation);
         return projectRepository.save(project);
     }
+
+
+    public PFEProject updateProject(String id, PFEProject updatedProject) {
+        PFEProject existingProject = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvé"));
+
+        existingProject.setTitle(updatedProject.getTitle());
+        existingProject.setDescription(updatedProject.getDescription());
+        existingProject.setStudentIds(updatedProject.getStudentIds());
+        existingProject.setMentorId(updatedProject.getMentorId());
+        existingProject.setStage(updatedProject.getStage());
+        existingProject.setDocuments(updatedProject.getDocuments());
+        existingProject.setComments(updatedProject.getComments());
+        existingProject.setEvaluation(updatedProject.getEvaluation());
+
+        return projectRepository.save(existingProject);
+    }
+
+    public void deleteProject(String id) {
+        if (!projectRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Projet non trouvé");
+        }
+        projectRepository.deleteById(id);
+    }
+
 }

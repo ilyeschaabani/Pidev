@@ -1,24 +1,88 @@
-.container {
-    padding: 20px;
-  }
-  .card {
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  button {
-    margin-top: 10px;
-    background-color: #1976d2;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  input[type='text'] {
-    padding: 5px;
-    margin-right: 5px;
-  }
-  
+/* Structure principale */
+.interface-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+/* En-tête de section */
+.en-tete-section {
+  margin-bottom: 2rem;
+}
+
+.titre-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.titre-principal {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+/* Cartes de projet */
+.carte-projet {
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.carte-projet:hover {
+  transform: translateY(-3px);
+}
+
+/* Panneaux interactifs */
+.panneaux-interactifs {
+  margin-top: 1.5rem;
+}
+
+/* Gestion des fichiers */
+.gestion-fichiers {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.controles-upload {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Module de génération */
+.module-generation {
+  background: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.interface-generation {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Résultats */
+.resultats-generation {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Icônes */
+.icone-panneau {
+  margin-right: 0.5rem;
+  color: #4a90e2;
+}
+
+/* États interactifs */
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

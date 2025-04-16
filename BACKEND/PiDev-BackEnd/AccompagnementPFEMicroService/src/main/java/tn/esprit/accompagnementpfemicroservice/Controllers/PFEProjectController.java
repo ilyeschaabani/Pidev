@@ -40,6 +40,27 @@ public class PFEProjectController {
     public PFEProject createProject(@RequestBody PFEProject project) {
         return projectService.createProject(project);
     }
+    // 🔄 Mettre à jour un projet complet
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProject(@PathVariable String id, @RequestBody PFEProject project) {
+        try {
+            PFEProject updated = projectService.updateProject(id, project);
+            return ResponseEntity.ok(updated);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    // ❌ Supprimer un projet
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProject(@PathVariable String id) {
+        try {
+            projectService.deleteProject(id);
+            return ResponseEntity.ok("Projet supprimé avec succès.");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
     @PutMapping("/{id}/stage")
     public PFEProject updateProjectStage(@PathVariable String id, @RequestBody ProjectStage stage) {

@@ -18,6 +18,16 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StudentsProjectComponent } from './accompagnemenet/components/students-project/students-project.component';
+import { ProjetPfeListComponent } from './accompagnemenet/components/projet-pfe-list/projet-pfe-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,6 +44,7 @@ import { StudentsProjectComponent } from './accompagnemenet/components/students-
     CollaborativeSpaceComponent,
     TaskListComponent,
     StudentsProjectComponent,
+    ProjetPfeListComponent,
 
   ],
   imports: [
@@ -43,7 +54,16 @@ import { StudentsProjectComponent } from './accompagnemenet/components/students-
     FormsModule,
     DragDropModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+     MatIconModule,
+    MatCardModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatListModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

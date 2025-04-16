@@ -11,6 +11,7 @@ import { FileManagerComponent } from './files/file-manager/file-manager.componen
 import { CollaborativeSpaceComponent } from './projet/collaborative-space/collaborative-space.component';
 import { TaskListComponent } from './projet/task-list/task-list.component';
 import { StudentsProjectComponent } from './accompagnemenet/components/students-project/students-project.component';
+import { ProjetPfeListComponent } from './accompagnemenet/components/projet-pfe-list/projet-pfe-list.component';
 const routes: Routes = [
   {path: '', component:HomeComponent},
   { path: 'projets', component: ProjectListComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'projects/:id/files', component: FileManagerComponent },
 
   { path: 'student', component: StudentsProjectComponent },
+  { path: 'PfeList', component: ProjetPfeListComponent },
 
 
 ];
