@@ -5,18 +5,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.accompagnementpfemicroservice.Entities.*;
+import tn.esprit.accompagnementpfemicroservice.Repositories.PFEProjectRepository;
+import tn.esprit.accompagnementpfemicroservice.Repositories.UserRepository;
+import tn.esprit.accompagnementpfemicroservice.Services.GeminiService;
 import tn.esprit.accompagnementpfemicroservice.Services.PFEProjectService;
 import tn.esprit.accompagnementpfemicroservice.Services.ResourceNotFoundException;
 
 import java.nio.file.AccessDeniedException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/projects")
 public class PFEProjectController {
     @Autowired
     private PFEProjectService projectService;
+    @Autowired
+    private GeminiService geminiService;
 
+    @PostMapping("/generate-topics")
+    public ResponseEntity<String> generatePfeTopics(@RequestBody String studentProfile) {
+        String topics = geminiService.generatePfeTopics(studentProfile);
+        return ResponseEntity.ok(topics);
+    }
     @GetMapping
     public List<PFEProject> getAllProjects() {
         return projectService.getAllProjects();
