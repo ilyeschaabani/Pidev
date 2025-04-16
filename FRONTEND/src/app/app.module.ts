@@ -17,6 +17,7 @@ import { TaskListComponent } from './projet/task-list/task-list.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StudentsProjectComponent } from './accompagnemenet/components/students-project/students-project.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FileManagerComponent,
     CollaborativeSpaceComponent,
     TaskListComponent,
+    StudentsProjectComponent,
 
   ],
   imports: [

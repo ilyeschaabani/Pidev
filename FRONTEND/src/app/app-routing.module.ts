@@ -10,6 +10,7 @@ import { AssignEncadrantComponent } from './Admin/assign-encadrant/assign-encadr
 import { FileManagerComponent } from './files/file-manager/file-manager.component';
 import { CollaborativeSpaceComponent } from './projet/collaborative-space/collaborative-space.component';
 import { TaskListComponent } from './projet/task-list/task-list.component';
+import { StudentsProjectComponent } from './accompagnemenet/components/students-project/students-project.component';
 const routes: Routes = [
   {path: '', component:HomeComponent},
   { path: 'projets', component: ProjectListComponent },
@@ -23,7 +24,9 @@ const routes: Routes = [
     component: CollaborativeSpaceComponent 
   },
   { path: 'projects/:id/files', component: FileManagerComponent },
-  { path: 'tasks', component: TaskListComponent },
+
+  { path: 'student', component: StudentsProjectComponent },
+
 
 ];
 

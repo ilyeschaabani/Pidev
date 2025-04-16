@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/projects")
+@CrossOrigin(origins = "http://localhost:4200") // autorise Angular
 public class PFEProjectController {
     @Autowired
     private PFEProjectService projectService;
