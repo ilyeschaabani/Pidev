@@ -1,6 +1,5 @@
 import { NgModule  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -71,6 +70,7 @@ import { PfeDetailsComponent } from './accompagnement/pfe-details/pfe-details.co
 import { ProjectPfeListComponent } from './accompagnement/project-pfe-list/project-pfe-list.component';
 import { StudentProjectComponent } from './accompagnement/student-project/student-project.component';
 import { MatListModule } from '@angular/material/list';
+import { CertifComponent } from './certif/certif.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +123,8 @@ import { MatListModule } from '@angular/material/list';
     MentorProjectComponent,
     PfeDetailsComponent,
     ProjectPfeListComponent,
-    StudentProjectComponent
+    StudentProjectComponent,
+    CertifComponent
     
 
   ],

@@ -14,7 +14,7 @@ interface UploadResponse {
 export class FileUploadService {
 
  
-  private baseUrl = 'http://localhost:8082/api/upload'; // Update with your backend URL
+  private baseUrl = 'http://localhost:9008/api/upload'; // Update with your backend URL
 
   constructor(private http: HttpClient) {}
   uploadFile(file: File, fileType: string): Observable<string> {

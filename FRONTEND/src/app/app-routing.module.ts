@@ -40,6 +40,7 @@ import { MentorProjectComponent } from './accompagnement/mentor-project/mentor-p
 import { MentorListComponent } from './accompagnement/mentor-list/mentor-list.component';
 import { AdminManageProjectComponent } from './accompagnement/admin-manage-project/admin-manage-project.component';
 import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.component';
+import { CertifComponent } from './certif/certif.component';
 
 
 
@@ -61,7 +62,7 @@ const routes: Routes = [
    { path: 'formations/stat',component:FormationstatComponent },
    { path: 'quiz/add',component:AddquizComponent },
    { path: 'question/add',component:AddquestionComponent},
-   { path: 'evaluation/dashbord',component:DashbordevaluationComponent},
+   { path: 'evaluationdashbord',component:DashbordevaluationComponent},
    { path: 'evaluation-list', component: EvaluationListComponent },
    {  path: 'view-questions/:id', component:ViewQuizQuestionsComponent }, 
    {  path: 'Gamification', component: GamificationDashboardComponent}, 
@@ -82,6 +83,7 @@ const routes: Routes = [
    { path: 'mentor/project', component: MentorListComponent },
  
    { path: 'adminPfe', component: AdminManageProjectComponent },
+   { path: 'certif/:id', component: CertifComponent },
    { 
     path: 'collaborative-space/:id', 
     component:ColaborativespaceComponent

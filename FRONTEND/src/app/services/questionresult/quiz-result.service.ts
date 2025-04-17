@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 
 // Define or import the QuizResult interface
 export interface QuizResult {
+titre: any;
+quizId: any;
+date: any;
   id: string;
   idEvaluation: string;
   score: number;

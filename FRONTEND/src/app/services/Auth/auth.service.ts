@@ -8,6 +8,9 @@ import { SignUpRequest, SignInRequest, AuthResponse } from "../../Models/User.mo
   providedIn: 'root'
 })
 export class AuthService {
+  getAllUsers() {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:9006/api/auth'; // API Gateway
 
   constructor(private http: HttpClient) {}

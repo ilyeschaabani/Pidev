@@ -1,0 +1,44 @@
+/* Arrière-plan clair */
+.modern-container {
+    background-color: #f9f9fb;
+    min-height: 100vh;
+  }
+  
+  /* Titre principal et section filtre */
+  .text-mauve {
+    color: #9f6ee8;
+  }
+  
+  /* Bouton personnalisé */
+  .btn-mauve {
+    background-color: #9f6ee8;
+    color: #fff;
+    border: none;
+  }
+  .btn-mauve:hover {
+    background-color: #844cd3;
+    color: #fff;
+  }
+  
+  /* Bordures et champs */
+  input.form-control,
+  select.form-select {
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Bouton d'action preview */
+  .btn-outline-mauve {
+    border: 1px solid #9f6ee8;
+    color: #9f6ee8;
+  }
+  .btn-outline-mauve:hover {
+    background-color: #9f6ee8;
+    color: #fff;
+  }
+  
+  .modern-container {
+    background-color: #f9f9fb;
+    min-height: 100vh;
+    margin-top: 2rem; /* ou 3rem selon l'espacement désiré */
+  }

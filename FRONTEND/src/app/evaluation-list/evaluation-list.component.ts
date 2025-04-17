@@ -106,7 +106,7 @@ export class EvaluationListComponent {
  // Méthode corrigée pour l'assignation des questions
  assignQuestions(evaluation: Evaluation): void {
   // Navigation vers la page d'assignation (/quiz/:id)
-  this.router.navigate(['/quiz', evaluation.idEvaluation], {
+  this.router.navigate(['/affecter'], {
     state: {
       evaluationTitle: evaluation.titre,
       existingQuestionIds: this.getExistingQuestionIds(evaluation.idEvaluation)
@@ -117,5 +117,10 @@ export class EvaluationListComponent {
 private getExistingQuestionIds(idEvaluation: string): string[] {
   return this.questionsMap[idEvaluation]?.map(q => q.quesId).filter((id): id is string => id !== undefined) || [];
 }
+
+  // Méthode de navigation
+  navigateToQuizapi(): void {
+    this.router.navigate(['/quiz']); // Redirection vers la route '/dashboard'
+  }
 
 }
