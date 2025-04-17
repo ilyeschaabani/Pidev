@@ -1,0 +1,36 @@
+/* Projects Section Styling */
+.projects-list .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(67, 89, 113, 0.12);
+  }
+  
+  .projects-list .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .project-title {
+    color: #566a7f;
+    font-weight: 600;
+    max-width: 70%;
+  }
+  
+  .avatar-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .projects-list .col-md-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    
+    .project-title {
+      max-width: 100%;
+    }
+  }

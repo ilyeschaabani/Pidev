@@ -1,30 +1,59 @@
-<app-navbar></app-navbar>
-<br /><br /><br />
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<app-dashbordadmin></app-dashbordadmin>    </aside>
 
-<div *ngFor="let projet of projets" class="card my-3">
-  <div class="card-body">
-    <h5 class="card-title">{{ projet.title }}</h5>
-    <p class="card-text">{{ projet.description }}</p>
+    <!-- Main Content -->
+    <div class="layout-page">
+  
 
-    <strong>Étudiants :</strong>
-    <ng-container *ngIf="projet.studentIds && projet.studentIds.length > 0; else noStudents">
-      <span *ngFor="let studentId of projet.studentIds" class="badge bg-primary me-1">
-        {{ studentId }}
-      </span>
-    </ng-container>
-    <ng-template #noStudents>
-      <span class="text-muted">Aucun étudiant</span>
-    </ng-template>
+      <!-- Content Wrapper -->
+      <div class="content-wrapper" style="position: relative;">
+        <!-- Projects Section -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="fw-bold py-3 mb-4">Gestion des Projets Mentors</h4>
 
-    <div class="mt-3">
-      <!-- Nouveau bouton Collaborations -->
-      <button
-      class="btn btn-success me-2"
-      *ngIf="projet.id"
-      (click)="goToMentorProject(projet.id)">
-      Collaborations
-    </button>
-    
+          <div class="projects-list row g-4">
+            <div *ngFor="let projet of projets" class="col-md-6 col-xl-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="project-title mb-0">{{ projet.title }}</h5>
+                    <span class="badge bg-label-primary">En cours</span>
+                  </div>
+                  
+                  <p class="project-description text-muted mb-4">{{ projet.description }}</p>
+
+                  <div class="students-section mb-4">
+                    <small class="text-muted fw-semibold d-block mb-2">Équipe :</small>
+                    <div class="students-list">
+                      <ng-container *ngIf="projet.studentIds?.length; else noStudents">
+                        <div *ngFor="let studentId of projet.studentIds" 
+                             class="avatar avatar-xs me-2">
+                          <span class="avatar-initial rounded-circle bg-label-info">
+                            {{ studentId | slice:0:1 }}
+                          </span>
+                        </div>
+                      </ng-container>
+                      <ng-template #noStudents>
+                        <span class="text-muted small">Aucun étudiant assigné</span>
+                      </ng-template>
+                    </div>
+                  </div>
+
+                  <button class="btn btn-primary w-100" 
+                          *ngIf="projet.id"
+                          (click)="goToMentorProject(projet.id)">
+                    <i class="bx bx-group me-2"></i>
+                    Gérer les collaborations
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

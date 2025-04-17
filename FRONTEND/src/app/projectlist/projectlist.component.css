@@ -1,0 +1,125 @@
+.hover-shadow {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .hover-shadow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background-color: #f8f9fa;
+  }
+  
+  .status-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .status-badge i {
+    font-size: 0.8rem;
+  }
+  
+  .badge-en_attente { 
+    background-color: #fff3cd; 
+    color: #856404;
+    border: 1px solid #ffe69c;
+  }
+  
+  .badge-en_cours { 
+    background-color: #cfe2ff; 
+    color: #052c65;
+    border: 1px solid #9ec5fe;
+  }
+  
+  .badge-termine { 
+    background-color: #d1e7dd; 
+    color: #0a3622;
+    border: 1px solid #a3cfbb;
+  }
+  
+  .avatar-initial {
+    width: 36px;
+    height: 36px;
+    font-weight: 600;
+    background-color: #e9ecef;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .form-section {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-section h6 {
+    color: #2d3a4a;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .input-icon {
+    position: relative;
+  }
+  
+  .input-icon i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+  }
+  
+  .input-icon input,
+  .input-icon textarea,
+  .input-icon select {
+    padding-left: 40px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #e5e7eb, #eef0f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  
+  .icon-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .form-section {
+    background: #f8fafc;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .border-primary {
+    border: 1px solid #c3dafe !important;
+    transition: border-color 0.3s ease;
+  }
+  
+  .border-primary:focus {
+    border-color: #4299e1 !important;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+  }
+  
+  .form-floating label {
+    color: #4a5568;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }

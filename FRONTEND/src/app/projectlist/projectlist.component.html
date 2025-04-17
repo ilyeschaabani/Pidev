@@ -1,84 +1,116 @@
 <app-navbar></app-navbar>
-<br><br><br>
-<!-- project-list.component.html -->
-
-
-<div class="container-fluid mt-4">
-  <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="hero background" class="position-absolute top-0 start-50 translate-middle-x object-fit-cover w-100 h-100">
-  <div class="row justify-content-center">
-    <div class="col-xl-15 col-lg-15">
-      <div class="card shadow-lg p-3">
-        <div class="mt-3 d-flex justify-content-end">
-          <button class="btn create-new btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProject">
-            <i class="bx bx-plus icon-sm"></i> <span class="d-none d-sm-inline-block">Ajouter Projet</span>
-          </button>
+<br> <br> <br> <br>
+<div class="container-fluid px-4 py-5">
+  <!-- Hero Section -->
+  <div class="hero-section position-relative overflow-hidden rounded-4 mb-5">
+    <div class="position-absolute w-100 h-100 bg-primary opacity-10"></div>
+    <div class="container position-relative py-9">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="display-5 fw-bold gradient-text mb-2">Gestion des Projets</h1>
+          <p class="lead text-secondary mb-4" style="font-weight: 500; letter-spacing: 0.5px;">
+          </p>
         </div>
-        <h4 class="text-center text-primary mb-3">Liste des Projets</h4>
+    
+      </div>
+    </div>
+  </div>
 
-        <div class="table-responsive">
-          <table class="table table-hover table-bordered">
-            <thead class="table-dark text-center">
-              <tr>
-                <th class="text-truncate">Titre</th>
-                <th class="text-truncate">Porteur de Projet</th>
-                <th class="text-truncate">Statut</th>
-                <th class="text-truncate">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let projet of projets" class="text-center align-middle">
-                <td class="text-truncate fw-bold">{{ projet.titre }}</td>
-                <td class="text-truncate">{{ projet.porteurProjet }}</td>
-               
-                <td>
-                  <span 
-                    [ngClass]="{
-                      'bg-warning text-dark': projet.statutProjet === StatutProjet.EN_ATTENTE,
-                      'bg-primary': projet.statutProjet === StatutProjet.EN_COURS,
-                      'bg-success': projet.statutProjet === StatutProjet.TERMINE
-                    }"
-                    class="badge rounded-pill px-3 py-2"
-                  >
-                    {{ projet.statutProjet }}
-                  </span>
-                </td>
+  <!-- Project List Card -->
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
+      <h3 class="mb-0 text-primary"><i class="bx bx-folder-open me-2"></i>Projets en cours</h3>
+      <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProject">
+        <i class="bx bx-plus me-2"></i>Nouveau Projet
+      </button>
+    </div>
+    
+    <div class="card-body p-0">
+      <div class="table-responsive rounded-3">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light-primary">
+            <tr>
+              <th class="ps-4 py-3 fw-semibold text-start" style="min-width: 250px;">Projet</th>
+              <th class="py-3 fw-semibold">Porteur</th>
+              <th class="py-3 fw-semibold">Statut</th>
+              <th class="py-3 fw-semibold text-end pe-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let projet of projets" class="position-relative hover-shadow">
+              <td class="ps-4">
+                <div class="d-flex align-items-center">
+                  <div class="symbol symbol-40px me-3">
+                    <span class="symbol-label bg-light-primary">
+                      <i class="bx bx-folder text-primary fs-4"></i>
+                    </span>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-dark">{{ projet.titre }}</div>
+                    <small class="text-muted">{{ projet.technologies }}</small>
+                  </div>
+                </div>
+              </td>
+              
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm me-2">
+                    <span class="avatar-initial rounded-circle bg-label-primary">{{ projet.porteurProjet[0] }}</span>
+                  </div>
+                  {{ projet.porteurProjet }}
+                </div>
+              </td>
+              <td>
+                <div class="status-badge badge-{{ projet.statutProjet }}">
+                  <i class="bx bx-time"></i>
+                  {{ projet.statutProjet | titlecase }}
+                </div>
+              </td>
 
-                <td>
-                  <div class="d-flex align-items-center justify-content-center">
-                    <a href="javascript:;" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect delete-record" data-bs-toggle="tooltip" title="Supprimer" (click)="confirmDelete(projet.idProjet)">
-                      <i class="ri-delete-bin-7-line ri-22px"></i>
-                    </a>
-
-                    <a class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect" 
-                       data-bs-toggle="tooltip"  
-                       title="Aperçu" 
-                       (click)="afficherDetailsProjet(projet.idProjet)">
-                      <i class="ri-eye-line ri-22px"></i>
-                    </a>
-
-                    <button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                      <i class="ri-more-2-line ri-22px"></i>
+              <td class="pe-4 text-end">
+                <div class="d-flex justify-content-end gap-2">
+                  <button class="btn btn-icon btn-sm btn-light-primary rounded-circle" 
+                          (click)="afficherDetailsProjet(projet.idProjet)"
+                          data-bs-toggle="tooltip" title="Voir détails">
+                    <i class="bx bx-show"></i>
+                  </button>
+                  
+                  <div class="dropdown">
+                    <button class="btn btn-icon btn-sm btn-light-secondary rounded-circle dropdown-toggle" 
+                            data-bs-toggle="dropdown"
+                            data-bs-toggle="tooltip" title="Plus d'options">
+                      <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
-
-                    <div class="dropdown-menu dropdown-menu-end m-0">
-                      <a href="javascript:;" class="dropdown-item" (click)="modifierProjet(projet)">
-                        <i class="ri-edit-box-line me-2"></i><span>Modifier</span>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" (click)="modifierProjet(projet)">
+                        <i class="bx bx-edit me-2"></i>Modifier
                       </a>
-                      <a href="javascript:;" class="dropdown-item delete-record" (click)="confirmDelete(projet.idProjet)">
-                        <i class="ri-delete-bin-7-line me-2"></i><span>Supprimer</span>
+                      <a class="dropdown-item text-danger" (click)="confirmDelete(projet.idProjet)">
+                        <i class="bx bx-trash me-2"></i>Supprimer
                       </a>
                     </div>
                   </div>
-                                  <!-- Ajoutez cette colonne dans le tableau -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
- 
-
-                </td>
-                
-              </tr>
-            </tbody>
-          </table>
+      <!-- Empty State -->
+      <div *ngIf="projets?.length === 0" class="text-center py-9">
+        <div class="mb-3">
+          <i class="bx bx-folder-open text-muted display-5"></i>
         </div>
+        <h5 class="text-muted mb-2">Aucun projet trouvé</h5>
+        <p class="text-muted">Commencez par créer votre premier projet</p>
+        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProject">
+          <i class="bx bx-plus me-2"></i>Ajouter un projet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
         <!-- Modal de confirmation de suppression -->
         <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -105,60 +137,95 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
           </div>
           <div class="offcanvas-body">
-            <form (ngSubmit)="onSubmit()">
-              <div class="mb-3">
-                <label for="titre" class="form-label">Titre du Projet</label>
-                <input type="text" class="form-control" id="titre" [(ngModel)]="newProjet.titre" name="titre" required>
+            <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+              <div class="form-section mb-4">
+                <div class="d-flex align-items-center mb-4">
+                  <div class="icon-wrapper bg-primary me-3">
+                    <i class="bx bx-file text-white"></i>
+                  </div>
+                  <h5 class="mb-0 text-dark">Nouveau Projet</h5>
+                </div>
+          
+                <div class="row g-4">
+                  <!-- Colonne Gauche -->
+                  <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control border-primary" id="titre" 
+                             [(ngModel)]="newProjet.titre" name="titre" required>
+                      <label for="titre"><i class="bx bx-rename me-2"></i>Nom du projet</label>
+                    </div>
+          
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control border-primary" id="description" 
+                                [(ngModel)]="newProjet.description" name="description" 
+                                style="height: 120px"></textarea>
+                      <label for="description"><i class="bx bx-detail me-2"></i>Description</label>
+                    </div>
+          
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control border-primary" 
+                             [(ngModel)]="newProjet.porteurProjet" name="porteurProjet" required>
+                      <label for="porteurProjet"><i class="bx bx-user me-2"></i>Porteur de projet</label>
+                    </div>
+          
+                    <div class="form-floating">
+                      <select class="form-select border-primary" 
+                              [(ngModel)]="newProjet.statutProjet" name="statutProjet">
+                        <option value="EN_ATTENTE">En attente</option>
+                        <option value="EN_COURS">En cours</option>
+                        <option value="TERMINE">Terminé</option>
+                      </select>
+                      <label><i class="bx bx-category me-2"></i>Statut du projet</label>
+                    </div>
+                  </div>
+          
+                  <!-- Colonne Droite -->
+                  <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control border-primary" 
+                             [(ngModel)]="newProjet.email" name="email" required>
+                      <label for="email"><i class="bx bx-envelope me-2"></i>Email</label>
+                    </div>
+          
+                    <div class="form-floating mb-3">
+                      <input type="tel" class="form-control border-primary" 
+                             [(ngModel)]="newProjet.telephone" name="telephone">
+                      <label for="telephone"><i class="bx bx-phone me-2"></i>Téléphone</label>
+                    </div>
+          
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control border-primary" 
+                             [(ngModel)]="newProjet.technologies" name="technologies">
+                      <label for="technologies"><i class="bx bx-chip me-2"></i>Technologies</label>
+                    </div>
+          
+                    <div class="form-floating">
+                      <select class="form-select border-primary" 
+                              [(ngModel)]="newProjet.espaceCollaboratif" name="espaceCollaboratif">
+                        <option [value]="true">Espace collaboratif activé</option>
+                        <option [value]="false">Espace collaboratif désactivé</option>
+                      </select>
+                      <label><i class="bx bx-group me-2"></i>Collaboration</label>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="mt-4">
+                  <div class="form-floating">
+                    <textarea class="form-control border-primary" 
+                              [(ngModel)]="newProjet.objectifs" name="objectifs" 
+                              style="height: 100px"></textarea>
+                    <label for="objectifs"><i class="bx bx-target-lock me-2"></i>Objectifs stratégiques</label>
+                  </div>
+                </div>
               </div>
-              <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" [(ngModel)]="newProjet.description" name="description"></textarea>
+          
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg fw-semibold py-3">
+                  <i class="bx bx-check-shield me-2"></i>Enregistrer le projet
+                </button>
               </div>
-              <div class="mb-3">
-                <label for="porteurProjet" class="form-label">Porteur du Projet</label>
-                <input type="text" class="form-control" id="porteurProjet" [(ngModel)]="newProjet.porteurProjet" name="porteurProjet">
-              </div>
-            
-              <div class="mb-3">
-                <label for="espaceCollaboratif" class="form-label">Espace Collaboratif</label>
-                <select class="form-control" [(ngModel)]="newProjet.espaceCollaboratif" name="espaceCollaboratif">
-                  <option [value]="true">Oui</option>
-                  <option [value]="false">Non</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="statutProjet" class="form-label">Statut du Projet</label>
-                <select class="form-control" [(ngModel)]="newProjet.statutProjet" name="statutProjet">
-                  <option value="EN_ATTENTE">En attente</option>
-                  <option value="EN_COURS">En cours</option>
-                  <option value="TERMINE">Terminé</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" [(ngModel)]="newProjet.email" name="email" required>
-              </div>
-              <div class="mb-3">
-                <label for="telephone" class="form-label">Téléphone</label>
-                <input type="text" class="form-control" id="telephone" [(ngModel)]="newProjet.telephone" name="telephone">
-              </div>
-              <div class="mb-3">
-                <label for="technologies" class="form-label">Technologies</label>
-                <input type="text" class="form-control" id="technologies" [(ngModel)]="newProjet.technologies" name="technologies">
-              </div>
-              <div class="mb-3">
-                <label for="objectifs" class="form-label">Objectifs</label>
-                <textarea class="form-control" id="objectifs" [(ngModel)]="newProjet.objectifs" name="objectifs"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="benefices" class="form-label">Bénéfices</label>
-                <textarea class="form-control" id="benefices" [(ngModel)]="newProjet.benefices" name="benefices"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div> 
+   

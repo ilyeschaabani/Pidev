@@ -1,1 +1,78 @@
-<p>colaborativespace works!</p>
+<app-navbar></app-navbar>
+<br><br><br>
+
+<br> <br>
+ 
+<div class="container mt-4">
+    <h3>Espace Collaboratif du Projet</h3>
+     <!-- Section Milestones -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Milestones du Projet</h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date d'échéance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let milestone of milestones">
+            <td>{{ milestone.title }}</td>
+            <td>{{ milestone.description }}</td>
+            <td>{{ milestone.dueDate | date:'medium' }}</td>
+            <td>{{ milestone.completed ? 'Complété' : 'Non complété' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <!-- Section Upload -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5>Ajouter un fichier</h5>
+      </div>
+      <div class="card-body">
+        <div class="input-group">
+          <input type="file" class="form-control" (change)="onFileSelected($event)">
+          <button class="btn btn-primary" (click)="uploadFile()" [disabled]="!newFile">
+            <i class="fas fa-upload"></i> Téléverser
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Liste des fichiers -->
+    <div class="card">
+      <div class="card-header">
+        <h5>Fichiers partagés</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nom du fichier</th>
+              <th>Date d'upload</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of files">
+              <td>{{ file.fileName }}</td>
+              <td>{{ file.uploadDate | date:'medium' }}</td>
+              <td>
+                <button class="btn btn-sm btn-success" 
+                        (click)="downloadFile(file.id, file.fileName)">
+                  <i class="fas fa-download"></i> Télécharger
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
