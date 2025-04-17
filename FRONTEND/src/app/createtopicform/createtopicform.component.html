@@ -1,0 +1,80 @@
+<div class="container mt-4">
+    <h2>Create Event Topic</h2>
+    <form [formGroup]="topicForm" (ngSubmit)="createTopic()">
+      <button class="btn btn-warning  mb-3" type="button" (click)="useIA()">
+        Use IA 
+      </button>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          formControlName="title"
+          [disabled]="loadingIAtitle"
+        />
+        <div *ngIf="loadingIAtitle">Thinking ... </div>
+        <div *ngIf="topicForm.get('title')?.invalid && topicForm.get('title')?.touched" class="text-danger">
+          Title is required and must be at least 3 characters.
+        </div>
+
+      </div>
+  
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          class="form-control"
+          formControlName="description"
+          [disabled]="loadinIAdescprtion"
+
+        ></textarea>
+        <div *ngIf="loadinIAdescprtion">Thinking ... </div>
+
+        <div *ngIf="topicForm.get('description')?.invalid && topicForm.get('description')?.touched" class="text-danger">
+          Description is required and must be at least 10 characters.
+        </div>
+      
+      </div>
+    
+      <div class="mb-3">
+
+      <input type="file" (change)="onFileSelected($event)" accept="image/*,video/*" />
+   </div>
+
+      <div class="form-check mb-3">
+        <input type="checkbox" formControlName="isEvent" class="form-check-input" id="isEvent">
+        <label class="form-check-label" for="isEvent">Is this an event?</label>
+      </div>
+    
+      <!-- Location (conditionally required) -->
+      <div class="mb-3" *ngIf="topicForm.get('isEvent')?.value">
+        <label for="location">Location</label>
+        <input type="text" formControlName="location" class="form-control" id="location">
+        <div class="text-danger" *ngIf="topicForm.get('location')?.touched && topicForm.get('location')?.hasError('required')">
+          Location is required for events.
+        </div>
+      </div>
+    
+      <!-- Event Date (conditionally required) -->
+      <div class="mb-3" *ngIf="topicForm.get('isEvent')?.value">
+        <label for="eventDate">Event Date</label>
+        <input type="date" formControlName="eventDate" class="form-control" id="eventDate">
+        <div class="text-danger" *ngIf="topicForm.get('eventDate')?.touched && topicForm.get('eventDate')?.hasError('required')">
+          Event date is required.
+        </div>
+      </div>
+      <div id="mapCont">
+      <div class="map-container" >
+        <div class="map-frame">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+      <button type="submit" class="btn btn-primary" [disabled]="topicForm.invalid">
+        Create Topic
+      </button>
+    </form>
+  </div>
+   
+      

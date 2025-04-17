@@ -1,0 +1,68 @@
+
+<div class="card mb-3 shadow-sm">
+  
+    <div class="d-flex justify-content-end p-4" *ngIf="isOwnerOfPost()">
+      <button  class="btn btn-danger" (click)="deletePost()">Supprimer Post</button>
+      
+     </div>
+  
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ eventTopic.title }}       <span *ngIf="eventTopic.event" class="ms-2" title="This is an event">🎉</span>
+        </h5>
+  
+       </div>
+      <div class="card-body">
+        <p class="card-text">{{ eventTopic.description }}</p>
+        <p class="card-text" *ngIf="eventTopic.media !== '' && eventTopic.mediaType !== undefined">
+          <img 
+            *ngIf="eventTopic.mediaType === 'IMAGE'" 
+            [src]="getMedia()" 
+            style="max-width: 300px; max-height: 300px;" />
+            
+          <video           *ngIf="eventTopic.mediaType === 'VIDEO'" 
+          controls [style.width]="'300px'" >
+            <source [src]="getMedia()" />
+          </video>
+        </p>
+        <p class="card-text" *ngIf="eventTopic.event">Date :📅 {{eventTopic.eventDate}}</p>
+        <p class="card-text" *ngIf="eventTopic.event">
+          Location: 📍
+          <a *ngIf="isGoogleMapFormat(eventTopic.location||'')" target="_blank"   [href]="changeToGoogleMapLink(eventTopic.location||'')">
+            {{ eventTopic.location }}
+          </a>
+          <span *ngIf="!isGoogleMapFormat(eventTopic.location||'')" >          {{ eventTopic.location }}
+          </span>
+        </p>    </div>
+      <div class="card-footer text-muted d-flex justify-content-between">
+          <!-- Comments on the left -->
+          <span (click)="openCommentSpace()"><i class="fas fa-comments"></i> {{ eventTopic?.commentIds?.length ?? 0 }} Comments</span>
+        
+          <!-- Reactions on the right with 2px space between them -->
+          <div class="d-flex gap-1">
+            <div *ngFor="let emojiType of emojiTypes" class="d-flex align-items-center">
+              <!-- Emoji and reaction count -->
+              <span 
+                (click)="!loading && changeReaction(emojiType)" 
+                [ngClass]="{
+                  'btn-primary': hasUserReacted(emojiType), 
+                  'btn': true,
+                  'disabled': loading,
+                  'loading-spinner': loading
+                }"
+  [ngStyle]="{
+    'cursor': loading ? 'not-allowed' : 'pointer',
+    'padding': '5px 10px',
+    'pointer-events': loading ? 'none' : 'auto'
+  }">              {{ emojiMap[emojiType]?.emoji }}
+                {{ getReactionCount(eventTopic?.reactions, emojiType) > 0 ? getReactionCount(eventTopic?.reactions, emojiType) : "" }}
+              </span>
+            </div>
+          </div>
+             
+        </div>
+        
+    </div>
+    <div class="card mb-3 shadow-sm" *ngIf="commentsIsOpen">
+      <app-comment [topicId]="eventTopic.id??''" [userId]="userId" ></app-comment>
+    </div>
+    

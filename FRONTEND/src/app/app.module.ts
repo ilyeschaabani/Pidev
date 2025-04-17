@@ -59,6 +59,11 @@ import { PreviewComponent } from './ressource/preview/preview.component';
 import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.component';
 import { SafeUrlPipe } from './safe-url.pipe';
 import { ResumeComponent } from './ressource/resume/resume.component';
+import { CommentComponent } from './comment/comment.component';
+import { ReportformComponent } from './reportform/reportform.component';
+import { CreatetopicformComponent } from './createtopicform/createtopicform.component';
+import { ForumComponent } from './forum/forum.component';
+import { TopicComponent } from './topic/topic.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +105,12 @@ import { ResumeComponent } from './ressource/resume/resume.component';
     PreviewComponent,
     RessourcelistComponent,
     SafeUrlPipe,
-    ResumeComponent
+    ResumeComponent,
+    CommentComponent,
+    ReportformComponent,
+    CreatetopicformComponent,
+    ForumComponent,
+    TopicComponent
     
 
   ],
