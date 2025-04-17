@@ -41,8 +41,7 @@
             <div class="info-card">
               <h5 class="text-primary mb-3"><i class="fas fa-users me-2"></i>Étudiants</h5>
               <p class="text-muted mb-0">
-                  {{ selectedProject.studentIds.join(', ') }}
-                <ng-template #noStudents>Aucun étudiant</ng-template>
+                  {{ selectedProject.studentIds?.join(', ') || 'Aucun étudiant' }}
               </p>
             </div>
           </div>
@@ -57,30 +56,82 @@
             </div>
             <div class="info-card">
               <h5 class="text-primary mb-3"><i class="fas fa-comments me-2"></i>Commentaires</h5>
-                  <ul class="list-unstyled">
-                    <li *ngFor="let comment of selectedProject.comments">
-                      {{ comment.content }} - <em>{{ comment.username }}</em>
-                    </li>
-                  </ul>
-                <ng-template #noComments>Aucun commentaire</ng-template>
+              <ul class="list-unstyled">
+                <li *ngFor="let comment of selectedProject.comments">
+                  {{ comment.content }} - <em>{{ comment.username }}</em>
+                </li>
+              </ul>
+              <ng-template #noComments>Aucun commentaire</ng-template>
             </div>
-           
           </div>
         </div>
       </div>
 
-      <!-- Section Évaluation -->
+    <!-- Section Évaluation -->
+<div class="mt-4" *ngIf="selectedProject.evaluation">
+  <div class="info-card">
+    <h5 class="text-primary mb-3"><i class="fas fa-star me-2"></i>Évaluation</h5>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Note de progression :</strong> {{ selectedProject.evaluation.progressScore }}
+      </li>
+      <li class="list-group-item">
+        <strong>Note finale :</strong> {{ selectedProject.evaluation.finalScore }}
+      </li>
+      <li class="list-group-item">
+        <strong>Commentaire :</strong> {{ selectedProject.evaluation.feedback || 'Aucun feedback disponible' }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+      <!-- Section Upload Document -->
       <div class="mt-4">
         <div class="info-card">
-          <h5 class="text-primary mb-3"><i class="fas fa-star me-2"></i>Évaluation</h5>
-          <p class="text-muted mb-0">
-            {{ selectedProject.evaluation?.note || 'Aucune évaluation disponible' }}
-          </p>
+          <h5 class="text-primary mb-3"><i class="fas fa-upload me-2"></i>Ajouter un document (PDF)</h5>
+          <form (ngSubmit)="onFileUpload()">
+            <div class="mb-3">
+              <label for="file" class="form-label">Choisir un fichier PDF</label>
+              <input type="file" id="file" (change)="onFileChange($event)" accept="application/pdf" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!selectedFile">Télécharger</button>
+          </form>
+          <div *ngIf="uploadStatus" class="mt-2">
+            <div *ngIf="uploadStatus.success" class="alert alert-success">
+              Document téléchargé avec succès !
+            </div>
+            <div *ngIf="uploadStatus.error" class="alert alert-danger">
+              Erreur lors du téléchargement du document.
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Section Documents -->
+<div class="mt-4" *ngIf="selectedProject && selectedProject.documents && selectedProject.documents.length > 0">
+    <div class="info-card">
+      <h5 class="text-primary mb-3"><i class="fas fa-paperclip me-2"></i>Documents ajoutés</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Nom du Document</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let document of selectedProject.documents">
+            <td>{{ document.fileName }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
 
 <!-- Message si aucun projet chargé -->
 <div class="container mt-5" *ngIf="!selectedProject">

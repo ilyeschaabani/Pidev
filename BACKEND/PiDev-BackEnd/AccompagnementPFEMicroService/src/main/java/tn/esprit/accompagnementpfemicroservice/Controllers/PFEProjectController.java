@@ -1,9 +1,11 @@
 package tn.esprit.accompagnementpfemicroservice.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import tn.esprit.accompagnementpfemicroservice.Entities.*;
 import tn.esprit.accompagnementpfemicroservice.Repositories.PFEProjectRepository;
@@ -13,6 +15,7 @@ import tn.esprit.accompagnementpfemicroservice.Services.PFEProjectService;
 import tn.esprit.accompagnementpfemicroservice.Services.ResourceNotFoundException;
 
 import java.nio.file.AccessDeniedException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,29 +83,42 @@ public class PFEProjectController {
 
 
     // 🔸 Ajouter un document (Étudiant uniquement)
+    // 🔸 Ajouter un document (Étudiant uniquement) : modification pour accepter un fichier PDF
     @PostMapping("/{id}/document")
-    public PFEProject addDocument(@PathVariable String id,
-                                  @RequestBody DocumentFile document,
-                                  @RequestParam String currentUsername) {
-        return projectService.addDocumentToProject(id, document, currentUsername);
+    public ResponseEntity<?> addDocument(@PathVariable String id,
+                                         @RequestParam("file") MultipartFile file) {
+        try {
+            // Vérifier que le fichier est un PDF
+            if (!file.getContentType().equals("application/pdf")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Le fichier doit être un PDF.");
+            }
+
+            // Sauvegarder le fichier et ajouter le document au projet
+            PFEProject updatedProject = projectService.addDocumentToProject(id, file);
+            return ResponseEntity.ok(updatedProject);
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur : " + e.getMessage());
+        }
     }
 
     // 🔸 Évaluer le projet (Mentor uniquement)
     @PostMapping("/{id}/evaluate")
     public PFEProject evaluateProject(@PathVariable String id,
-                                      @RequestBody Evaluation evaluation,
-                                      @RequestParam String currentUsername) throws AccessDeniedException {
-        return projectService.evaluateProject(id, evaluation, currentUsername);
+                                      @RequestBody Evaluation evaluation) {
+        return projectService.evaluateProject(id, evaluation);
     }
 
     @PostMapping("/{projectId}/comment")
     public ResponseEntity<?> addCommentToProject(
             @PathVariable String projectId,
-            @RequestParam String currentUsername,
             @RequestBody Comment comment) {
 
         try {
-            PFEProject updatedProject = projectService.addCommentToProject(projectId, comment, currentUsername);
+            PFEProject updatedProject = projectService.addCommentToProject(projectId, comment);
             return ResponseEntity.ok(updatedProject);
         } catch (AccessDeniedException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());

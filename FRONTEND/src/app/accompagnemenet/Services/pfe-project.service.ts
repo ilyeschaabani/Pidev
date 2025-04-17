@@ -43,6 +43,8 @@ export class PfeProjectService {
   generateTopics(keywords: { keywords: string }): Observable<string[]> {
     return this.http.post<string[]>(`${this.apiUrl}/generate-topics`, keywords);
   }
-  
+  uploadDocument(projectId: string, formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${projectId}/document`, formData);
+  }
 
 }

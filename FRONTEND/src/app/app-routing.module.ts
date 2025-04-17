@@ -9,10 +9,12 @@ import { FooterComponent } from './footer/footer.component';
 import { AssignEncadrantComponent } from './Admin/assign-encadrant/assign-encadrant.component';
 import { FileManagerComponent } from './files/file-manager/file-manager.component';
 import { CollaborativeSpaceComponent } from './projet/collaborative-space/collaborative-space.component';
-import { TaskListComponent } from './projet/task-list/task-list.component';
 import { StudentsProjectComponent } from './accompagnemenet/components/students-project/students-project.component';
 import { ProjetPfeListComponent } from './accompagnemenet/components/projet-pfe-list/projet-pfe-list.component';
 import { PfeDetailsComponent } from './accompagnemenet/components/pfe-details/pfe-details.component';
+import { MentorProjectComponent } from './accompagnemenet/components/mentor-project/mentor-project.component';
+import { MentorListComponent } from './accompagnemenet/components/mentor-list/mentor-list.component';
+import { AdminManageProjectsComponent } from './accompagnemenet/components/admin-manage-projects/admin-manage-projects.component';
 const routes: Routes = [
   {path: '', component:HomeComponent},
   { path: 'projets', component: ProjectListComponent },
@@ -27,9 +29,15 @@ const routes: Routes = [
   },
   { path: 'projects/:id/files', component: FileManagerComponent },
 
+
+
   { path: 'student', component: StudentsProjectComponent },
   { path: 'PfeList', component: ProjetPfeListComponent },
   { path: 'project-details/:id', component: PfeDetailsComponent },
+  { path: 'mentor/project/:id', component: MentorProjectComponent },
+  { path: 'mentor/project', component: MentorListComponent },
+
+  { path: 'adminPfe', component: AdminManageProjectsComponent }
 
 
 ];

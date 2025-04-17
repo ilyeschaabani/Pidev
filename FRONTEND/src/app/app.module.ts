@@ -13,7 +13,6 @@ import { ProjectValidationComponent } from './Admin/project-validation/project-v
 import { AssignEncadrantComponent } from './Admin/assign-encadrant/assign-encadrant.component';
 import { FileManagerComponent } from './files/file-manager/file-manager.component';
 import { CollaborativeSpaceComponent } from './projet/collaborative-space/collaborative-space.component';
-import { TaskListComponent } from './projet/task-list/task-list.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +28,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PfeDetailsComponent } from './accompagnemenet/components/pfe-details/pfe-details.component';
+import { MentorProjectComponent } from './accompagnemenet/components/mentor-project/mentor-project.component';
+import { MentorListComponent } from './accompagnemenet/components/mentor-list/mentor-list.component';
+import { AdminManageProjectsComponent } from './accompagnemenet/components/admin-manage-projects/admin-manage-projects.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +45,15 @@ import { PfeDetailsComponent } from './accompagnemenet/components/pfe-details/pf
     AssignEncadrantComponent,
     FileManagerComponent,
     CollaborativeSpaceComponent,
-    TaskListComponent,
+    
     StudentsProjectComponent,
     ProjetPfeListComponent,
     PfeDetailsComponent,
+    MentorProjectComponent,
+    MentorListComponent,
+    
+    
+    AdminManageProjectsComponent,
 
   ],
   imports: [

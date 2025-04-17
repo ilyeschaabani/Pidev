@@ -1,6 +1,6 @@
 export interface DocumentFile {
-  name: string;
-  url: string;
+  fileName: string;
+  filePath: string;
 }
 
 
@@ -11,7 +11,8 @@ export interface Comment {
 }
 
 export interface Evaluation {
-  score: number;
+  progressScore: number;
+  finalScore : number;
   feedback: string; // Ajout de la propriété feedback
 }
 export interface PFEProject {
