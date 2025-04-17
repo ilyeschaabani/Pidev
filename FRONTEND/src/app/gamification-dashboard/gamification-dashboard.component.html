@@ -46,7 +46,17 @@
     </ul>
     <p *ngIf="badges.length === 0" class="text-muted">Aucun badge débloqué pour l’instant.</p>
   </div>
+  <div class="text-end mt-2">
+    <button class="btn btn-info btn-sm"
+        (click)="openCertif(userId.id)"
+        title="Voir le certificat">
+  <i class="fas fa-certificate me-1"></i> Voir Certificat
+</button>
 
+
+
+  </div>
+  
   <div class="text-center">
     <button class="btn btn-danger" (click)="resetProgression()">🔁 Réinitialiser ma progression</button>
   </div>

@@ -11,6 +11,10 @@ import { QuizResult, QuizResultService } from '../services/questionresult/quiz-r
   styleUrls: ['./gamification-dashboard.component.css']
 })
 export class GamificationDashboardComponent {
+  router: any;
+certif: any;
+userId: any;
+
   quizResults: QuizResult[] = [];
   totalPoints: number = 0;
   level: number = 1;
@@ -66,4 +70,12 @@ export class GamificationDashboardComponent {
     this.level = 1;
     this.progression = 0;
     this.badges = [];
-  }}
+  }
+
+  openCertif(userId: string): void {
+    window.open(`assets/img/images/certif_${userId}.pdf`, '_blank');
+  }
+  
+  
+
+}
