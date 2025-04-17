@@ -12,97 +12,84 @@ import { Question } from '../Models/question.model'; // Assurez-vous d'avoir ce 
   styleUrls: ['./dashbordevaluation.component.css']
 })
 export class DashbordevaluationComponent {
-  evaluations: Evaluation[] = [];
-  questions: Question[] = []; // Nouvelle propriété pour les questions
-  loading = false;
-  activeTab: 'evaluations' | 'questions' = 'evaluations'; // Pour gérer les onglets
-
-  constructor(
-    private evaluationService: EvaluationService,
-    private questionService: QuestionService, // Injection du service des questions
-    private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
-    this.loadEvaluations();
-    this.loadQuestions(); // Charger aussi les questions au démarrage
-  }
-
-  loadEvaluations(): void {
-    this.loading = true;
-    this.evaluationService.getAllEvaluations().subscribe({
-      next: (data) => {
-        this.evaluations = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.snackBar.open('Erreur de chargement des évaluations', 'Fermer', { duration: 3000 });
-        this.loading = false;
-      }
-    });
-  }
-
-  loadQuestions(): void {
-    this.loading = true;
-    this.questionService.getAllQuestions().subscribe({
-      next: (data) => {
-        this.questions = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.snackBar.open('Erreur de chargement des questions', 'Fermer', { duration: 3000 });
-        this.loading = false;
-      }
-    });
-  }
-
-  navigateToEditEvaluation(idEvaluation: string): void {
-    this.router.navigate(['/admin/evaluations/edit', idEvaluation]);
-  }
-
-  navigateToEditQuestion(idQuestion: string): void {
-    this.router.navigate(['/admin/questions/edit', idQuestion]);
-  }
-
-  navigateToAddEvaluation(): void {
-    this.router.navigate(['/add-evaluation']);
-  }
-
-  navigateToAddQuestion(): void {
-    this.router.navigate(['/add-question']);
-  }
-
-  deleteEvaluation(id: string): void {
-    if (confirm('Confirmer la suppression de l\'évaluation ?')) {
-      this.evaluationService.deleteEvaluation(id).subscribe({
-        next: () => {
-          this.snackBar.open('Évaluation supprimée avec succès', 'Fermer', { duration: 2000 });
-          this.loadEvaluations();
-        },
-        error: () => {
-          this.snackBar.open('Erreur de suppression de l\'évaluation', 'Fermer', { duration: 3000 });
-        }
-      });
+  switchTab(arg0: string) {
+    throw new Error('Method not implemented.');
     }
-  }
-
-  deleteQuestion(id: string): void {
-    if (confirm('Confirmer la suppression de la question ?')) {
-      this.questionService.deleteQuestion(id).subscribe({
-        next: () => {
-          this.snackBar.open('Question supprimée avec succès', 'Fermer', { duration: 2000 });
-          this.loadQuestions();
-        },
-        error: () => {
-          this.snackBar.open('Erreur de suppression de la question', 'Fermer', { duration: 3000 });
-        }
-      });
+    navigateToAddQuestion() {
+    throw new Error('Method not implemented.');
     }
-  }
-
-  switchTab(tab: 'evaluations' | 'questions'): void {
-    this.activeTab = tab;
-  }
-
-}
+    navigateToEditQuestion(arg0: any) {
+    throw new Error('Method not implemented.');
+    }
+    deleteQuestion(arg0: any) {
+    throw new Error('Method not implemented.');
+    }
+      evaluations: Evaluation[] = [];
+      loading = false;
+    activeTab: any;
+    questions: any;
+    
+      constructor(
+        private evaluationService: EvaluationService,
+        private router: Router,
+        private snackBar: MatSnackBar
+      ) {}
+    
+      ngOnInit(): void {
+        this.loadEvaluations();
+      }
+    
+      loadEvaluations(): void {
+        this.loading = true;
+        this.evaluationService.getAllEvaluations().subscribe({
+          next: (data) => {
+            this.evaluations = data;
+            this.loading = false;
+          },
+          error: (err) => {
+            this.snackBar.open('Erreur de chargement', 'Fermer', { duration: 3000 });
+            this.loading = false;
+          }
+        });
+      }
+     /* navigateToEditEvaluation(idEvaluation: string): void {
+        console.log('Attempting to navigate to edit evaluation with ID:', idEvaluation);
+        if (!idEvaluation) {
+          console.error('Invalid evaluation ID');
+          this.snackBar.open('ID d\'évaluation invalide', 'Fermer', { duration: 3000 });
+          return;
+        }
+        this.router.navigate(['/admin/evaluations/edit', idEvaluation]);
+      }
+    */
+    // Dans AdminDashboardComponentComponent
+    
+    
+    
+    // Version finale qui devrait fonctionner
+    navigateToEditEvaluation(idEvaluation: string): void {
+      // Solution 1 (recommandée si ça marche)
+      this.router.navigate(['/admin/evaluations/edit', idEvaluation]);
+      
+      // Si Solution 1 échoue, utiliser Solution 2 :
+      // this.router.navigateByUrl(/admin/evaluations/edit/${idEvaluation});
+      
+      // Si tout échoue, gardez la solution de repli :
+      // window.location.href = /admin/evaluations/edit/${idEvaluation};
+    }
+    navigateToAddEvaluation(): void {
+      this.router.navigate(['/quiz/add']);
+    }
+      deleteEvaluation(id: string): void {
+        if (confirm('Confirmer la suppression ?')) {
+          this.evaluationService.deleteEvaluation(id).subscribe({
+            next: () => {
+              this.snackBar.open('Supprimé avec succès', 'Fermer', { duration: 2000 });
+              this.loadEvaluations();
+            },
+            error: () => {
+              this.snackBar.open('Erreur de suppression', 'Fermer', { duration: 3000 });
+            }
+          });
+        }
+      }}

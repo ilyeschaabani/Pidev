@@ -1,94 +1,48 @@
-<div class="admin-dashboard">
-    <h1>Tableau de bord administrateur</h1>
-    
-    <div class="tabs">
-      <button 
-        (click)="switchTab('evaluations')" 
-        [class.active]="activeTab === 'evaluations'">
-        Évaluations
-      </button>
-      <button 
-        (click)="switchTab('questions')" 
-        [class.active]="activeTab === 'questions'">
-        Questions
-      </button>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h2>Gestion des Évaluations</h2>
+      <button class="btn btn-primary" (click)="navigateToAddEvaluation()">
+          Créer une évaluation
+        </button>
     </div>
-  
-    <div *ngIf="activeTab === 'evaluations'">
-      <h2>Gestion des évaluations</h2>
-      <button mat-raised-button color="primary" (click)="navigateToAddEvaluation()">
-        Ajouter une évaluation
-      </button>
-      
-      <div *ngIf="loading">Chargement en cours...</div>
-      
-      <table *ngIf="!loading && evaluations.length > 0" class="table">
+    
+    <div class="card-body">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Titre</th>
             <th>Description</th>
+            <th>Durée</th>
+            <th>Statut</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let eval of evaluations">
-            <td>{{ eval.idEvaluation }}</td>
-            <td>{{ eval.titre}}</td>
-            <td>{{ eval.description }}</td>
+            <td>{{ eval.titre }}</td>
+            <td>{{ eval.description.length > 50 ? (eval.description | slice:0:50) + '...' : eval.description }}</td>
+            <td>{{ eval.duree }} min</td>
             <td>
-              <button mat-icon-button color="primary" (click)="navigateToEditEvaluation(eval.idEvaluation)">
-                <mat-icon>edit</mat-icon>
+              <span [class]="eval.active ? 'badge bg-success' : 'badge bg-secondary'">
+                {{ eval.active ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="btn-group">
+                  <button (click)="navigateToEditEvaluation(eval.idEvaluation || '')"
+      class="btn btn-sm btn-primary">
+Modifier
               </button>
-              <button mat-icon-button color="warn" (click)="deleteEvaluation(eval.idEvaluation)">
-                <mat-icon>delete</mat-icon>
-              </button>
+                <button class="btn btn-sm btn-danger" 
+                        (click)="deleteEvaluation(eval.idEvaluation)">
+                  Supprimer
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
-      
-      <div *ngIf="!loading && evaluations.length === 0">
-        Aucune évaluation trouvée.
-      </div>
-    </div>
-  
-    <div *ngIf="activeTab === 'questions'">
-      <h2>Gestion des questions</h2>
-      <button mat-raised-button color="primary" (click)="navigateToAddQuestion()">
-        Ajouter une question
-      </button>
-      
-      <div *ngIf="loading">Chargement en cours...</div>
-      
-      <table *ngIf="!loading && questions.length > 0" class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Texte</th>
-            <th>Type</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let question of questions">
-            <td>{{ question.idEvaluation}}</td>
-            <td>{{ question.texte}}</td>
-            <td>{{ question.type }}</td>
-            <td>
-              <button mat-icon-button color="primary" (click)="navigateToEditQuestion(question.quesId ?? '')">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteQuestion(question.quesId ?? '')">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <div *ngIf="!loading && questions.length === 0">
-        Aucune question trouvée.
-      </div>
     </div>
   </div>
+</div>

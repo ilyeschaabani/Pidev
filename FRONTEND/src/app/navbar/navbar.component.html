@@ -1,19 +1,27 @@
 <nav class="layout-navbar shadow-none py-0" id="navbar">
 	<div class="container">
-		<div class="navbar navbar-expand-lg landing-navbar px-3 px-md-4 ">
-			<div class="navbar-brand app-brand demo d-flex py-0 me-4">
-				<button class="navbar-toggler border-0 px-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<i class="tf-icons bx bx-menu bx-sm align-middle"></i>
-				</button>
-				<a href="#" class="app-brand-link">
-					<span class="app-brand-logo demo">
-						<img src="../assets/img/images/Logo.png" alt="Waves" style="height: 36px;">
-					</span>
-					<span class="app-brand-text demo menu-text fw-bolder ms-4" style="background: linear-gradient(90deg, #6094EA 0%, #F02FC2 100%);text-transform:none;-webkit-background-clip: text;-webkit-text-fill-color: transparent;">CodingFactory</span>
-				</a>
-			</div>
-			
+	  <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-4 ">
+		<div class="navbar-brand app-brand demo d-flex py-0 me-4">
+		  <button class="navbar-toggler border-0 px-0 me-2" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<i class="tf-icons bx bx-menu bx-sm align-middle"></i>
+		  </button>
+		  <a href="#" class="app-brand-link">
+			<span class="app-brand-logo demo">
+			  <img src="../assets/img/images/Logo.png" alt="Waves" style="height: 36px;">
+			</span>
+			<span class="app-brand-text demo menu-text fw-bolder ms-4"
+			  style="background: linear-gradient(90deg, #6094EA 0%, #F02FC2 100%);
+					 text-transform:none;
+					 -webkit-background-clip: text;
+					 -webkit-text-fill-color: transparent;">
+			  CodingFactory
+			</span>
+		  </a>
+		</div>
   
+		<!-- Left Nav -->
 		<div class="collapse navbar-collapse landing-nav-menu" id="navbarSupportedContent">
 		  <button class="navbar-toggler border-0 text-heading position-absolute end-0 top-0 scaleX-n1-rtl"
 			type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -33,7 +41,10 @@
 			  </a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link fw-medium" routerLink="/shop-formation">Formation</a>
+			  <a class="nav-link fw-medium" routerLink="/shop-formation">Formation</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link fw-medium" routerLink="/evaluation-list">Evaluation</a>
 			  </li>
 			<li class="nav-item">
 			  <a class="nav-link fw-medium" routerLink="#">Consulting</a>
@@ -42,11 +53,12 @@
 			  <a class="nav-link fw-medium" routerLink="#">Event</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link fw-medium" routerLink="addressources">Blog</a>
+			  <a class="nav-link fw-medium" routerLink="#">Blog</a>
 			</li>
 		  </ul>
 		</div>
   
+		<!-- Right Side Buttons -->
 		<ul class="navbar-nav flex-row align-items-center ms-auto">
 		  <!-- 🛒 Panier Button -->
 		  <li class="nav-item ms-2">
@@ -60,7 +72,7 @@
 			<li class="nav-item navbar-dropdown dropdown-user dropdown">
 			  <a class="nav-link dropdown-toggle hide-arrow" href="#" data-bs-toggle="dropdown">
 				<div class="avatar">
-				  <img src="assets/img/user-avatar.png" alt="" class="w-px-40 rounded-circle" />
+				  <img src="assets/img/user-avatar.png" alt="User" class="w-px-40 rounded-circle" />
 				</div>
 			  </a>
 			  <ul class="dropdown-menu dropdown-menu-end">
@@ -77,17 +89,13 @@
 					</div>
 				  </div>
 				</li>
-				<li>
-				  <div class="dropdown-divider"></div>
-				</li>
+				<li><div class="dropdown-divider"></div></li>
 				<li><a class="dropdown-item" routerLink="/profile"><i class="bx bx-user me-2"></i>Mon profile</a></li>
 				<li *ngIf="user.roles?.includes('ADMIN')">
 				  <a class="dropdown-item" routerLink="/dashbord"><i class="bx bxs-dashboard me-2"></i>Panel Admin</a>
 				</li>
 				<li><a class="dropdown-item" routerLink="#"><i class="bx bx-cog me-2"></i>Parametres</a></li>
-				<li>
-				  <div class="dropdown-divider"></div>
-				</li>
+				<li><div class="dropdown-divider"></div></li>
 				<li><a class="dropdown-item" (click)="logout()"><i class="bx bx-power-off me-2"></i>Deconnection</a></li>
 			  </ul>
 			</li>
@@ -118,4 +126,3 @@
 	  }
 	});
   </script>
-  

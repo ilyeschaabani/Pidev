@@ -3,6 +3,7 @@ import { EvaluationService } from '../services/Evaluation/EvaluationService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Evaluation } from '../Models/evaluation.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-addquiz',
@@ -10,61 +11,82 @@ import { Evaluation } from '../Models/evaluation.model';
   styleUrls: ['./addquiz.component.css']
 })
 export class AddquizComponent {
-  evaluation: Evaluation = {
-    idEvaluation: '',
-    titre: '',
-    description: '',
-    maxMarks: '0',
-    noOfQuestions: '0',
-    active: false,
-    note: 0,
-    dateCreation: '',
-    duree: 0,
-  };
-
-  isLoading = false; // Ajout d'un indicateur de chargement
+  isLoading = false;
+  quizForm: FormGroup;
 
   constructor(
     private evaluationService: EvaluationService,
     private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.quizForm = this.fb.group({
+      titre: ['', [Validators.required, Validators.minLength(3)]],
+      description: [''],
+      maxMarks: ['20', [Validators.required, Validators.min(1)]],
+      noOfQuestions: ['5', [Validators.required, Validators.min(1)]],
+      duree: ['30', [Validators.required, Validators.min(1)]],
+      active: [true]
+    });
+  }
 
   onSubmit(): void {
-    if (!this.validateForm() || this.isLoading) {
+    if (this.quizForm.invalid || this.isLoading) {
+      this.markFormGroupTouched(this.quizForm);
       return;
     }
 
     this.isLoading = true;
     
-    this.evaluationService.createEvaluation(this.evaluation, 0, undefined, '').subscribe({
-      next: (response) => {
+    const evaluationToCreate = {
+      ...this.quizForm.value,
+      idEvaluation: undefined,
+      dateCreation: new Date().toISOString(),
+      note: 0,
+      questions: []
+    };
+
+    this.evaluationService.createEvaluation(evaluationToCreate, 0, undefined, '').subscribe({
+      next: (createdEvaluation) => {
         this.isLoading = false;
-        this.router.navigate(['/affecter', response.idEvaluation], )
-          .then(() => {
-            this.snackBar.open('Quiz créé avec succès! Redirection...', 'Fermer', { 
-              duration: 2000,
-              panelClass: ['success-snackbar']
-            });
-          });
+        this.snackBar.open('Quiz créé avec succès!', 'Fermer', { 
+          duration: 2000,
+          panelClass: ['success-snackbar']
+        });
+        this.quizForm.reset({
+          maxMarks: '20',
+          noOfQuestions: '5',
+          duree: '30',
+          active: true
+        });
       },
       error: (err) => {
         this.isLoading = false;
-        this.snackBar.open('Erreur lors de la création: ' + err.message, 'Fermer', { 
-          duration: 5000,
-          panelClass: ['error-snackbar']
+        this.snackBar.open(`Erreur: ${err.error?.message || 'Erreur serveur'}`, 'Fermer', {
+          duration: 5000
         });
         console.error('Erreur création:', err);
       }
     });
   }
 
-  private validateForm(): boolean {
-    if (!this.evaluation.titre?.trim()) {
-      this.snackBar.open('Le titre est requis', 'Fermer', { duration: 3000 });
-      return false;
-    }
-    return true;
+  navigateToQuizList(): void {
+    this.router.navigate(['/affecter']);
   }
+  navigateToQuestions() {
+    this.router.navigate(['/question/add']);
+    }
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  get f() { return this.quizForm.controls; }
+
 
 }

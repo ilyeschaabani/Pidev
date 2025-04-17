@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PFEProject, DocumentFile } from '../models/pfe-project.model';
+import { PFEProject, DocumentFile } from '../../Models/pfe-project.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PfeProjectService {
 
-  private apiUrl = 'http://localhost:8082/api/projects';
+  private apiUrl = 'http://localhost:9010/api/projects';
 
   constructor(private http: HttpClient) {}
 

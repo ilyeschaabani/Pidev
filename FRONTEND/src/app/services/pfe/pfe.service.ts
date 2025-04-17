@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { GeneratedTopic , Project , TopicGenerationRequest } from '../models/projects.model';
+import { GeneratedTopic , Project , TopicGenerationRequest } from '../../Models/projects.model';
 @Injectable({ providedIn: 'root' })
 export class PfeService {
-  private baseUrl = 'http://localhost:8082/api/projects';
+  private baseUrl = 'http://localhost:9010/api/projects';
 
   constructor(private http: HttpClient) {}
 

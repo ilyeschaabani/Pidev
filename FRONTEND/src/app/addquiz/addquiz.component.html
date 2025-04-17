@@ -1,45 +1,81 @@
-<app-navbar></app-navbar>
 <div class="container mt-4">
-    <div class="card">
-      <div class="card-header bg-primary text-white">
-        <h4>Créer un nouveau Quiz</h4>
-      </div>
-      <div class="card-body">
-        <form (ngSubmit)="onSubmit()" #quizForm="ngForm">
-          <div class="mb-3">
-            <label class="form-label">Titre *</label>
-            <input [(ngModel)]="evaluation.titre" name="title" class="form-control" required>
+  <div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Créer un nouveau Quiz</h4>
+      <button class="btn btn-sm btn-light" (click)="navigateToQuizList()">
+        <i class="fas fa-list me-1"></i> Liste des Quiz
+      </button>
+      <button class="btn btn-sm btn-light" (click)="navigateToQuestions()">
+        <i class="fas fa-list me-1"></i> ADD Questions
+      </button>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" [formGroup]="quizForm">
+        <div class="mb-3">
+          <label class="form-label">Titre <span class="text-danger">*</span></label>
+          <input formControlName="titre" class="form-control" 
+                 [class.is-invalid]="f['titre'].invalid && (f['titre'].touched || f['titre'].dirty)">
+          <div *ngIf="f['titre'].invalid && (f['titre'].touched || f['titre'].dirty)" class="invalid-feedback">
+            <div *ngIf="f['titre'].errors?.['required']">Le titre est requis</div>
+            <div *ngIf="f['titre'].errors?.['minlength']">Minimum 3 caractères</div>
           </div>
-  
-          <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea [(ngModel)]="evaluation.description" name="description" class="form-control" rows="3"></textarea>
-          </div>
-  
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label class="form-label">Note maximale *</label>
-              <input [(ngModel)]="evaluation.maxMarks" name="maxMarks" type="number" class="form-control" required min="1">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea formControlName="description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Note maximale <span class="text-danger">*</span></label>
+            <input formControlName="maxMarks" type="number" class="form-control"
+                   [class.is-invalid]="f['maxMarks'].invalid && (f['maxMarks'].touched || f['maxMarks'].dirty)">
+            <div *ngIf="f['maxMarks'].invalid && (f['maxMarks'].touched || f['maxMarks'].dirty)" class="invalid-feedback">
+              <div *ngIf="f['maxMarks'].errors?.['required']">Ce champ est requis</div>
+              <div *ngIf="f['maxMarks'].errors?.['min']">Doit être supérieur à 0</div>
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Nombre de questions *</label>
-              <input [(ngModel)]="evaluation.noOfQuestions" name="noOfQuestions" type="number" class="form-control" required min="1">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Nombre de questions <span class="text-danger">*</span></label>
+            <input formControlName="noOfQuestions" type="number" class="form-control"
+                   [class.is-invalid]="f['noOfQuestions'].invalid && (f['noOfQuestions'].touched || f['noOfQuestions'].dirty)">
+            <div *ngIf="f['noOfQuestions'].invalid && (f['noOfQuestions'].touched || f['noOfQuestions'].dirty)" class="invalid-feedback">
+              <div *ngIf="f['noOfQuestions'].errors?.['required']">Ce champ est requis</div>
+              <div *ngIf="f['noOfQuestions'].errors?.['min']">Doit être supérieur à 0</div>
             </div>
           </div>
-  
-          <div class="mb-3 form-check">
-            <input [(ngModel)]="evaluation.active" name="active" type="checkbox" class="form-check-input" id="activeCheck">
-            <label class="form-check-label" for="activeCheck">Activer immédiatement</label>
+          <div class="col-md-4">
+            <label class="form-label">Durée (minutes) <span class="text-danger">*</span></label>
+            <input formControlName="duree" type="number" class="form-control"
+                   [class.is-invalid]="f['duree'].invalid && (f['duree'].touched || f['duree'].dirty)">
+            <div *ngIf="f['duree'].invalid && (f['duree'].touched || f['duree'].dirty)" class="invalid-feedback">
+              <div *ngIf="f['duree'].errors?.['required']">Ce champ est requis</div>
+              <div *ngIf="f['duree'].errors?.['min']">Doit être supérieur à 0</div>
+            </div>
           </div>
-  
-          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
-            <span *ngIf="!isLoading">Créer le Quiz</span>
+        </div>
+
+        <div class="mb-3 form-check form-switch">
+          <input type="checkbox" formControlName="active" class="form-check-input" id="activeSwitch">
+          <label class="form-check-label" for="activeSwitch">Quiz actif</label>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-secondary me-md-2" (click)="navigateToQuizList()">
+            <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading || quizForm.invalid">
+            <span *ngIf="!isLoading">
+              <i class="fas fa-save me-1"></i> Créer le Quiz
+            </span>
             <span *ngIf="isLoading">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              Création en cours...
+              <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              Création...
             </span>
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>

@@ -55,7 +55,7 @@ const routes: Routes = [
    { path: 'formations/add',component:FormationaddComponent },
    { path: 'dashbord',component:DashbordadminComponent },
    { path: 'panier',component:PanierComponent },
-   { path: 'formations/edit',component:FormationeditComponent },
+   { path: 'formations/edit/:id', component: FormationeditComponent },
    { path: 'formations/list',component:FormationlistComponent },
    { path: 'formations/stat',component:FormationstatComponent },
    { path: 'quiz/add',component:AddquizComponent },
