@@ -31,6 +31,8 @@ import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { FilemanagerComponent } from './files/filemanager/filemanager.component';
 import { AssignEncadrantComponent } from './assign-encadrant/assign-encadrant.component';
 import { ProjectValidationComponent } from './project-validation/project-validation.component';
+import { AddressourceComponent } from './ressource/addressource/addressource.component';
+import { PreviewComponent } from './ressource/preview/preview.component';
 
 
 
@@ -63,6 +65,8 @@ const routes: Routes = [
    { path: 'projects/:id/files', component: FilemanagerComponent},
    { path: 'dashbord/assign-encadrant', component: AssignEncadrantComponent },
    {path: 'validationsProjet', component: ProjectValidationComponent},
+   {path:'addressources', component: AddressourceComponent},
+   { path: 'preview/:id', component:PreviewComponent },
    { 
     path: 'collaborative-space/:id', 
     component:ColaborativespaceComponent

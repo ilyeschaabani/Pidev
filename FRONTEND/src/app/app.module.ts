@@ -54,6 +54,11 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { ProjectValidationComponent } from './project-validation/project-validation.component';
 import { AssignEncadrantComponent } from './assign-encadrant/assign-encadrant.component';
+import { AddressourceComponent } from './ressource/addressource/addressource.component';
+import { PreviewComponent } from './ressource/preview/preview.component';
+import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.component';
+import { SafeUrlPipe } from './safe-url.pipe';
+import { ResumeComponent } from './ressource/resume/resume.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +96,11 @@ import { AssignEncadrantComponent } from './assign-encadrant/assign-encadrant.co
     ProjectlistComponent,
     ProjectValidationComponent,
     AssignEncadrantComponent,
+    AddressourceComponent,
+    PreviewComponent,
+    RessourcelistComponent,
+    SafeUrlPipe,
+    ResumeComponent
     
 
   ],
