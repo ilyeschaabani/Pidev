@@ -39,6 +39,7 @@ import { PfeDetailsComponent } from './accompagnement/pfe-details/pfe-details.co
 import { MentorProjectComponent } from './accompagnement/mentor-project/mentor-project.component';
 import { MentorListComponent } from './accompagnement/mentor-list/mentor-list.component';
 import { AdminManageProjectComponent } from './accompagnement/admin-manage-project/admin-manage-project.component';
+import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.component';
 
 
 
@@ -73,6 +74,7 @@ const routes: Routes = [
    {path: 'validationsProjet', component: ProjectValidationComponent},
    {path:'addressources', component: AddressourceComponent},
    { path: 'preview/:id', component:PreviewComponent },
+   {path: 'ressources', component: RessourcelistComponent},
    { path: 'student', component: StudentProjectComponent },
    { path: 'PfeList', component: ProjectPfeListComponent },
    { path: 'project-details/:id', component: PfeDetailsComponent },
