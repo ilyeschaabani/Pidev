@@ -64,6 +64,13 @@ import { ReportformComponent } from './reportform/reportform.component';
 import { CreatetopicformComponent } from './createtopicform/createtopicform.component';
 import { ForumComponent } from './forum/forum.component';
 import { TopicComponent } from './topic/topic.component';
+import { AdminManageProjectComponent } from './accompagnement/admin-manage-project/admin-manage-project.component';
+import { MentorListComponent } from './accompagnement/mentor-list/mentor-list.component';
+import { MentorProjectComponent } from './accompagnement/mentor-project/mentor-project.component';
+import { PfeDetailsComponent } from './accompagnement/pfe-details/pfe-details.component';
+import { ProjectPfeListComponent } from './accompagnement/project-pfe-list/project-pfe-list.component';
+import { StudentProjectComponent } from './accompagnement/student-project/student-project.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -110,7 +117,13 @@ import { TopicComponent } from './topic/topic.component';
     ReportformComponent,
     CreatetopicformComponent,
     ForumComponent,
-    TopicComponent
+    TopicComponent,
+    AdminManageProjectComponent,
+    MentorListComponent,
+    MentorProjectComponent,
+    PfeDetailsComponent,
+    ProjectPfeListComponent,
+    StudentProjectComponent
     
 
   ],
@@ -136,6 +149,7 @@ import { TopicComponent } from './topic/topic.component';
     MatSnackBarModule,
     MatExpansionModule,
     MatIconModule,
+    MatListModule,
     ToastrModule.forRoot()
   ],
   providers: [],

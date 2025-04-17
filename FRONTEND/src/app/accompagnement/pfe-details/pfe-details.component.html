@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5" *ngIf="selectedProject">
+  <div class="card border-0 shadow-lg overflow-hidden">
+    <div class="card-header bg-primary-gradient py-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h2 text-white mb-0">{{ selectedProject.title }}</h1>
+        <span
+          class="badge fs-6 fw-normal"
+          [ngClass]="{
+            'bg-warning-light text-warning-dark': selectedProject.stage === 'PROPOSAL',
+            'bg-info-light text-info-dark': selectedProject.stage === 'IN_PROGRESS',
+            'bg-success-light text-success-dark': selectedProject.stage === 'COMPLETED'
+          }"
+        >
+          <i class="fas me-2"
+             [ngClass]="{
+               'fa-clock': selectedProject.stage === 'PROPOSAL',
+               'fa-cog': selectedProject.stage === 'IN_PROGRESS',
+               'fa-check-circle': selectedProject.stage === 'COMPLETED'
+             }"
+          ></i>
+          {{ selectedProject.stage | titlecase }}
+        </span>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="row g-4">
+        <!-- Colonne gauche -->
+        <div class="col-lg-6">
+          <div class="d-flex flex-column gap-3">
+            <div class="info-card">
+              <h5 class="text-primary mb-3"><i class="fas fa-file-alt me-2"></i>Description</h5>
+              <p class="text-muted mb-0">{{ selectedProject.description }}</p>
+            </div>
+            <div class="info-card">
+              <h5 class="text-primary mb-3"><i class="fas fa-user me-2"></i>Porteur de Projet</h5>
+              <p class="text-muted mb-0">{{ selectedProject.mentorId }}</p>
+            </div>
+            <div class="info-card">
+              <h5 class="text-primary mb-3"><i class="fas fa-users me-2"></i>Étudiants</h5>
+              <p class="text-muted mb-0">
+                  {{ selectedProject.studentIds?.join(', ') || 'Aucun étudiant' }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne droite -->
+        <div class="col-lg-6">
+          <div class="d-flex flex-column gap-3">
+            <div class="info-card">
+              <h5 class="text-primary mb-3"><i class="fas fa-tasks me-2"></i>Statut</h5>
+              <p class="text-muted mb-0">{{ selectedProject.stage | titlecase }}</p>
+            </div>
+            <div class="info-card">
+              <h5 class="text-primary mb-3"><i class="fas fa-comments me-2"></i>Commentaires</h5>
+              <ul class="list-unstyled">
+                <li *ngFor="let comment of selectedProject.comments">
+                  {{ comment.content }} - <em>{{ comment.username }}</em>
+                </li>
+              </ul>
+              <ng-template #noComments>Aucun commentaire</ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Section Évaluation -->
+<div class="mt-4" *ngIf="selectedProject.evaluation">
+  <div class="info-card">
+    <h5 class="text-primary mb-3"><i class="fas fa-star me-2"></i>Évaluation</h5>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Note de progression :</strong> {{ selectedProject.evaluation.progressScore }}
+      </li>
+      <li class="list-group-item">
+        <strong>Note finale :</strong> {{ selectedProject.evaluation.finalScore }}
+      </li>
+      <li class="list-group-item">
+        <strong>Commentaire :</strong> {{ selectedProject.evaluation.feedback || 'Aucun feedback disponible' }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+      <!-- Section Upload Document -->
+      <div class="mt-4">
+        <div class="info-card">
+          <h5 class="text-primary mb-3"><i class="fas fa-upload me-2"></i>Ajouter un document (PDF)</h5>
+          <form (ngSubmit)="onFileUpload()">
+            <div class="mb-3">
+              <label for="file" class="form-label">Choisir un fichier PDF</label>
+              <input type="file" id="file" (change)="onFileChange($event)" accept="application/pdf" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!selectedFile">Télécharger</button>
+          </form>
+          <div *ngIf="uploadStatus" class="mt-2">
+            <div *ngIf="uploadStatus.success" class="alert alert-success">
+              Document téléchargé avec succès !
+            </div>
+            <div *ngIf="uploadStatus.error" class="alert alert-danger">
+              Erreur lors du téléchargement du document.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Section Documents -->
+<div class="mt-4" *ngIf="selectedProject && selectedProject.documents && selectedProject.documents.length > 0">
+    <div class="info-card">
+      <h5 class="text-primary mb-3"><i class="fas fa-paperclip me-2"></i>Documents ajoutés</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Nom du Document</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let document of selectedProject.documents">
+            <td>{{ document.fileName }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+
+
+<!-- Message si aucun projet chargé -->
+<div class="container mt-5" *ngIf="!selectedProject">
+  <div class="alert alert-warning">
+    Aucun projet sélectionné.
+  </div>
+</div>

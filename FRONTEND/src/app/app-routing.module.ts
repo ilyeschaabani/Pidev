@@ -33,6 +33,12 @@ import { AssignEncadrantComponent } from './assign-encadrant/assign-encadrant.co
 import { ProjectValidationComponent } from './project-validation/project-validation.component';
 import { AddressourceComponent } from './ressource/addressource/addressource.component';
 import { PreviewComponent } from './ressource/preview/preview.component';
+import { StudentProjectComponent } from './accompagnement/student-project/student-project.component';
+import { ProjectPfeListComponent } from './accompagnement/project-pfe-list/project-pfe-list.component';
+import { PfeDetailsComponent } from './accompagnement/pfe-details/pfe-details.component';
+import { MentorProjectComponent } from './accompagnement/mentor-project/mentor-project.component';
+import { MentorListComponent } from './accompagnement/mentor-list/mentor-list.component';
+import { AdminManageProjectComponent } from './accompagnement/admin-manage-project/admin-manage-project.component';
 
 
 
@@ -67,6 +73,13 @@ const routes: Routes = [
    {path: 'validationsProjet', component: ProjectValidationComponent},
    {path:'addressources', component: AddressourceComponent},
    { path: 'preview/:id', component:PreviewComponent },
+   { path: 'student', component: StudentProjectComponent },
+   { path: 'PfeList', component: ProjectPfeListComponent },
+   { path: 'project-details/:id', component: PfeDetailsComponent },
+   { path: 'mentor/project/:id', component: MentorProjectComponent },
+   { path: 'mentor/project', component: MentorListComponent },
+ 
+   { path: 'adminPfe', component: AdminManageProjectComponent },
    { 
     path: 'collaborative-space/:id', 
     component:ColaborativespaceComponent

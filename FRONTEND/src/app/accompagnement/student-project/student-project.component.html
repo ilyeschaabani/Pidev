@@ -1,0 +1,142 @@
+<app-navbar></app-navbar>
+
+<!-- Conteneur principal -->
+<main class="interface-container">
+  
+  <!-- En-tête de section -->
+  <header class="en-tete-section">
+    <div class="titre-section">
+      <mat-icon aria-hidden="true" class="icone-titre">library_books</mat-icon>
+      <h1 class="titre-principal">Gestion des Projets de Fin d'Études</h1>
+      <br> <a routerLink="/PfeList" class="btn btn-secondary ms-2">
+        <i class="bx bx-group icon-sm"></i> <span class="d-none d-sm-inline-block">Retour</span>
+      </a>      
+    </div>
+    
+    <mat-divider class="separateur-section"></mat-divider>
+  </header>
+
+  <!-- Section des projets -->
+  <section class="projets-section">
+    <article *ngFor="let projet of projects" class="carte-projet">
+      <mat-card>
+        <!-- En-tête de carte -->
+        <mat-card-header class="entete-carte">
+          <mat-card-title class="titre-projet">{{ projet.title }}</mat-card-title>
+          <mat-card-subtitle class="sous-titre-projet">Dossier académique</mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- Contenu principal -->
+        <mat-card-content class="contenu-carte">
+          
+          <!-- Description du projet -->
+          <section class="description-projet">
+            <p>{{ projet.description }}</p>
+          </section>
+
+          <!-- Panneaux interactifs -->
+          <mat-accordion class="panneaux-interactifs">
+            
+            <!-- Panneau Documents -->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="titre-panneau">
+                  <mat-icon class="icone-panneau">folder</mat-icon>
+                  Documents associés ({{ projet.documents.length }})
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <!-- Liste des documents -->
+              <mat-list class="liste-documents">
+                <mat-list-item *ngFor="let document of projet.documents" class="element-liste">
+                  <mat-icon matListItemIcon class="icone-document">description</mat-icon>
+                  <div matListItemTitle class="nom-document">{{ document }}</div>
+                </mat-list-item>
+              </mat-list>
+
+              <!-- Gestion des fichiers -->
+              <section class="gestion-fichiers">
+                <input #selecteurFichier type="file" hidden (change)="onFileSelected($event)">
+                <div class="controles-upload">
+                  <button mat-stroked-button color="primary" (click)="selecteurFichier.click()">
+                    <mat-icon>attach_file</mat-icon>Parcourir les fichiers
+                  </button>
+                  <span class="nom-fichier-selectionne">
+                    {{ selectedFile?.name || 'Aucun document sélectionné' }}
+                  </span>
+                  <button mat-flat-button color="primary" 
+                          (click)="upload(projet.id)" 
+                          [disabled]="!selectedFile" 
+                          class="bouton-upload">
+                    <mat-icon>publish</mat-icon>Envoyer vers la plateforme
+                  </button>
+                </div>
+              </section>
+            </mat-expansion-panel>
+
+            <!-- Panneau Évaluations -->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="titre-panneau">
+                  <mat-icon class="icone-panneau">grading</mat-icon>
+                  Revue académique ({{ projet.evaluations.length }})
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <!-- Liste des évaluations -->
+              <mat-list class="evaluations-liste">
+                <mat-list-item *ngFor="let evaluation of projet.evaluations" class="evaluation-item">
+                  <mat-icon matListItemIcon class="icone-evaluateur">account_circle</mat-icon>
+                  <div matListItemTitle class="evaluateur">{{ evaluation.mentor }}</div>
+                  <div matListItemLine class="details-evaluation">
+                    <span class="note">Note : {{ evaluation.grade }}/20</span>
+                    <span class="commentaire">« {{ evaluation.comment }} »</span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
+      </mat-card>
+    </article>
+  </section>
+
+  <!-- Module de génération de sujets -->
+  <aside class="module-generation">
+    <mat-card>
+      <mat-card-header class="entete-module">
+        <mat-card-title class="titre-module">
+          <mat-icon class="icone-module">auto_fix_high</mat-icon>
+          Proposition de sujets innovants
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="contenu-module">
+        <!-- Interface de génération -->
+        <section class="interface-generation">
+          <mat-form-field appearance="outline" class="champ-recherche">
+            <mat-label>Thématiques de recherche</mat-label>
+            <input matInput [(ngModel)]="keywords" 
+                  placeholder="Exemple : Intelligence Artificielle, Systèmes distribués...">
+            <mat-icon matSuffix class="icone-recherche">search</mat-icon>
+          </mat-form-field>
+
+          <button mat-flat-button color="accent" 
+                  (click)="generateTopicsFromKeywords()" 
+                  class="bouton-generation">
+            <mat-icon>rocket_launch</mat-icon>Lancer la génération
+          </button>
+        </section>
+
+        <!-- Résultats de génération -->
+        <section *ngIf="generatedTopics" class="resultats-generation">
+          <h3 class="titre-resultats">
+            <mat-icon class="icone-resultats">insights</mat-icon>
+            Suggestions thématiques
+          </h3>
+          <div class="contenu-resultats">{{ generatedTopics }}</div>
+        </section>
+      </mat-card-content>
+    </mat-card>
+  </aside>
+</main>
