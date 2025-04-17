@@ -62,7 +62,7 @@ const routes: Routes = [
    { path: 'formations/stat',component:FormationstatComponent },
    { path: 'quiz/add',component:AddquizComponent },
    { path: 'question/add',component:AddquestionComponent},
-   { path: 'evaluation/dashbord',component:DashbordevaluationComponent},
+   { path: 'evaluationdashbord',component:DashbordevaluationComponent},
    { path: 'evaluation-list', component: EvaluationListComponent },
    {  path: 'view-questions/:id', component:ViewQuizQuestionsComponent }, 
    {  path: 'Gamification', component: GamificationDashboardComponent}, 

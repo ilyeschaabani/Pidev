@@ -95,6 +95,7 @@ if (closeButton instanceof HTMLElement) {
   onModifyClick(resource:Ressource){
     this.selectedResource=resource;
   }
+  
   changeSort(criterion: string): void {
     if (this.sortBy === criterion) {
       this.toggleSortDirection(); // inverse si on reclique sur la même colonne
