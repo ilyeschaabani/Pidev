@@ -33,17 +33,26 @@ export class ViewQuizQuestionsComponent {
 
   ngOnInit(): void {
     this.idEvaluation = this.route.snapshot.paramMap.get('id') || '';
-    
-    // Essayer d'abord de récupérer depuis state
+  
+    // Vérifie si un score est déjà enregistré
+    const savedScore = localStorage.getItem(`score_${this.idEvaluation}`);
+    if (savedScore !== null) {
+      this.score = parseInt(savedScore, 10);
+      this.quizCompleted = true;
+      this.showResults = true;
+      this.toastr.info(`Vous avez déjà complété ce quiz. Score : ${this.score}/${this.questions.length}`);
+      return;
+    }
+  
     const state = this.router.getCurrentNavigation()?.extras.state;
     if (state?.['questions']) {
       this.questions = state['questions'];
       this.isLoading = false;
     } else {
-      // Fallback: charger depuis l'API
       this.loadQuestions();
     }
   }
+  
 
   loadQuestions(): void {
     this.questionService.getQuestionsByEvaluation(this.idEvaluation)
@@ -62,6 +71,7 @@ export class ViewQuizQuestionsComponent {
         }
       });
   }
+
 
   get currentQuestion(): Question {
     return this.questions[this.currentQuestionIndex];
@@ -137,7 +147,10 @@ export class ViewQuizQuestionsComponent {
     submitQuiz() {
       const score = this.score;
       const idEvaluation = this.idEvaluation;
-      
+    
+      // ✅ Enregistrer score dans localStorage
+      localStorage.setItem(`score_${idEvaluation}`, score.toString());
+    
       this.quizResultService.saveQuizResult(idEvaluation, score)
         .subscribe({
           next: () => {
@@ -147,7 +160,7 @@ export class ViewQuizQuestionsComponent {
                 idEvaluation: idEvaluation,
                 score: score,
                 questionsCount: this.questions.length,
-                correctAnswers: this.score
+                correctAnswers: score
               }
             });
           },
@@ -157,5 +170,5 @@ export class ViewQuizQuestionsComponent {
           }
         });
     }
-
+    
 }

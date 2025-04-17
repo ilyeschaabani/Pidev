@@ -3,7 +3,7 @@ import { GamificationService } from '../services/gamification/gamification.servi
 import { forkJoin } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/Auth/auth.service';
-import { QuizResultService } from '../services/questionresult/quiz-result.service';
+import { QuizResult, QuizResultService } from '../services/questionresult/quiz-result.service';
 
 @Component({
   selector: 'app-gamification-dashboard',
@@ -11,78 +11,59 @@ import { QuizResultService } from '../services/questionresult/quiz-result.servic
   styleUrls: ['./gamification-dashboard.component.css']
 })
 export class GamificationDashboardComponent {
-  getScoreClass(arg0: any): string|string[]|Set<string>|{ [klass: string]: any; }|null|undefined {
-    throw new Error('Method not implemented.');
-    }
-    getBadgeIcon(_t71: any): string|string[]|Set<string>|{ [klass: string]: any; }|null|undefined {
-    throw new Error('Method not implemented.');
-    }
-      idUser!: string;
-    quizResults: any[] = [];
-    userStats: any = {};
-    badges: string[] = [];
-    isLoading = true;
-    currentLevelProgress = 0;
-    
-    constructor(
-      private quizResultService: QuizResultService,
-      private gamificationService: GamificationService,
-      private authService: AuthService,
-      private toastr: ToastrService
-    ) {}
-    
-    ngOnInit(): void {
-      this.authService.getCurrentUser().subscribe({
-        next: (userId: string) => {
-          this.idUser = userId;
-          this.loadDashboardData();
-        },
-        error: () => {
-          this.toastr.error('Erreur lors de la récupération de l\'utilisateur');
-        }
-      });
-      this.loadDashboardData();
-    }
-    
-    loadDashboardData(): void {
-      this.isLoading = true;
-    
-      forkJoin([
-        this.quizResultService.getUserResults(this.idUser),
-        this.gamificationService.getUserStats(this.idUser),
-        this.gamificationService.getUserBadges(this.idUser)
-      ]).subscribe({
-        next: (results) => {
-          const [quizResults = [], stats = {}, badges = []] = results;
-          this.quizResults = quizResults;
-          this.userStats = stats;
-          this.badges = badges;
-          this.calculateLevelProgress();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          this.toastr.error('Erreur lors du chargement des données');
-          this.isLoading = false;
-        }
-      });
-    }
-    
-    calculateLevelProgress(): void {
-      if (this.userStats?.totalPoints && this.userStats?.level) {
-        this.currentLevelProgress = (this.userStats.totalPoints % 100);
+  quizResults: QuizResult[] = [];
+  totalPoints: number = 0;
+  level: number = 1;
+  progression: number = 0;
+  badges: string[] = [];
+ 
+
+
+  ngOnInit() {
+    this.loadQuizResults();
+    this.calculateGamification();
+  }
+
+  loadQuizResults() {
+    const keys = Object.keys(localStorage).filter(key => key.startsWith('score_'));
+    this.quizResults = keys.map(key => {
+      return {
+        id: key, // ou un identifiant unique (à adapter si besoin)
+        idEvaluation: key.replace('score_', ''),
+        idUser: '1', // ✅ corrigé en string pour correspondre à QuizResult
+        quizId: key.replace('score_', ''),
+        score: parseInt(localStorage.getItem(key) || '0', 10),
+        date: new Date().toISOString() // format ISO standard (optionnel)
+      } as QuizResult; // on force le typage si besoin
+    });
+  }
+  
+
+  calculateGamification() {
+    this.totalPoints = this.quizResults.reduce((sum: any, result: { score: any; }) => sum + result.score, 0);
+    this.level = Math.floor(this.totalPoints / 100) + 1;
+    this.progression = this.totalPoints % 100;
+
+    // Attribution des badges
+    this.badges = [];
+    for (let result of this.quizResults) {
+      if (result.score === 100 && !this.badges.includes('🎯 Parfait')) {
+        this.badges.push('🎯 Parfait');
       }
     }
-    
-    saveQuizResult(evaluationId: string, score: number): void {
-      this.quizResultService.saveQuizResult(evaluationId, score).subscribe({
-        next: () => {
-          this.toastr.success('Résultat enregistré avec succès!');
-          this.loadDashboardData(); // Rafraîchir les données
-        },
-        error: (err) => {
-          this.toastr.error("Erreur lors de l'enregistrement");
-        }
-      });
-    }
+    if (this.totalPoints >= 200) this.badges.push('🔥 Expert');
+    if (this.totalPoints >= 300) this.badges.push('🏆 Champion');
+  }
 
-}
+  resetProgression() {
+    for (let key of Object.keys(localStorage)) {
+      if (key.startsWith('score_')) {
+        localStorage.removeItem(key);
+      }
+    }
+    this.quizResults = [];
+    this.totalPoints = 0;
+    this.level = 1;
+    this.progression = 0;
+    this.badges = [];
+  }}
