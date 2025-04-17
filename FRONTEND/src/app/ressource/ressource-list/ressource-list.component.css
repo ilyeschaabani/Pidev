@@ -1,3 +1,20 @@
+/* Supprime le padding haut inutile */
+.modern-container {
+  margin: 0;
+  padding-top: 0 !important;
+}
+
+/* Masque complètement l'image de fond */
+.modern-bg {
+  display: none;
+}
+
+/* Utilisé dans le HTML pour désactiver le padding-top */
+.no-top-padding {
+  padding-top: 0 !important;
+}
+
+/* Bouton de suppression */
 .btn-delete {
   background: #ff4444;
   color: white;
@@ -7,21 +24,26 @@
   cursor: pointer;
 }
 
+/* Message d'erreur */
 .error {
   color: #dc3545;
   padding: 10px;
   margin: 10px 0;
 }
 
+/* Message vide */
 .empty {
   color: #6c757d;
   font-style: italic;
 }
 
+/* Meta infos */
 .meta span {
   margin-right: 15px;
   color: #666;
 }
-.xlCanvas{
+
+/* Taille personnalisée de l'offcanvas */
+.xlCanvas {
   width: 550px;
 }

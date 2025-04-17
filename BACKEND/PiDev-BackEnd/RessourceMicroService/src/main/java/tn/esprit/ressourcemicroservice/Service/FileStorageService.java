@@ -24,59 +24,66 @@ import java.util.UUID;
 @Service
 public class FileStorageService {
 
+    // URL de l'API d'extraction de texte
     private final static String EXTRACT_API_URL="http://127.0.0.1:8000/extract-text/";
+
+    // Méthode pour télécharger un fichier
     public String uploadFile(MultipartFile file, TypeRessource type) throws IOException {
-        // Define the base upload directory inside the microservice
+
+        // Définir le répertoire de téléchargement de base dans le microservice
         String uploadDir = System.getProperty("user.dir") + "/src/main/resources/uploads/" + type.toString().toLowerCase();
         Path storagePath = Paths.get(uploadDir);
 
-        // Ensure directory exists
+        // S'assurer que le répertoire existe
         if (!Files.exists(storagePath)) {
             Files.createDirectories(storagePath);
         }
 
-        // Generate a unique filename
+        // Générer un nom de fichier unique
         String fileExtension = getFileExtension(file.getOriginalFilename());
         String uniqueFileName = UUID.randomUUID().toString() + "." + fileExtension;
 
-        // Save the file physically
+        // Sauvegarder le fichier physiquement
         Path filePath = storagePath.resolve(uniqueFileName);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-
+        // Retourner le nom du fichier unique
         return uniqueFileName;
     }
 
+    // Méthode pour obtenir l'extension d'un fichier
     private String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
+    // Méthode pour extraire un résumé d'un document
     public String resumeDocument(String fileName) throws IOException {
         try {
-            // Construct the file path in the resources/uploads directory
+            // Construire le chemin du fichier dans le répertoire ressources/uploads
             String uploadDir = System.getProperty("user.dir") + "/src/main/resources/uploads/document";
             File file = new File(uploadDir + "/" + fileName);
 
+            // Vérifier si le fichier existe
             if (!file.exists()) {
-                throw new IOException("FILE NOT FOUND!");
+                throw new IOException("FICHIER INEXISTANT !");
             }
 
-            // Prepare the file as a Resource (FileSystemResource)
+            // Préparer le fichier en tant que Resource (FileSystemResource)
             RestTemplate restTemplate = new RestTemplate();
 
-            // Create the multipart form data
+            // Créer les données du formulaire multipart
             MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-            Resource resource = new FileSystemResource(file);  // Convert the file to a resource
+            Resource resource = new FileSystemResource(file);  // Convertir le fichier en ressource
             body.add("file", resource);
 
-            // Set up the headers for multipart/form-data
+            // Définir les en-têtes pour le type de contenu multipart/form-data
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-            // Create the HttpEntity to send the multipart form data
+            // Créer l'entité Http pour envoyer les données du formulaire multipart
             HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
 
-            // Make the POST request to the external API
+            // Faire une requête POST vers l'API externe
             ResponseEntity<String> response = restTemplate.exchange(
                     EXTRACT_API_URL,
                     HttpMethod.POST,
@@ -84,19 +91,18 @@ public class FileStorageService {
                     String.class
             );
 
-            // Parse the JSON response to extract the summary field
+            // Analyser la réponse JSON pour extraire le champ "summary"
             String jsonResponse = response.getBody();
             if (jsonResponse != null) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode jsonNode = objectMapper.readTree(jsonResponse);
-                return jsonNode.get("summary").asText(); // Extract and return the "summary"
+                return jsonNode.get("summary").asText(); // Extraire et retourner le résumé
             } else {
-                throw new IOException("Empty response from external API.");
+                throw new IOException("Réponse vide de l'API externe.");
             }
 
-
         } catch (Exception e) {
-            throw new IOException("Error processing file: " + e.getMessage());
+            throw new IOException("Erreur lors du traitement du fichier : " + e.getMessage());
         }
     }
 }

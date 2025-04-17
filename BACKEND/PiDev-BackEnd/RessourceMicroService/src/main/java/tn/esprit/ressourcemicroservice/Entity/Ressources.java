@@ -25,12 +25,8 @@ public class Ressources {
 
     String titre;
     String description;
-
-    // Enregistre en tant que chaîne pour éviter des erreurs avec MongoDB
     TypeRessource type;
-
     Date date;
-
     CategoryRessource category;
     String fileName;
 

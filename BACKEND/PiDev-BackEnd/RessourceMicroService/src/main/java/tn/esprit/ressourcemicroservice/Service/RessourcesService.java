@@ -18,11 +18,10 @@ public class RessourcesService {
 
     private final RessourcesRepository ressourcesRepository;
 
-    // Injection via constructeur (meilleure pratique)
+    // Injection via constructeur
     public RessourcesService(RessourcesRepository ressourcesRepository) {
         this.ressourcesRepository = ressourcesRepository;
     }
-
     // Créer une ressource
     public Ressources createRessource(Ressources ressource) {
         return ressourcesRepository.save(ressource);
