@@ -13,22 +13,12 @@ export class ProjectPfeListComponent {
   projets: PFEProject[] = [];
   selectedProject: PFEProject | null = null;
 
-  newProject: PFEProject = {
-    id: '',
-    title: '',
-    description: '',
-    studentIds: [],
-    mentorId: '',
-    stage: 'PROPOSAL',
-    documents: [],
-    comments: [],
-    evaluation: null
-  };
+  newProject: PFEProject = this.getEmptyProject();
 
   keywords: string = '';
   generatedTopics: string[] = [];
 
-  constructor(private projectService: PfeProjectService,private router: Router) {}
+  constructor(private projectService: PfeProjectService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchProjects();
@@ -39,7 +29,7 @@ export class ProjectPfeListComponent {
   }
 
   editProject(project: PFEProject): void {
-    this.newProject = { ...project };
+    this.newProject = { ...project }; // Remplir le formulaire avec les données du projet sélectionné
     const offcanvas = document.getElementById('offcanvasAddProject');
     if (offcanvas) {
       new bootstrap.Offcanvas(offcanvas).show();
@@ -61,15 +51,19 @@ export class ProjectPfeListComponent {
   }
 
   createProject(): void {
-    if (!this.newProject.title || !this.newProject.description) return;
-  
-    if (this.newProject.id) {
+    if (!this.newProject.title || !this.newProject.description || !this.newProject.mentorId) return;
+
+    // Si un ID est présent => c'est une mise à jour
+    if (this.newProject.id && this.newProject.id.trim() !== '') {
       this.projectService.updateProject(this.newProject.id, this.newProject).subscribe(() => {
         this.fetchProjects();
         this.resetForm();
       });
     } else {
-      this.projectService.createProject(this.newProject).subscribe(() => {
+      // Création d’un nouveau projet
+      const projectToCreate = { ...this.newProject };
+      delete projectToCreate.id; // on s'assure que l'id est bien vide
+      this.projectService.createProject(projectToCreate).subscribe(() => {
         this.fetchProjects();
         this.resetForm();
       });
@@ -77,7 +71,17 @@ export class ProjectPfeListComponent {
   }
 
   resetForm(): void {
-    this.newProject = {
+    this.newProject = this.getEmptyProject();
+    // Optionnel : fermer l'offcanvas après soumission
+    const offcanvasEl = document.querySelector('.offcanvas.show') as HTMLElement;
+    if (offcanvasEl) {
+      const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+      offcanvas?.hide();
+    }
+  }
+
+  getEmptyProject(): PFEProject {
+    return {
       id: '',
       title: '',
       description: '',
@@ -96,5 +100,4 @@ export class ProjectPfeListComponent {
       .map(id => id.trim())
       .filter(id => id);
   }
-
 }
