@@ -118,4 +118,9 @@ private getExistingQuestionIds(idEvaluation: string): string[] {
   return this.questionsMap[idEvaluation]?.map(q => q.quesId).filter((id): id is string => id !== undefined) || [];
 }
 
+  // Méthode de navigation
+  navigateToQuizapi(): void {
+    this.router.navigate(['/quiz']); // Redirection vers la route '/dashboard'
+  }
+
 }
