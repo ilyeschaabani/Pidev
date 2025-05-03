@@ -1,0 +1,184 @@
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h1 class="mb-0">Prédiction de Complétion de Cours</h1>
+    </div>
+    <div class="card-body">
+      <form class="form form-vertical" (ngSubmit)="getPrediction()">
+        <div class="row g-3">
+          <!-- Temps passé sur le cours -->
+          <div class="col-md-6">
+            <label class="form-label" for="TimeSpentOnCourse">
+              <i class="bx bx-time me-1"></i>Temps passé (heures)
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="TimeSpentOnCourse"
+              name="TimeSpentOnCourse"
+              [(ngModel)]="predictionData.TimeSpentOnCourse"
+              step="0.1"
+              min="0"
+              placeholder="Ex: 12.5"
+              required
+            />
+            <small class="text-muted">Temps total consacré au cours</small>
+          </div>
+  
+          <!-- Nombre de vidéos regardées -->
+          <div class="col-md-6">
+            <label class="form-label" for="NumberOfVideosWatched">
+              <i class="bx bx-video me-1"></i>Vidéos regardées
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="NumberOfVideosWatched"
+              name="NumberOfVideosWatched"
+              [(ngModel)]="predictionData.NumberOfVideosWatched"
+              min="0"
+              placeholder="Ex: 8"
+              required
+            />
+            <small class="text-muted">Nombre total de vidéos visionnées</small>
+          </div>
+  
+          <!-- Nombre de quiz effectués -->
+          <div class="col-md-6">
+            <label class="form-label" for="NumberOfQuizzesTaken">
+              <i class="bx bx-list-check me-1"></i>Quiz complétés
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="NumberOfQuizzesTaken"
+              name="NumberOfQuizzesTaken"
+              [(ngModel)]="predictionData.NumberOfQuizzesTaken"
+              min="0"
+              placeholder="Ex: 5"
+              required
+            />
+            <small class="text-muted">Nombre total de quiz terminés</small>
+          </div>
+  
+          <!-- Score moyen aux quiz -->
+          <div class="col-md-6">
+            <label class="form-label" for="QuizScores">
+              <i class="bx bx-trophy me-1"></i>Score moyen (%)
+            </label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="QuizScores"
+                name="QuizScores"
+                [(ngModel)]="predictionData.QuizScores"
+                step="0.1"
+                min="0"
+                max="100"
+                placeholder="Ex: 75.5"
+                required
+              />
+              <span class="input-group-text">%</span>
+            </div>
+            <small class="text-muted">Moyenne des résultats aux quiz</small>
+          </div>
+  
+          <!-- Taux de complétion -->
+          <div class="col-md-6">
+            <label class="form-label" for="CompletionRate">
+              <i class="bx bx-pie-chart-alt me-1"></i>Taux de complétion
+            </label>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="CompletionRate"
+                name="CompletionRate"
+                [(ngModel)]="predictionData.CompletionRate"
+                step="0.1"
+                min="0"
+                max="100"
+                placeholder="Ex: 62.3"
+                required
+              />
+              <span class="input-group-text">%</span>
+            </div>
+            <small class="text-muted">Pourcentage du cours terminé</small>
+          </div>
+  
+          <!-- Type d'appareil -->
+          <div class="col-md-6">
+            <label class="form-label" for="DeviceType">
+              <i class="bx bx-devices me-1"></i>Appareil principal
+            </label>
+            <select
+              class="form-select"
+              id="DeviceType"
+              name="DeviceType"
+              [(ngModel)]="predictionData.DeviceType"
+              required
+            >
+              <option value="" disabled selected>Choisissez...</option>
+              <option value="1">📱 Mobile</option>
+              <option value="2">💻 Desktop</option>
+            </select>
+            <small class="text-muted">Appareil utilisé pour suivre le cours</small>
+          </div>
+  
+          <!-- Bouton de soumission -->
+          <div class="col-12 mt-2">
+            <button type="submit" class="btn btn-primary" [disabled]="loading">
+              <span *ngIf="!loading" class="d-flex align-items-center">
+                <i class="bx bx-analyse me-2"></i>Générer la prédiction
+              </span>
+              <span *ngIf="loading" class="d-flex align-items-center">
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Analyse en cours...
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+  
+      <!-- Résultats -->
+      <div *ngIf="predictionText" class="mt-4 animate__animated animate__fadeIn">
+        <div class="card shadow-none border">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-start">
+              <div class="flex-shrink-0">
+                <i class="bx bx-stats text-primary h1"></i>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h5 class="mb-2">{{ predictionText }}</h5>
+                
+                <div *ngIf="probability > 0" class="mt-3">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span class="fw-semibold">Niveau de confiance:</span>
+                    <span class="fw-bold">{{ probability | number:'1.2-2' }}%</span>
+                  </div>
+                  <div class="progress mb-2" style="height: 8px;">
+                    <div
+                      class="progress-bar"
+                      [ngClass]="{
+                        'bg-success': probability > 70,
+                        'bg-warning': probability > 30 && probability <= 70,
+                        'bg-danger': probability <= 30
+                      }"
+                      role="progressbar"
+                      [style.width]="probability + '%'"
+                    ></div>
+                  </div>
+                  <div class="text-end">
+                    <small class="text-muted">
+                      <i class="bx bx-info-circle"></i> 
+                      Précision basée sur l'analyse des données historiques
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

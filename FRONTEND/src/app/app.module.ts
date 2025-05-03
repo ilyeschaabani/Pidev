@@ -71,6 +71,7 @@ import { ProjectPfeListComponent } from './accompagnement/project-pfe-list/proje
 import { StudentProjectComponent } from './accompagnement/student-project/student-project.component';
 import { MatListModule } from '@angular/material/list';
 import { CertifComponent } from './certif/certif.component';
+import { PredictcoursComponent } from './predictcours/predictcours.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { CertifComponent } from './certif/certif.component';
     PfeDetailsComponent,
     ProjectPfeListComponent,
     StudentProjectComponent,
-    CertifComponent
+    CertifComponent,
+    PredictcoursComponent
     
 
   ],

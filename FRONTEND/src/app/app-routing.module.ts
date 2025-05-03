@@ -41,6 +41,7 @@ import { MentorListComponent } from './accompagnement/mentor-list/mentor-list.co
 import { AdminManageProjectComponent } from './accompagnement/admin-manage-project/admin-manage-project.component';
 import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.component';
 import { CertifComponent } from './certif/certif.component';
+import { PredictcoursComponent } from './predictcours/predictcours.component';
 
 
 
@@ -98,6 +99,7 @@ const routes: Routes = [
     }]
   },
   {  path: 'affecter', component:AssignQuestionsComponent },
+  {  path: 'Predictcours', component:PredictcoursComponent },
 
 ];
 

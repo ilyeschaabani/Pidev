@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,7 @@ export class CertifServiceService {
   }
 
 
-
-  private apiUrl = 'http://localhost:8093/api/certif'; // URL de votre backend
+  private apiUrl = 'http://localhost:5000/predict';
 
   constructor(private http: HttpClient) { }
 
@@ -27,4 +26,36 @@ export class CertifServiceService {
   getCertifs(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  getPrediction(predictionData: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    // Validation des données avant envoi
+    const requiredFields = [
+      'TimeSpentOnCourse', 'NumberOfVideosWatched',
+      'NumberOfQuizzesTaken', 'QuizScores',
+      'CompletionRate', 'DeviceType'
+    ];
+
+    for (const field of requiredFields) {
+      if (predictionData[field] === undefined || predictionData[field] === null) {
+        return throwError(() => new Error(`Le champ ${field} est requis`));
+      }
+    }
+
+    return this.http.post<any>(this.apiUrl, predictionData, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error('Erreur HTTP:', error);
+          return throwError(() => new Error(
+            error.error?.message || 
+            error.message || 
+            'Erreur de communication avec le serveur'
+          ));
+        })
+      );
+  }
+
 }
