@@ -42,6 +42,7 @@ import { AdminManageProjectComponent } from './accompagnement/admin-manage-proje
 import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.component';
 import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
+import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
 
 
 
@@ -100,6 +101,8 @@ const routes: Routes = [
   },
   {  path: 'affecter', component:AssignQuestionsComponent },
   {  path: 'Predictcours', component:PredictcoursComponent },
+  {  path: 'PredictProject', component:PredictionProjectComponent },
+
 
 ];
 

@@ -1,4 +1,5 @@
 import { NgModule  } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -72,6 +73,8 @@ import { StudentProjectComponent } from './accompagnement/student-project/studen
 import { MatListModule } from '@angular/material/list';
 import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
+import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
+import { PredictionResultDialogComponent } from './prediction-result-dialog/prediction-result-dialog.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +129,9 @@ import { PredictcoursComponent } from './predictcours/predictcours.component';
     ProjectPfeListComponent,
     StudentProjectComponent,
     CertifComponent,
-    PredictcoursComponent
+    PredictcoursComponent,
+    PredictionProjectComponent,
+    PredictionResultDialogComponent
     
 
   ],
@@ -153,6 +158,7 @@ import { PredictcoursComponent } from './predictcours/predictcours.component';
     MatExpansionModule,
     MatIconModule,
     MatListModule,
+    MatDialogModule,
     ToastrModule.forRoot()
   ],
   providers: [],

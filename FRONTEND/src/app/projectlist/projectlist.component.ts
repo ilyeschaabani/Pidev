@@ -42,7 +42,11 @@ export class ProjectlistComponent {
       }
     });
   }
-
+  allerPrediction(): void {
+    // Redirige vers la page prédiction
+    this.router.navigate(['/PredictProject']);
+  }
+  
   onSubmit(): void {
     if (!this.newProjet.titre || !this.newProjet.description) return;
 

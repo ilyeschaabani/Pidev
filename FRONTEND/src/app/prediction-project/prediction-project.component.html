@@ -1,0 +1,111 @@
+<app-navbar></app-navbar>
+<br> <br> <br>
+<div class="prediction-container">
+  <mat-card class="prediction-card">
+    <mat-card-header>
+      <mat-card-title class="title">🔮 Prédire le coût du projet</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form class="prediction-form" (ngSubmit)="envoyerPrediction()">
+        <div class="form-row">
+          <!-- Section Projet -->
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Nom du projet</mat-label>
+              <input matInput [(ngModel)]="inputData['Project Name']" name="projectName" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Type de projet</mat-label>
+              <input matInput [(ngModel)]="inputData['Project Type']" name="projectType" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Localisation</mat-label>
+              <input matInput [(ngModel)]="inputData['Location']" name="location" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Statut du projet</mat-label>
+              <input matInput [(ngModel)]="inputData['Project Status']" name="projectStatus" required>
+            </mat-form-field>
+          </div>
+
+          <!-- Section Tâche -->
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>ID Tâche</mat-label>
+              <input matInput [(ngModel)]="inputData['Task ID']" name="taskId" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Nom de la tâche</mat-label>
+              <input matInput [(ngModel)]="inputData['Task Name']" name="taskName" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Statut de la tâche</mat-label>
+              <input matInput [(ngModel)]="inputData['Task Status']" name="taskStatus" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Assigné à</mat-label>
+              <input matInput [(ngModel)]="inputData['Assigned To']" name="assignedTo" required>
+            </mat-form-field>
+          </div>
+
+          <!-- Section Métriques -->
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Heures passées</mat-label>
+              <input matInput type="number" [(ngModel)]="inputData['Hours Spent']" name="hoursSpent" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Budget</mat-label>
+              <input matInput type="number" [(ngModel)]="inputData['Budget']" name="budget" required>
+              <span matSuffix>€</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Progression</mat-label>
+              <input matInput type="number" [(ngModel)]="inputData['Progress']" name="progress" required>
+              <span matSuffix>%</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Priorité</mat-label>
+              <input matInput [(ngModel)]="inputData['Priority']" name="priority" required>
+            </mat-form-field>
+          </div>
+
+          <!-- Section Dates -->
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Date de début</mat-label>
+              <input matInput type="date" [(ngModel)]="inputData['Start Date']" name="startDate" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Date de fin</mat-label>
+              <input matInput type="date" [(ngModel)]="inputData['End Date']" name="endDate" required>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button mat-raised-button color="primary" type="submit" class="submit-button">
+            <mat-icon>calculate</mat-icon>
+            📊 Prédire
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngIf="predictionResult !== null" class="result-card">
+  <h3>Résultat de la prédiction</h3>
+  <p>Coût estimé : {{ predictionResult | currency:'EUR':'symbol':'1.2-2' }}</p>
+</div>

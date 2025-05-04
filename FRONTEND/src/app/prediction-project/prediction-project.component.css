@@ -1,0 +1,135 @@
+
+.prediction-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
+  min-height: 100vh;
+}
+
+.prediction-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  padding: 2.5rem;
+  background: white;
+  border: 1px solid #e0e7ff;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  background: linear-gradient(45deg, #2196F3, #3f51b5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  background: #f8faff;
+  border-radius: 12px;
+  border: 1px solid #e0e7ff;
+  transition: transform 0.2s ease;
+}
+
+.form-group:hover {
+  transform: translateY(-2px);
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #c5d3f3;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
+  color: #2196F3 !important;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.submit-button {
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #2196F3, #3f51b5);
+  color: white !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33,150,243,0.3);
+}
+
+.result-card {
+  margin: 3rem auto 0;
+  padding: 2rem;
+  background: #f8faff;
+  border-radius: 15px;
+  border-left: 5px solid #2196F3;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  animation: slideIn 0.4s ease;
+}
+
+.result-card h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.result-card p {
+  font-size: 1.6rem;
+  color: #2196F3;
+  font-weight: 700;
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .prediction-card {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .form-group {
+    padding: 1.2rem;
+  }
+}
