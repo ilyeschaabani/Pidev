@@ -1,5 +1,5 @@
 
-<app-navbar></app-navbar>
+<app-dashbordadmin></app-dashbordadmin>
 
 <!-- ESPACE ENTRE LA NAVBAR ET LE FILTRE -->
 <div class="modern-container mt-5 position-relative py-5 px-3 px-md-5">
@@ -51,6 +51,9 @@
       <button class="btn btn-mauve" [routerLink]="['/addressources']">
         <i class="bx bx-plus"></i> Ajouter une ressource
       </button>
+      <button class="btn btn-mauve" [routerLink]="['/addressources']">
+        <i class="bx bx-plus"></i> Prediction
+      </button>
     </div>
 
     <div class="table-responsive rounded-3 overflow-hidden">
@@ -100,9 +103,7 @@
             <td>
               <div class="d-flex justify-content-center gap-2">
                 <button class="btn btn-outline-warning btn-sm"
-                        (click)="onModifyClick(ressource)"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasAddRessource">
+                [routerLink]="['/addressources']">
                   ✏️
                 </button>
                 <button class="btn btn-outline-danger btn-sm"
