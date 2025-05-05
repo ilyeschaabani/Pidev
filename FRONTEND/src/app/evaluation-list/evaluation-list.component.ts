@@ -122,5 +122,7 @@ private getExistingQuestionIds(idEvaluation: string): string[] {
   navigateToQuizapi(): void {
     this.router.navigate(['/quiz']); // Redirection vers la route '/dashboard'
   }
-
+  navigateTopredict(): void {
+    this.router.navigate(['/Predictcours']); // Redirection vers la route '/dashboard'
+  }
 }

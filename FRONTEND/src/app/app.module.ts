@@ -75,8 +75,10 @@ import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
 import { PredictionResultDialogComponent } from './prediction-result-dialog/prediction-result-dialog.component';
+import { PredictionComponent } from './prediction/prediction.component';
+import { PredictsourourComponent } from './predictsourour/predictsourour.component';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 import { PredictionFormTimespentComponent } from './prediction-form-timespent/prediction-form-timespent.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,9 +135,10 @@ import { PredictionFormTimespentComponent } from './prediction-form-timespent/pr
     PredictcoursComponent,
     PredictionProjectComponent,
     PredictionResultDialogComponent,
-    PredictionFormTimespentComponent
-    
-
+    PredictionComponent,
+    PredictsourourComponent,
+RecommendationComponent,
+PredictionFormTimespentComponent
   ],
   imports: [
     BrowserModule,

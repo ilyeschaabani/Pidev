@@ -43,7 +43,13 @@ import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.
 import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
+import { PredictionComponent } from './prediction/prediction.component';
+import { PredictsourourComponent } from './predictsourour/predictsourour.component';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 import { PredictionFormTimespentComponent } from './prediction-form-timespent/prediction-form-timespent.component';
+import { ForumComponent } from './forum/forum.component';
+import { TopicComponent } from './topic/topic.component';
+import { CreatetopicformComponent } from './createtopicform/createtopicform.component';
 
 
 
@@ -85,9 +91,12 @@ const routes: Routes = [
    { path: 'mentor/project/:id', component: MentorProjectComponent },
    { path: 'mentor/project', component: MentorListComponent },
    { path: 'predictionTimespent', component: PredictionFormTimespentComponent },
- 
+   { path: 'forum', component: ForumComponent },
    { path: 'adminPfe', component: AdminManageProjectComponent },
    { path: 'certif/:id', component: CertifComponent },
+   { path: 'topic', component: TopicComponent },
+   { path: 'createtopic', component: CreatetopicformComponent },
+
    { 
     path: 'collaborative-space/:id', 
     component:ColaborativespaceComponent
@@ -104,7 +113,9 @@ const routes: Routes = [
   {  path: 'affecter', component:AssignQuestionsComponent },
   {  path: 'Predictcours', component:PredictcoursComponent },
   {  path: 'PredictProject', component:PredictionProjectComponent },
-
+  { path: 'predict', component: PredictionComponent },
+  { path: 'predictsou', component: PredictsourourComponent },
+  { path: 'Recommandation', component: RecommendationComponent },
 
 ];
 

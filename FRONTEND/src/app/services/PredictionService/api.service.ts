@@ -5,17 +5,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PredictionService {
-
-  private apiUrl = 'http://localhost:5002/predict';  // ➡️ Le backend Flask qui tourne en local
+export class ApiService {
+  private apiUrl = 'http://localhost:5006'; // <-- Corrigé
 
   constructor(private http: HttpClient) { }
 
-  predict(data: any): Observable<any> {
+  getExpectedFeatures(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/features`);
+  }
+
+  predictCourseDifficulty(data: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
-    return this.http.post<any>(this.apiUrl, data, { headers: headers, withCredentials: true });
+    return this.http.post(`${this.apiUrl}/predict`, data, { headers });
   }
 }

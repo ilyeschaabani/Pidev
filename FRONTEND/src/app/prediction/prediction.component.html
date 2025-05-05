@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Course Difficulty Predictor</h2>
+    
+    <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()" class="prediction-form">
+      <div class="form-group">
+        <label for="courseName">Course Name</label>
+        <input type="text" id="courseName" formControlName="Course Name" class="form-control">
+        <div *ngIf="predictionForm.get('Course Name')?.invalid && predictionForm.get('Course Name')?.touched" 
+             class="error-message">
+          Course Name is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="university">University (optional)</label>
+        <input type="text" id="university" formControlName="University" class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="courseRating">Course Rating (1-5)</label>
+        <input type="number" id="courseRating" formControlName="Course Rating" class="form-control" min="1" max="5" step="0.1">
+        <div *ngIf="predictionForm.get('Course Rating')?.invalid && predictionForm.get('Course Rating')?.touched" 
+             class="error-message">
+          Valid rating between 1 and 5 is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="skills">Required Skills (comma separated)</label>
+        <input type="text" id="skills" formControlName="Skills" class="form-control">
+        <div *ngIf="predictionForm.get('Skills')?.invalid && predictionForm.get('Skills')?.touched" 
+             class="error-message">
+          Skills are required
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="predictionForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Predict Difficulty</span>
+        <span *ngIf="isLoading">Predicting...</span>
+      </button>
+    </form>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="predictionResult" class="result-container mt-3">
+      <h3>Prediction Result</h3>
+      <div class="alert alert-success">
+        Predicted Difficulty Level: <strong>{{ predictionResult.predicted_difficulty_level }}</strong>
+      </div>
+    </div>
+  
+    <div *ngIf="expectedFeatures.length > 0" class="mt-4">
+      <h4>Expected Features:</h4>
+      <ul>
+        <li *ngFor="let feature of expectedFeatures">{{ feature }}</li>
+      </ul>
+    </div>
+  </div>
