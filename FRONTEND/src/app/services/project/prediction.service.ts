@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PredictionService {
 
-  private apiUrl = 'http://localhost:5000/predict';  // ➡️ Le backend Flask qui tourne en local
+  private apiUrl = 'http://localhost:5002/predict';  // ➡️ Le backend Flask qui tourne en local
 
   constructor(private http: HttpClient) { }
 
