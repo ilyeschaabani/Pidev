@@ -43,6 +43,7 @@ import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.
 import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
+import { PredictionFormTimespentComponent } from './prediction-form-timespent/prediction-form-timespent.component';
 
 
 
@@ -83,6 +84,7 @@ const routes: Routes = [
    { path: 'project-details/:id', component: PfeDetailsComponent },
    { path: 'mentor/project/:id', component: MentorProjectComponent },
    { path: 'mentor/project', component: MentorListComponent },
+   { path: 'predictionTimespent', component: PredictionFormTimespentComponent },
  
    { path: 'adminPfe', component: AdminManageProjectComponent },
    { path: 'certif/:id', component: CertifComponent },

@@ -75,6 +75,7 @@ import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
 import { PredictionResultDialogComponent } from './prediction-result-dialog/prediction-result-dialog.component';
+import { PredictionFormTimespentComponent } from './prediction-form-timespent/prediction-form-timespent.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { PredictionResultDialogComponent } from './prediction-result-dialog/pred
     CertifComponent,
     PredictcoursComponent,
     PredictionProjectComponent,
-    PredictionResultDialogComponent
+    PredictionResultDialogComponent,
+    PredictionFormTimespentComponent
     
 
   ],

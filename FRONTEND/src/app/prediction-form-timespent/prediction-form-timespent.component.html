@@ -1,0 +1,102 @@
+<app-navbar></app-navbar>
+<div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+      <div class="authentication-inner" style="max-width: 540px">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="mb-2">Time Spent Prediction 🚀</h4>
+            <p class="mb-2">Predict your daily online time based on your profile</p>
+            
+            <form (ngSubmit)="onSubmit()" #predictionForm="ngForm" class="mb-3">
+              <!-- Error Message Display -->
+              <div *ngIf="error" class="alert alert-danger alert-dismissible" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+  
+              <div class="row g-2 mb-3">
+                <!-- Age Field -->
+                <div class="col mb-0">
+                  <label for="age" class="form-label">Age</label>
+                  <input type="number" class="form-control" id="age" [(ngModel)]="features.Age" name="age" required min="13" max="100" placeholder="Enter your age">
+                </div>
+                
+                <!-- Income Level Field -->
+                <div class="col mb-0">
+                  <label for="incomeLevel" class="form-label">Income Level</label>
+                  <input type="number" class="form-control" id="incomeLevel" [(ngModel)]="features['Income Level']" name="incomeLevel" required min="0" placeholder="Income level">
+                </div>
+              </div>
+  
+              <div class="row g-2 mb-3">
+                <!-- Device Usage Field -->
+                <div class="col mb-0">
+                  <label for="deviceUsage" class="form-label">Device Usage (hours/day)</label>
+                  <input type="number" class="form-control" id="deviceUsage" [(ngModel)]="features['Device Usage']" name="deviceUsage" required min="0" max="24" step="0.1" placeholder="Daily device usage">
+                </div>
+                
+                <!-- Current Time Spent Online Field -->
+                <div class="col mb-0">
+                  <label for="timeOnline" class="form-label">Current Online Time (hours/day)</label>
+                  <input type="number" class="form-control" id="timeOnline" [(ngModel)]="features['Total Time Spent Online']" name="timeOnline" required min="0" max="24" step="0.1" placeholder="Current online time">
+                </div>
+              </div>
+  
+              <!-- Education Level Field -->
+              <div class="mb-3">
+                <label for="educationLevel" class="form-label">Education Level</label>
+                <select class="form-select" id="educationLevel" [(ngModel)]="features['Education Level']" name="educationLevel" required>
+                  <option value="" disabled selected>Select education level</option>
+                  <option value="1">High School</option>
+                  <option value="2">Bachelor's Degree</option>
+                  <option value="3">Master's Degree</option>
+                  <option value="4">PhD</option>
+                </select>
+              </div>
+  
+              <div class="row g-2 mb-3">
+                <!-- Likes and Reactions Field -->
+                <div class="col mb-0">
+                  <label for="likes" class="form-label">Likes and Reactions</label>
+                  <input type="number" class="form-control" id="likes" [(ngModel)]="features['Likes and Reactions']" name="likes" required min="0" placeholder="Total likes/reactions">
+                </div>
+                
+                <!-- Followed Accounts Field -->
+                <div class="col mb-0">
+                  <label for="followed" class="form-label">Followed Accounts</label>
+                  <input type="number" class="form-control" id="followed" [(ngModel)]="features['Followed Accounts']" name="followed" required min="0" placeholder="Accounts followed">
+                </div>
+              </div>
+  
+              <!-- Top Interests Field -->
+              <div class="mb-3">
+                <label for="topInterests" class="form-label">Top Interests</label>
+                <input type="text" class="form-control" id="topInterests" [(ngModel)]="features['Top Interests']" name="topInterests" required placeholder="Technology,Sports,Music">
+                <small class="form-text text-muted">Comma separated list of interests</small>
+              </div>
+  
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary d-grid w-100" [disabled]="!predictionForm.valid">
+                Predict Time Spent
+              </button>
+            </form>
+  
+            <!-- Results Display -->
+            <div *ngIf="predictions" class="results">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Prediction Results</h5>
+                  <p class="card-text">
+                    <strong>XGBoost Prediction:</strong> {{ predictions.xgb_prediction | number:'1.2-2' }} hours/day
+                  </p>
+                  <p class="card-text">
+                    <strong>LightGBM Prediction:</strong> {{ predictions.lgb_prediction | number:'1.2-2' }} hours/day
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -91,6 +91,9 @@
 				<li *ngIf="user.roles?.includes('ADMIN')">
 				  <a class="dropdown-item" routerLink="/dashbord"><i class="bx bxs-dashboard me-2"></i>Panel Admin</a>
 				</li>
+				<li *ngIf="user.roles?.includes('ADMIN')">
+					<a class="dropdown-item" routerLink="/predictionTimespent"><i class="bx bxs-dashboard me-2"></i>Time Spent Online Prediction </a>
+				  </li>
 				<li><a class="dropdown-item" routerLink="#"><i class="bx bx-cog me-2"></i>Parametres</a></li>
 				<li><div class="dropdown-divider"></div></li>
 				<li><a class="dropdown-item" (click)="logout()"><i class="bx bx-power-off me-2"></i>Deconnection</a></li>
