@@ -19,7 +19,7 @@ export class PredictsourourComponent {
   constructor(private http: HttpClient) {}
 
   submitForm() {
-    this.http.post<any>('http://127.0.0.1:5000/predict', this.formData)
+    this.http.post<any>('http://127.0.0.1:5007/predict', this.formData)
       .subscribe(
         res => {
           this.result = res;
