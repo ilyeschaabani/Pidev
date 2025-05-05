@@ -77,7 +77,7 @@ import { PredictionProjectComponent } from './prediction-project/prediction-proj
 import { PredictionResultDialogComponent } from './prediction-result-dialog/prediction-result-dialog.component';
 import { PredictionComponent } from './prediction/prediction.component';
 import { PredictsourourComponent } from './predictsourour/predictsourour.component';
-
+import { RecommendationComponent } from './recommendation/recommendation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -135,8 +135,8 @@ import { PredictsourourComponent } from './predictsourour/predictsourour.compone
     PredictionProjectComponent,
     PredictionResultDialogComponent,
     PredictionComponent,
-    PredictsourourComponent
-
+    PredictsourourComponent,
+RecommendationComponent
   ],
   imports: [
     BrowserModule,

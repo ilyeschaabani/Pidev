@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<div style="margin-top: 100px;">
+    <!-- Your tab navigation and formations list here -->
+  </div>
+<div class="container mt-5 pt-5">
+  <div class="card shadow-lg rounded-4 p-4 bg-light">
+    <h2 class="text-center text-primary mb-4">
+      🎓 Recommandation de Formations
+    </h2>
+
+    <form (ngSubmit)="onSubmit()" class="mb-4">
+      <div class="mb-3">
+        <label for="levelInput" class="form-label fw-bold"
+          >Niveau de compétence</label
+        >
+        <input
+          type="text"
+          id="levelInput"
+          name="instructional_level"
+          [(ngModel)]="level"
+          placeholder="e.g. Débutant, Intermédiaire, Expert..."
+          required
+          class="form-control form-control-lg"
+          #levelInput="ngModel"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary w-100 fw-bold">
+        🔍 Recommander
+      </button>
+    </form>
+
+    <div *ngIf="recommendations.length > 0">
+      <h4 class="text-success mb-3">
+        ✅ Formations recommandées pour le niveau <span class="text-dark">{{ level }}</span> :
+      </h4>
+
+      <ul class="list-group">
+        <li
+          *ngFor="let reco of recommendations"
+          class="list-group-item d-flex justify-content-between align-items-start"
+        >
+          <div>
+            <div class="fw-bold">{{ reco.title }}</div>
+            <small class="text-muted">Catégorie : {{ reco.category }}</small>
+          </div>
+          <span class="badge bg-success rounded-pill">⭐ {{ reco.rating }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

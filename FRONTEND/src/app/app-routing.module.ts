@@ -45,6 +45,7 @@ import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
 import { PredictionComponent } from './prediction/prediction.component';
 import { PredictsourourComponent } from './predictsourour/predictsourour.component';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 
 
 
@@ -106,6 +107,7 @@ const routes: Routes = [
   {  path: 'PredictProject', component:PredictionProjectComponent },
   { path: 'predict', component: PredictionComponent },
   { path: 'predictsou', component: PredictsourourComponent },
+  { path: 'Recommandation', component: RecommendationComponent },
 
 ];
 

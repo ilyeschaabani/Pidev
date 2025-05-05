@@ -11,7 +11,7 @@
 </div>
 
 <mat-tab-group>
-
+ 
   <!-- 🟦 All Formations Tab -->
   <mat-tab label="All Formations">
     <div class="container mt-4">
@@ -34,9 +34,18 @@
         </div>
       </div>
     </div>
+
+    <div class="container text-end mt-4">
+      <button class="btn btn-info fw-bold" (click)="goToRecommendation()">
+        🎯 Recommander une formation
+      </button>
+    </div>
+    
   </mat-tab>
 
   <!-- 🟨 Category Tabs -->
+
+
   <mat-tab *ngFor="let cat of categories" [label]="cat">
     <div class="container mt-4">
       <div class="row">
