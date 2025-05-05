@@ -1,0 +1,33 @@
+<div class="container mt-4">
+    <h2>Formulaire de prédiction</h2>
+  
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label>Total Posts</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.total_posts" name="total_posts" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Helpful Post</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.helpful_post" name="helpful_post" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Nice Code Post</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.nice_code_post" name="nice_code_post" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Time Online (in seconds)</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.timeonline" name="timeonline" required />
+      </div>
+  
+      <button type="submit" class="btn btn-primary mt-2">Predict</button>
+    </form>
+  
+    <div *ngIf="result" class="alert alert-info mt-3">
+      <p><strong>Prediction:</strong> {{ result.prediction }}</p>
+      <p><strong>Probability:</strong> {{ result.probability | number:'1.2-2' }}</p>
+    </div>
+  </div>
+  

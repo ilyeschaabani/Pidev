@@ -44,6 +44,7 @@ import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
 import { PredictionComponent } from './prediction/prediction.component';
+import { PredictsourourComponent } from './predictsourour/predictsourour.component';
 
 
 
@@ -104,6 +105,7 @@ const routes: Routes = [
   {  path: 'Predictcours', component:PredictcoursComponent },
   {  path: 'PredictProject', component:PredictionProjectComponent },
   { path: 'predict', component: PredictionComponent },
+  { path: 'predictsou', component: PredictsourourComponent },
 
 ];
 
