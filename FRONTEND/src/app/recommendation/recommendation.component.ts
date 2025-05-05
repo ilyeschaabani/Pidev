@@ -6,7 +6,14 @@ import { RecommendationService } from '../services/recommendation/recommendation
   styleUrls: ['./recommendation.component.css']
 })
 export class RecommendationComponent {
-  level = '';
+  level: string = '';
+  levels: string[] = [
+    'All Levels',
+    'Beginner Level',
+    'Intermediate Level',
+    'Expert Level'
+  ];
+  
   recommendations: any[] = [];
   errorMessage = '';
 
