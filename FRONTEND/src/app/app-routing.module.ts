@@ -43,6 +43,7 @@ import { RessourcelistComponent } from './ressource/ressourcelist/ressourcelist.
 import { CertifComponent } from './certif/certif.component';
 import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
+import { PredictionComponent } from './prediction/prediction.component';
 
 
 
@@ -102,7 +103,7 @@ const routes: Routes = [
   {  path: 'affecter', component:AssignQuestionsComponent },
   {  path: 'Predictcours', component:PredictcoursComponent },
   {  path: 'PredictProject', component:PredictionProjectComponent },
-
+  { path: 'predict', component: PredictionComponent },
 
 ];
 
