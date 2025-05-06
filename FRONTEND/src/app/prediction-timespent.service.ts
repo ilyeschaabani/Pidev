@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PredictionTimespentService {
-  private apiUrl = 'http://localhost:5000/predict'; // Update if your Flask server is hosted elsewhere
+  private apiUrl = 'http://localhost:5008/predict'; // Update if your Flask server is hosted elsewhere
   constructor(private http: HttpClient) { }
 
   getPredictions(features: any): Observable<any> {
