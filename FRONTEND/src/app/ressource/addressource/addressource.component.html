@@ -1,64 +1,110 @@
-<app-dashbordadmin></app-dashbordadmin>
-<div class="card shadow-sm p-4 mb-5 bg-light bg-opacity-75 border-0 rounded-4">
-  <div class="mb-4 border-bottom pb-2 d-flex justify-content-between align-items-center">
-    <h4 class="fw-semibold text-mauve m-0">
-      {{ selectedResource ? '✏️ Modifier' : '➕ Ajouter' }} une ressource
-    </h4>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme shadow-sm">
+      <app-dashbordadmin></app-dashbordadmin>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="layout-page">
+      <div class="container-fluid px-4 py-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-xl-6">
+            <div class="card border-0 shadow-sm mb-4">
+              <div class="card-header bg-mauve text-white py-3 rounded-top">
+                <h5 class="card-title mb-0">
+                  <i class="bi me-2" [ngClass]="selectedResource ? 'bi-pencil-square' : 'bi-plus-circle'"></i>
+                  {{ selectedResource ? 'Modifier une ressource' : 'Ajouter une ressource' }}
+                </h5>
+              </div>
+              <div class="card-body p-4">
+                <form (ngSubmit)="onSubmit()">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="titre" class="form-label fw-semibold">Titre</label>
+                      <input type="text" id="titre" class="form-control" 
+                             [(ngModel)]="ressource.titre" name="titre" 
+                             placeholder="Ex: Cours de Mathématiques" required>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="type" class="form-label fw-semibold">Type</label>
+                      <select id="type" class="form-select" 
+                              [(ngModel)]="ressource.type" name="type" 
+                              (change)="onTypeChange()" required>
+                        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="category" class="form-label fw-semibold">Catégorie</label>
+                      <select id="category" class="form-select" 
+                              [(ngModel)]="ressource.category" name="category" required>
+                        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Fichier</label>
+                      <div class="input-group">
+                        <input type="file" #fileInput id="fileInput" 
+                               (change)="onFileSelected($event)" 
+                               class="form-control" hidden>
+                        <button class="btn btn-outline-mauve" type="button" 
+                                (click)="fileInput.click()">
+                          <i class="bi bi-paperclip me-2"></i>Choisir un fichier
+                        </button>
+                      </div>
+                      <div class="mt-2">
+                        <small class="text-muted" *ngIf="selectedFile">
+                          Fichier sélectionné : {{ selectedFile.name }}
+                        </small>
+                        <button type="button" class="btn btn-mauve btn-sm mt-2" 
+                                (click)="uploadFile()">
+                          <i class="bi bi-cloud-upload me-2"></i>Téléverser
+                        </button>
+                        <div *ngIf="uploadMessage" class="text-info small mt-2">
+                          {{ uploadMessage }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="description" class="form-label fw-semibold">Description</label>
+                      <textarea id="description" class="form-control" rows="4" 
+                                [(ngModel)]="ressource.description" name="description" 
+                                placeholder="Décris brièvement la ressource" required></textarea>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-mauve px-4" 
+                                [disabled]="ressource.fileName === ''">
+                          <i class="bi bi-check-circle me-2"></i>
+                          {{ selectedResource ? 'Modifier' : 'Ajouter' }}
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" 
+                                (click)="resetForm()">
+                          <i class="bi bi-arrow-counterclockwise me-2"></i>Réinitialiser
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div *ngIf="successMessage" class="alert alert-success mt-3">
+                        {{ successMessage }}
+                      </div>
+                      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                        {{ errorMessage }}
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <form (ngSubmit)="onSubmit()">
-    <!-- Titre -->
-    <div class="mb-3">
-      <label for="titre" class="form-label">Titre</label>
-      <input type="text" id="titre" class="form-control" [(ngModel)]="ressource.titre" name="titre" required />
-    </div>
-
-    <!-- Description -->
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea id="description" class="form-control" rows="4" [(ngModel)]="ressource.description" name="description" required></textarea>
-    </div>
-
-    <!-- Type et Catégorie -->
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="type" class="form-label">Type</label>
-        <select id="type" class="form-select" [(ngModel)]="ressource.type" name="type" (change)="onTypeChange()" required>
-          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-        </select>
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <label for="category" class="form-label">Catégorie</label>
-        <select id="category" class="form-select" [(ngModel)]="ressource.category" name="category" required>
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Upload fichier -->
-    <div class="mb-3">
-      <label for="fileInput" class="form-label">Fichier</label>
-      <div class="input-group">
-        <span class="input-group-text bg-mauve text-white">📎</span>
-        <input type="text" class="form-control" [value]="selectedFile?.name || 'Aucun fichier sélectionné'" readonly />
-        <button class="btn btn-outline-mauve" type="button" (click)="fileInput.click()">Choisir</button>
-      </div>
-      <input type="file" #fileInput id="fileInput" (change)="onFileSelected($event)" hidden />
-      <button type="button" class="btn btn-mauve mt-2" (click)="uploadFile()">📤 Téléverser</button>
-      <div *ngIf="uploadMessage" class="form-text text-info mt-1">{{ uploadMessage }}</div>
-    </div>
-
-    <!-- Boutons -->
-    <div class="d-flex justify-content-between align-items-center">
-      <button type="submit" class="btn btn-mauve px-4" [disabled]="ressource.fileName === ''">
-        {{ selectedResource ? '✅ Modifier' : '➕ Ajouter' }}
-      </button>
-      <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">↩️ Réinitialiser</button>
-    </div>
-
-    <!-- Alertes -->
-    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-  </form>
 </div>

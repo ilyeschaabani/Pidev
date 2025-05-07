@@ -1,72 +1,61 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <app-navbar></app-navbar>
-
-<!--div class="container mt-3 text-end">
-  <button class="btn btn-outline-primary" (click)="goToCart()">
-    🛒 Voir mon panier
-  </button>
-</div-->
-
 <div style="margin-top: 100px;">
   <!-- Your tab navigation and formations list here -->
 </div>
 
-<mat-tab-group>
- 
-  <!-- 🟦 All Formations Tab -->
-  <mat-tab label="All Formations">
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-md-6 col-lg-4 mb-4" *ngFor="let formation of formations">
-          <div class="card h-100">
-           
-            <div class="card-body">
-              <h3 class="card-title" style="font-weight: 700; font-size: 1.5rem; font-family: 'Poppins', sans-serif;">
-                {{ formation.titreFormation }}
-              </h3>              
-              <p class="card-text">{{ formation.description }}</p>
-              <p>⭐ {{ formation.rating }}</p>
-              <p>{{ formation.dateDebut | date }} - {{ formation.dateFin | date }}</p>
-              <p><strong>Prix:</strong> €{{ formation.prix }}</p>
-              <a href="javascript:void(0)" class="btn btn-success" (click)="addToCart(userId, formation.idFormation)">Add to Cart</a>
 
+<div class="mt-5 pt-5 ">
+  <mat-tab-group>
+    <!-- 🟦 All Formations Tab -->
+    <mat-tab label="📚 Toutes les Formations">
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-4" *ngFor="let formation of formations">
+            <div class="formation-card shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title">{{ formation.titreFormation }}</h3>
+                <p class="card-text">{{ formation.description }}</p>
+                <p class="rating">⭐ {{ formation.rating }} / 5</p>
+                <p class="dates">{{ formation.dateDebut | date }} - {{ formation.dateFin | date }}</p>
+                <p class="price">💰 {{ formation.prix | currency:'EUR' }}</p>
+                <button class="btn btn-gradient" (click)="addToCart(userId, formation.idFormation)">
+                  🛒 Ajouter au Panier
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container text-end mt-4">
-      <button class="btn btn-info fw-bold" (click)="goToRecommendation()">
-        🎯 Recommander une formation
-      </button>
-    </div>
-    
-  </mat-tab>
+      <div class="container text-end mt-4">
+        <button class="btn btn-info fw-bold" (click)="goToRecommendation()">
+          🎯 Recommander une formation
+        </button>
+      </div>
+    </mat-tab>
 
-  <!-- 🟨 Category Tabs -->
-
-
-  <mat-tab *ngFor="let cat of categories" [label]="cat">
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-md-6 col-lg-4 mb-4" *ngFor="let formation of filteredFormations(cat)">
-          <div class="card h-100">
-          
-            <div class="card-body">
-              <h3 class="card-title" style="font-weight: 700; font-size: 1.5rem; font-family: 'Poppins', sans-serif;">
-                {{ formation.titreFormation }}
-              </h3>              
-              <p class="card-text">{{ formation.description }}</p>
-              <p>⭐ {{ formation.rating }}</p>
-              <p>{{ formation.dateDebut | date }} - {{ formation.dateFin | date }}</p>
-              <p><strong>Prix:</strong> €{{ formation.prix }}</p>
-              <a href="javascript:void(0)" class="btn btn-success" (click)="addToCart(userId, formation.idFormation)">Add to Cart</a>
-
+    <!-- 🟨 Category Tabs -->
+    <mat-tab *ngFor="let cat of categories" [label]="cat">
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-4" *ngFor="let formation of filteredFormations(cat)">
+            <div class="formation-card shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title">{{ formation.titreFormation }}</h3>
+                <p class="card-text">{{ formation.description }}</p>
+                <p class="rating">⭐ {{ formation.rating }} / 5</p>
+                <p class="dates">{{ formation.dateDebut | date }} - {{ formation.dateFin | date }}</p>
+                <p class="price">💰 {{ formation.prix | currency:'EUR' }}</p>
+                <button class="btn btn-gradient" (click)="addToCart(userId, formation.idFormation)">
+                  🛒 Ajouter au Panier
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </mat-tab>
-</mat-tab-group>
-
+    </mat-tab>
+  </mat-tab-group>
+</div>

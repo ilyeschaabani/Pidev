@@ -1,78 +1,73 @@
+
 <body>
+    
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
-                    <a href="" class="app-brand-link">
-                        <span class="app-brand-logo demo">
-                            <img src="" alt="Waves" style="height: 36px;">
-                        </span>
-                        <span class="app-brand-text demo menu-text fw-bolder ms-4" style="background: linear-gradient(90deg, #6094EA 0%, #F02FC2 100%);text-transform:none;-webkit-background-clip: text;
-                              -webkit-text-fill-color: transparent;">Waves</span>
-                    </a>
-                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-                    </a>
-                </div>
-
-                <div class="menu-inner-shadow"></div>
-
-                <ul class="menu-inner py-1">
-                    <li class="menu-item">
-                        <a href="" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Accueil</div>
-                        </a>
-                    </li>
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Les gestions</span>
-                    </li>
-                    <li class="menu-item ">
-                        <a routerLink="" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-calendar-event"></i>
-                            <div data-i18n="Analytics">Utilisateurs</div>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a href="" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Evenements</div>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a routerLink="/formations/list" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-store-alt"></i>
-                            <div data-i18n="Analytics">Formation</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a routerLink="/validationsProjet" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
-                            <div data-i18n="Analytics">Consulting</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a routerLink="/mentor/project" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
-                            <div data-i18n="Analytics">AccompagnementPFE</div>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a routerLink="/ressources" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-comment-detail"></i>
-                            <div data-i18n="Analytics">Resource</div>
-                        </a>
-                    </li>
-                    <li class="menu-item ">
-                        <a routerLink="/evaluationdashbord" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-music"></i>
-                            <div data-i18n="Analytics">Evaluation</div>
-                        </a>
-                    </li>
-                 
-                </ul>
-            </aside>
-
+         
+<!-- HTML Menu Structure (simplified for focus) -->
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand-wrapper d-flex align-items-center justify-content-center py-3">
+      <a href="#" class="app-brand-link d-flex align-items-center text-decoration-none">
+        <img src="../assets/img/images/Logo.png" alt="Logo" class="logo-img me-2" />
+        <span class="app-brand-text">CodingFactory</span>
+      </a>
+    </div>
+  
+    <ul class="menu-inner py-1">
+      <li class="menu-item">
+        <a href="" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div>Accueil</div>
+        </a>
+      </li>
+      <li class="menu-header small text-uppercase gestion-section">
+        <span class="menu-header-text">Les gestions</span>
+      </li>
+      <li class="menu-item">
+        <a routerLink="" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-calendar-event"></i>
+          <div>Utilisateurs</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-calendar"></i>
+          <div>Evenements</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/formations/list" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store-alt"></i>
+          <div>Formation</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/validationsProjet" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+          <div>Consulting projets</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/mentor/project" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-support"></i>
+          <div>Accompagnement PFE</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/ressources" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-folder"></i>
+          <div>Ressource</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/evaluationdashbord" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+          <div>Évaluation</div>
+        </a>
+      </li>
+    </ul>
+  </aside>
+  
             <div class="layout-page">
                 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
                     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">

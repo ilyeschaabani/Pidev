@@ -27,7 +27,7 @@ export class AssignEncadrantComponent {
 
   loadProjets(): void {
     this.projetService.getAllProjets().subscribe((data) => {
-      this.projets = data.filter(projet => projet.statutProjet === 'TERMINE');
+      this.projets = data.filter(projet => projet.statutProjet === 'EN_COURS');
     });
   }
 

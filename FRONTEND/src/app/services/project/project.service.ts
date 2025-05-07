@@ -48,15 +48,15 @@ export class ProjetService {
       {}
     );
   }
+assignEncadrant(projetId: string, encadrantId: string): Observable<Projet> {
+  return this.http.put<Projet>(
+    `${this.baseUrl}/assignEncadrant/${projetId}`,
+    { encadrantId } // <-- envoyé dans le corps
+  ).pipe(
+    catchError(this.handleError('Erreur lors de l’assignation de l’encadrant'))
+  );
+}
 
-  assignEncadrant(projetId: string, encadrantId: string): Observable<Projet> {
-    return this.http.put<Projet>(
-      `${this.baseUrl}/assignEncadrant/${projetId}?encadrant=${encadrantId}`, 
-      {}
-    ).pipe(
-      catchError(this.handleError('Erreur lors de l’assignation de l’encadrant'))
-    );
-  }
 
   private handleError(message: string) {
     return (error: any) => {
