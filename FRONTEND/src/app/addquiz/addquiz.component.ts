@@ -71,7 +71,7 @@ export class AddquizComponent {
   }
 
   navigateToQuizList(): void {
-    this.router.navigate(['/affecter']);
+    this.router.navigate(['/evaluationdashbord']);
   }
   navigateToQuestions() {
     this.router.navigate(['/question/add']);

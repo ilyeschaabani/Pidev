@@ -80,6 +80,8 @@ import { PredictionComponent } from './prediction/prediction.component';
 import { PredictsourourComponent } from './predictsourour/predictsourour.component';
 import { RecommendationComponent } from './recommendation/recommendation.component';
 import { PredictionFormTimespentComponent } from './prediction-form-timespent/prediction-form-timespent.component';
+import { UseradmineComponent } from './useradmine/useradmine.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -139,7 +141,9 @@ import { PredictionFormTimespentComponent } from './prediction-form-timespent/pr
     PredictionComponent,
     PredictsourourComponent,
 RecommendationComponent,
-PredictionFormTimespentComponent
+PredictionFormTimespentComponent,
+UseradmineComponent,
+EditUserComponent
   ],
   imports: [
     BrowserModule,
