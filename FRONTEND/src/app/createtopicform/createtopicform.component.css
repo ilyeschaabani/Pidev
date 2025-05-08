@@ -1,0 +1,32 @@
+#mapCont {
+    width: 100%;
+    height: 400px;
+    margin-top: 10px;
+  }
+  
+  .map-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .map-frame {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  #map {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  
+  /* Optional global style */
+  .leaflet-container {
+    height: 100% !important;
+    width: 100% !important;
+    z-index: 0;
+  }
+  

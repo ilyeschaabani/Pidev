@@ -50,6 +50,8 @@ import { PredictionFormTimespentComponent } from './prediction-form-timespent/pr
 import { ForumComponent } from './forum/forum.component';
 import { TopicComponent } from './topic/topic.component';
 import { CreatetopicformComponent } from './createtopicform/createtopicform.component';
+import { UseradmineComponent } from './useradmine/useradmine.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 
@@ -116,6 +118,9 @@ const routes: Routes = [
   { path: 'predict', component: PredictionComponent },
   { path: 'predictsou', component: PredictsourourComponent },
   { path: 'Recommandation', component: RecommendationComponent },
+  { path: 'useradmin', component: UseradmineComponent },
+  { path: 'edituseradmin/:id', component: EditUserComponent },
+
 
 ];
 
