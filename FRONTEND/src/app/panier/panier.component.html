@@ -1,52 +1,91 @@
 <app-navbar></app-navbar>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-<div class="container mt-4" *ngIf="panier">
-  <h4 class="mb-4">🛒 Mon Panier</h4>
 
-  <div *ngIf="panier.formations.length > 0; else empty">
-    <ul class="list-group mb-4">
-      <li class="list-group-item p-4" *ngFor="let f of panier.formations">
-        <div class="d-flex gap-4 flex-sm-row flex-column align-items-center">
-          <div class="flex-shrink-0">
-            <img src="https://via.placeholder.com/100x100?text=F" alt="formation image" class="w-px-100 rounded">
-          </div>
-          <div class="flex-grow-1 w-100">
-            <div class="row">
-              <div class="col-md-8 text-center text-md-start">
-                <p class="fw-medium mb-1">{{ f.titreFormation }}</p>
-                <p class="text-muted mb-2">{{ f.description }}</p>
-                <div class="badge bg-success mb-2">Disponible</div>
-                <div>
-                  <span class="text-warning me-2">★ {{ f.rating }}/5</span>
-                  <span class="text-primary fw-bold">{{ f.prix }} €</span>
-                </div>
-              </div>
-              <div class="col-md-4 text-center text-md-end">
-                <button
-                  type="button"
-                  class="btn btn-outline-danger btn-sm mb-2"
-                  (click)="removeFormation(f.idFormation)">
-                  Supprimer
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
 
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <h5 class="text-end">Total : <span class="text-primary">{{ panier.total }} €</span></h5>
-
-      <div class="d-flex gap-2">
-        <button class="btn btn-success" (click)="checkout()">💳 Passer au paiement</button>
+<div class="container my-5" *ngIf="panier">
+  <div class="card shadow border-0 rounded-4">
+    <div class="card-body p-4">
+      <div class="container position-relative py-5">
+        <!-- Hero Section -->
+      <!-- Hero Section améliorée -->
+<div class="hero-section position-relative overflow-hidden rounded-4 mb-5 shadow-lg" style="background: linear-gradient(135deg, #e0f7fa, #d580d8);">
+  <div class="position-absolute w-100 h-100" style="background: radial-gradient(circle at bottom right, rgba(255,255,255,0.4), transparent); opacity: 0.3;"></div>
+  <div class="container position-relative py-5">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-4 fw-bold text-dark mb-3 d-flex align-items-center" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.1);">
+          <i class="fas fa-shopping-cart me-3 text-primary fs-1"></i>
+          Mon Panier
+        </h1>
+        <p class="lead text-dark mb-4" style="font-weight: 500; letter-spacing: 0.4px; font-size: 1.15rem;">
+          Retrouvez toutes vos formations préférées ici et finalisez votre commande en toute simplicité. 📚✨
+        </p>
+        <button class="btn btn-outline-primary btn-lg rounded-pill shadow-sm px-4" (click)="checkout()">
+          <i class="fas fa-arrow-right me-2"></i> Procéder au paiement
+        </button>
+      </div>
+      <div class="col-md-4 text-center mt-4 mt-md-0">
+        <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Panier Image"
+             style="width: 120px; height: auto;" class="img-fluid animate__animated animate__fadeInRight" />
       </div>
     </div>
   </div>
+</div>
 
-  <ng-template #empty>
-    <div class="alert alert-warning text-center">
-      Votre panier est vide.
+
+      <div *ngIf="panier.formations.length > 0; else empty">
+        <ul class="list-group list-group-flush mb-4">
+          <li class="list-group-item py-4 px-3 formation-card" *ngFor="let f of panier.formations">
+            <div class="d-flex gap-4 flex-md-row flex-column align-items-center">
+              <div class="flex-shrink-0">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj25riee8AYtbIibX6Whn6Q8kze4vJtY2o3Kw5Z7zpoCAwLB4N7moTkntWCs9Vc_Nolfo&usqp=CAU"
+                  alt="Formation"
+                  class="img-formation shadow-sm"
+                />
+              </div>
+              <div class="flex-grow-1 w-100">
+                <div class="row">
+                  <div class="col-md-8 text-center text-md-start">
+                    <h5 class="fw-bold mb-1 text-dark">{{ f.titreFormation }}</h5>
+                    <p class="text-muted mb-2">{{ f.description }}</p>
+                    <span class="badge bg-success mb-2 px-3 py-1">Disponible</span>
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                      <span class="text-warning"><i class="fas fa-star"></i> {{ f.rating }}/5</span>
+                      <span class="text-primary fw-bold fs-5">{{ f.prix }} €</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-center text-md-end mt-3 mt-md-0">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      (click)="removeFormation(f.idFormation)">
+                      <i class="fas fa-trash-alt me-1"></i> Supprimer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-between flex-column flex-md-row align-items-center mt-4">
+          <h4 class="text-end fw-bold mb-3 mb-md-0">
+            Total : <span class="text-success">{{ panier.total }} €</span>
+          </h4>
+
+          <button class="btn btn-lg btn-primary shadow-sm px-4 btn-checkout" (click)="checkout()">
+            <i class="fas fa-credit-card me-2"></i>Passer au paiement
+          </button>
+        </div>
+      </div>
+
+      <ng-template #empty>
+        <div class="alert alert-warning text-center fs-5">
+          <i class="fas fa-exclamation-circle me-2"></i>Votre panier est vide.
+        </div>
+      </ng-template>
     </div>
-  </ng-template>
+  </div>
 </div>
