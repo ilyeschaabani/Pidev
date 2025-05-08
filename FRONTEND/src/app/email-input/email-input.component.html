@@ -1,30 +1,39 @@
-<!-- email-input.component.html -->
 <div class="container-xxl">
-  <div class="authentication-wrapper authentication-basic container-p-y">
-    <div class="authentication-inner">
-      <div class="card">
-        <div class="card-body">
+  <div class="authentication-wrapper authentication-basic container-p-y d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="authentication-inner" style="max-width: 600px;">
+      <div class="card shadow-lg rounded-5">
+        <div class="card-body p-5">
+
+          <!-- Logo & App Name -->
           <a routerLink="/home" class="text-decoration-none">
-            <div class="app-brand justify-content-center">
-              <img src="assets/img/images/Waves.png" alt="Waves" class="app-brand-logo me-2">
+            <div class="app-brand justify-content-center mb-4">
+              <img src="../assets/img/images/Logo.png" alt="Coding Factory" class="app-logo"
+              style="width: 80px;">
+              <h4 class="text-center mt-3 mb-0 text-primary fw-bold">Coding Factory</h4>
             </div>
           </a>
 
-          <h4 class="mb-4">Password Recovery 🔒</h4>
-          <p class="mb-4">Enter your email to receive a verification code</p>
+          <!-- Title -->
+          <h5 class="mb-4 text-center fw-semibold">Password Recovery 🔒</h5>
+          <p class="text-center text-muted mb-4">Enter your email to receive a verification code.</p>
 
+          <!-- Email Form -->
           <form [formGroup]="emailForm" (ngSubmit)="SendOTP()">
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input
-                type="email"
-                id="email"
-                class="form-control"
-                formControlName="email"
-                placeholder="Enter your email"
-                [ngClass]="{ 'is-invalid': emailForm.get('email')?.invalid && emailForm.get('email')?.touched }"
-              >
-              
+
+            <!-- Email Input -->
+            <div class="mb-4">
+              <label for="email" class="form-label fw-medium">Email</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Enter your email"
+                  [ngClass]="{ 'is-invalid': emailForm.get('email')?.invalid && emailForm.get('email')?.touched }"
+                >
+              </div>
               <div class="invalid-feedback">
                 <div *ngIf="emailForm.get('email')?.hasError('required') && emailForm.get('email')?.touched">
                   Email is required
@@ -35,13 +44,15 @@
               </div>
             </div>
 
+            <!-- Error Message -->
             <div class="error-message text-center mb-3 text-danger" *ngIf="errorMessage">
               {{ errorMessage }}
             </div>
 
-            <button 
+            <!-- Submit Button -->
+            <button
               type="submit"
-              class="btn btn-primary d-grid w-100 mb-3"
+              class="btn btn-primary d-grid w-100 mb-4"
               [disabled]="emailForm.invalid || isLoading"
             >
               <span *ngIf="!isLoading">Send Verification Code</span>
@@ -49,12 +60,14 @@
             </button>
           </form>
 
+          <!-- Login Link -->
           <div class="text-center">
             <p class="mb-0">
               Remember your password?
               <a routerLink="/login" class="text-primary text-decoration-none">Sign in</a>
             </p>
           </div>
+
         </div>
       </div>
     </div>
