@@ -163,3 +163,38 @@ table.table {
 body {
   font-family: 'Poppins', sans-serif;
 }
+/* ========== FILTRE SECTION - VIOLET CLAIR ========== */
+.filter-card {
+  background: linear-gradient(135deg, #f4ebfa, #e9dcf8);
+  border-left: 5px solid var(--mauve);
+}
+
+.filter-card h4 {
+  color: var(--mauve-dark);
+}
+
+.filter-card .form-label {
+  color: #6d4ca3;
+}
+
+.filter-card .form-control,
+.filter-card .form-select {
+  border: 1px solid #d1bce9;
+  background-color: #fffafc;
+}
+
+.filter-card .form-control:focus,
+.filter-card .form-select:focus {
+  border-color: var(--mauve-dark);
+  box-shadow: 0 0 0 0.15rem rgba(159, 110, 232, 0.2);
+}
+
+.filter-card .btn-outline-dark {
+  border-color: #b39ddb;
+  color: #5e35b1;
+}
+
+.filter-card .btn-outline-dark:hover {
+  background-color: #d1bce9;
+  color: #4a148c;
+}
