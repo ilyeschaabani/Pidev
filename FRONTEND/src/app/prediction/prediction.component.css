@@ -1,0 +1,103 @@
+body {
+  background: linear-gradient(135deg, #f2ecff, #e3f2fd);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3, h4 {
+  text-align: center;
+  color: #5e35b1;
+  margin-bottom: 25px;
+}
+
+.prediction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+  background-color: #f9f9fb;
+}
+
+.form-control:focus {
+  border: 1px solid #7c4dff;
+  outline: none;
+  background-color: #fff;
+}
+
+.error-message {
+  color: #e53935;
+  font-size: 0.85em;
+  margin-top: 4px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #7c4dff, #651fff);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5e35b1, #4527a0);
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.alert {
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.alert-danger {
+  background-color: #ffebee;
+  color: #c62828;
+  border-left: 5px solid #e53935;
+}
+
+.alert-success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-left: 5px solid #43a047;
+}
+
+.result-container {
+  background-color: #f3f4f6;
+  padding: 18px;
+  border-radius: 15px;
+  margin-top: 20px;
+}

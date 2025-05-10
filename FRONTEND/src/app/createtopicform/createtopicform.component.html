@@ -1,0 +1,133 @@
+<app-navbar></app-navbar>
+<div style="margin-top: 100px;">
+  <!-- Your tab navigation and formations list here -->
+</div>
+
+<div class="container mt-4">
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+    <div class="card-header bg-primary py-3">
+      <h2 class="mb-0 text-white"><i class="fas fa-comment-alt me-2 text-white"></i>Create New Topic</h2>
+    </div>
+    <div class="card-body p-4" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
+      <form [formGroup]="topicForm" (ngSubmit)="createTopic()">
+        
+        <!-- AI Button -->
+        <div class="text-end mb-4">
+          <button class="btn btn-warning px-4 py-2 rounded-pill" type="button" (click)="useIA()">
+            <i class="fas fa-magic me-2"></i>AI Assistant
+          </button>
+        </div>
+
+        <!-- Title Section -->
+        <div class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light">
+          <label for="title" class="form-label fw-bold text-primary mb-3">
+            <i class="fas fa-heading me-2"></i>Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            class="form-control form-control-lg border-2 py-3"
+            formControlName="title"
+            [disabled]="loadingIAtitle"
+            placeholder="Your topic title..."
+          />
+          <div *ngIf="loadingIAtitle" class="mt-2 text-muted">
+            <i class="fas fa-spinner fa-spin me-2"></i>Generating title...
+          </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light">
+          <label for="description" class="form-label fw-bold text-primary mb-3">
+            <i class="fas fa-align-left me-2"></i>Content
+          </label>
+          <textarea
+            id="description"
+            class="form-control border-2 py-3"
+            formControlName="description"
+            [disabled]="loadinIAdescprtion"
+            rows="6"
+            placeholder="Write your discussion content here..."
+          ></textarea>
+          <div *If="loadinIAdescprtion" class="mt-2 text-muted">
+            <i class="fas fa-spinner fa-spin me-2"></i>Generating content...
+          </div>
+        </div>
+
+        <!-- Media Upload -->
+        <div class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light">
+          <label class="form-label fw-bold text-primary mb-3">
+            <i class="fas fa-image me-2"></i>Media Attachments
+          </label>
+          <div class="border-2 border-dashed rounded-4 p-5 text-center bg-light">
+            <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept="image/*,video/*" class="d-none"/>
+            <label for="fileUpload" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+              <i class="fas fa-cloud-upload-alt me-2"></i>Browse Files
+            </label>
+            <p class="small text-muted mt-2 mb-0">Supports JPG, PNG, MP4 (max 10MB)</p>
+          </div>
+        </div>
+
+        <!-- Event Toggle -->
+        <div class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="isEvent" formControlName="isEvent" style="width: 3.5em; height: 1.8em;">
+            <label class="form-check-label fw-bold text-primary h5" for="isEvent">
+              <i class="fas fa-calendar-check me-2"></i>This is an Event
+            </label>
+          </div>
+        </div>
+
+        <!-- Event Details (Conditional) -->
+        <div *ngIf="topicForm.get('isEvent')?.value" class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light">
+          <h5 class="text-primary mb-4"><i class="fas fa-map-marker-alt me-2"></i>Event Details</h5>
+          
+          <div class="row g-3">
+            <!-- Location Field -->
+            <div class="col-md-6">
+              <label for="location" class="form-label fw-bold">Location</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+                <input type="text" id="location" formControlName="location" class="form-control py-3" placeholder="Venue or address">
+              </div>
+            </div>
+            
+            <!-- Date Field -->
+            <div class="col-md-6">
+              <label for="eventDate" class="form-label fw-bold">Date</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="fas fa-calendar-day"></i></span>
+                <input type="date" id="eventDate" formControlName="eventDate" class="form-control py-3">
+              </div>
+            </div>
+          </div>
+
+          <!-- Map Section -->
+          <div class="mt-4">
+            <label class="form-label fw-bold d-flex align-items-center">
+              <i class="fas fa-map-marked-alt me-2"></i>Location Map
+              <span class="badge bg-info ms-2">Interactive</span>
+            </label>
+            
+            <div class="map-container rounded-4 overflow-hidden border border-3 border-light shadow" 
+                 style="height: 350px; background: #e9ecef;">
+              <div id="map" class="h-100 w-100"></div>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-2">
+              <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Click on map to set location</small>
+              <small class="text-muted"><i class="fas fa-arrows-alt me-1"></i>Drag marker to adjust</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-5">
+          <button type="submit" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow" [disabled]="topicForm.invalid">
+            <i class="fas fa-paper-plane me-2"></i>Publish Discussion
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

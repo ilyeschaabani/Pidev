@@ -1,0 +1,170 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <app-dashbordadmin></app-dashbordadmin>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="layout-page">
+      <div class="container py-4">
+        <!-- Header Section -->
+        <div class="header-section text-center mb-4">
+          <button class="btn btn-outline-primary mb-3" (click)="goBack()">
+            <i class="fas fa-arrow-left me-2"></i>Retour au tableau de bord
+          </button>
+          <div class="project-header bg-light p-4 rounded-3 shadow-sm">
+            <h1 class="fw-bold text-primary mb-2">
+              <i class="fas fa-tasks me-2"></i>{{ project.title }}
+            </h1>
+            <p class="text-muted fs-5 mb-0">
+              <i class="fas fa-align-left me-2"></i>{{ project.description }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="row gy-4">
+          <!-- Section Évaluation -->
+          <div class="col-lg-6">
+            <div class="card evaluation-card border-primary shadow-lg h-100">
+              <div class="card-header bg-primary text-white d-flex align-items-center">
+                <i class="fas fa-clipboard-check fa-2x me-3"></i>
+                <div>
+                  <h3 class="mb-0">Évaluation du Projet</h3>
+                  <small class="opacity-75">Notez la progression et la qualité du projet</small>
+                </div>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="submitEvaluation()" class="evaluation-form">
+                  <!-- Progression -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold text-primary">
+                      <i class="fas fa-chart-line me-2"></i>Progression
+                    </label>
+                    <div class="d-flex align-items-center gap-3">
+                      <input type="range" class="form-range" min="0" max="10" step="1"
+                             [(ngModel)]="evaluation.progressScore" name="progressScore">
+                      <span class="badge bg-primary fs-5">{{ evaluation.progressScore }}/10</span>
+                    </div>
+                    <div class="progress mt-2" style="height: 20px;">
+                      <div class="progress-bar progress-bar-striped bg-success" 
+                           [style.width.%]="evaluation.progressScore * 10">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Note Finale -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold text-primary">
+                      <i class="fas fa-star me-2"></i>Note Finale
+                    </label>
+                    <div class="rating-input">
+                      <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-outline-warning" 
+                                *ngFor="let star of [1,2,3,4,5,6,7,8,9,10]"
+                                (click)="evaluation.finalScore = star"
+                                [class.active]="star <= evaluation.finalScore">
+                          {{ star }}
+                        </button>
+                      </div>
+                      <small class="text-muted mt-1 d-block">Cliquez pour sélectionner la note</small>
+                    </div>
+                  </div>
+
+                  <!-- Feedback -->
+                  <div class="mb-4">
+                    <label class="form-label fw-bold text-primary">
+                      <i class="fas fa-comment-dots me-2"></i>Feedback détaillé
+                    </label>
+                    <textarea class="form-control feedback-textarea" rows="5"
+                              [(ngModel)]="evaluation.feedback" name="feedback"
+                              placeholder="Décrivez les points forts, les améliorations possibles..."></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary w-100"
+                  [disabled]="!evaluation.progressScore || !evaluation.finalScore">
+            <i class="fas fa-paper-plane me-2"></i>Soumettre l'évaluation
+          </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Commentaires -->
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-comments me-2"></i>Avis & Commentaires</h5>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="submitComment()">
+                  <div class="mb-3">
+                    <label for="commentContent" class="form-label fw-semibold">Votre commentaire</label>
+                    <textarea id="commentContent" rows="4" class="form-control"
+                              [(ngModel)]="comment.content" name="content"
+                              placeholder="Saisissez votre commentaire..."></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-info text-white w-100"
+                          [disabled]="!comment.content">
+                    <i class="fas fa-comment-dots me-2"></i>Publier le commentaire
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  
+<!-- Style personnalisé -->
+<style>
+  .evaluation-card .progress-bar {
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+  }
+
+  .rating-input .btn-outline-warning {
+    width: 40px;
+    padding: 5px;
+    transition: all 0.3s ease;
+  }
+
+  .rating-input .btn-outline-warning.active {
+    background-color: #ffc107;
+    color: #000;
+  }
+
+  .feedback-textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  .comment-item {
+    border-left: 3px solid #0dcaf0;
+    transition: transform 0.2s;
+  }
+
+  .comment-item:hover {
+    transform: translateX(5px);
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .comment-form .input-group-text {
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />

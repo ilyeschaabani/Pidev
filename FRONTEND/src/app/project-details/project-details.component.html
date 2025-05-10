@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<div style="margin-top: 100px;">
+  <!-- Your tab navigation and formations list here -->
+</div>
+
+<!-- Hero Section -->
+<div class="hero-section position-relative overflow-hidden rounded-4 shadow-lg mx-3 my-4"
+     style="background: linear-gradient(135deg, #e0f7fa, #d1c4e9);">
+  <div class="position-absolute w-100 h-100"
+       style="background: radial-gradient(circle at top left, rgba(255,255,255,0.4), rgba(156,39,176,0.2)); opacity: 0.3;">
+  </div>
+
+  <div class="container position-relative py-5" *ngIf="projet">
+    <div class="row align-items-center">
+      <div class="col-md-10">
+        <h1 class="display-5 fw-bold text-primary mb-3" style="text-shadow: 1px 1px 5px rgba(0,0,0,0.1);">
+          <i class="fas fa-project-diagram me-2 text-warning"></i>
+          {{ projet.titre }}
+        </h1>
+        <p class="lead text-dark mb-3" style="font-weight: 500; font-size: 1.1rem;">
+          <i class="fas fa-info-circle text-info me-2"></i>
+          {{ projet.statutProjet | titlecase }}
+        </p>
+        <a href="#main-content" class="btn btn-lg rounded-pill px-4"
+           style="background-color: #7e57c2; color: #fff; box-shadow: 0 4px 12px rgba(126, 87, 194, 0.5); transition: all 0.3s;">
+          <i class="fas fa-arrow-down me-2"></i>Voir les détails
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Project Section -->
+<div class="container mt-4" *ngIf="projet" id="main-content">
+  <div class="main-card">
+    <div class="card-body">
+      <div class="grid-container">
+        <!-- Left Column -->
+        <div class="left-column">
+          <div class="section description-section">
+            <h3><i class="fas fa-file-alt text-secondary"></i> Description</h3>
+            <p>{{ projet.description }}</p>
+          </div>
+
+          <div class="section owner-section">
+            <h3><i class="fas fa-user-tie text-secondary"></i> Porteur du Projet</h3>
+            <p>{{ projet.porteurProjet }}</p>
+          </div>
+
+          <div class="section technologies-section">
+            <h3><i class="fas fa-microchip text-secondary"></i> Technologies utilisées</h3>
+            <div class="tech-tags">
+              <span *ngFor="let tech of projet.technologies?.split(',')" class="tech-tag">
+                {{ tech.trim() }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <div class="section contact-section">
+            <h3><i class="fas fa-address-book text-secondary"></i> Contact</h3>
+            <div class="contact-info">
+              <a href="mailto:{{ projet.email }}" class="contact-item">
+                <i class="fas fa-envelope"></i> {{ projet.email }}
+              </a>
+              <a href="tel:{{ projet.telephone }}" class="contact-item">
+                <i class="fas fa-phone-alt"></i> {{ projet.telephone }}
+              </a>
+            </div>
+          </div>
+
+          <div class="section collab-space">
+            <ng-container *ngIf="projet.statutProjet === StatutProjet.EN_COURS; else lockedState">
+              <button class="collab-button" (click)="accederEspaceCollaboratif(projet.idProjet)">
+                <i class="fas fa-users"></i> Accéder à l’espace collaboratif
+              </button>
+            </ng-container>
+            <ng-template #lockedState>
+              <div class="collab-disabled">
+                <i class="fas fa-lock"></i> Espace collaboratif disponible uniquement en phase active
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="objectives-grid">
+            <div class="section objective-card">
+              <h4><i class="fas fa-bullseye text-secondary"></i> Objectifs</h4>
+              <p>{{ projet.objectifs }}</p>
+            </div>
+
+            <div class="section benefits-card">
+              <h4><i class="fas fa-chart-line text-secondary"></i> Bénéfices</h4>
+              <p>{{ projet.benefices }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action -->
+      <div class="action-bar">
+        <button class="back-button" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i> Retour
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div *ngIf="!projet" class="loading-state">
+  <div class="loader"></div>
+  <p>Chargement des détails du projet...</p>
+</div>

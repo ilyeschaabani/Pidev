@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <h3 class="text-center text-primary">Assigner un Encadrant à un Projet</h3>
+    <div class="card shadow-lg p-4">
+        <!-- Sélection du projet -->
+        <div class="mb-3">
+            <label for="projetSelect" class="form-label">Sélectionner un Projet :</label>
+            <select [(ngModel)]="selectedProjetId" id="projetSelect" class="form-select">
+                <option *ngFor="let projet of projets" [value]="projet.idProjet">{{ projet.titre }}</option>
+            </select>
+        </div>
+
+        <!-- Affichage du titre du projet sélectionné -->
+        <div *ngIf="selectedProjetId">
+            <h5>Projet Sélectionné: {{ getProjetTitle(selectedProjetId) }}</h5>
+        </div>
+
+        <!-- Sélection de l'encadrant -->
+        <div class="mb-3">
+            <label for="encadrantSelect" class="form-label">Sélectionner un Encadrant :</label>
+            <select [(ngModel)]="selectedEncadrantId" id="encadrantSelect" class="form-select">
+                <option *ngFor="let encadrant of encadrants" [value]="encadrant.id">{{ encadrant.username }}</option>
+            </select>
+        </div>
+
+        <!-- Bouton d'assignation -->
+        <div class="text-center">
+            <button class="btn btn-success px-4 py-2" (click)="assignEncadrant()">Assigner</button>
+        </div>
+    </div>
+</div>

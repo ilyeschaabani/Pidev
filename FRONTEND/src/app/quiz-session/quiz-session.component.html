@@ -1,0 +1,102 @@
+<div class="card quiz-container">
+    <!-- Quiz Header -->
+    <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+      <h4 class="mb-0">{{ evaluation?.titre || 'Loading Quiz...' }}</h4>
+      <div class="timer">
+        <i class="bx bx-time-five me-2"></i>
+        {{ formattedTime }}
+      </div>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="card-body text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading quiz questions...</p>
+    </div>
+  
+    <!-- Quiz Content -->
+    <div *ngIf="!isLoading && !quizCompleted" class="card-body">
+      <!-- Progress Bar -->
+      <div class="progress mb-4">
+        <div 
+          class="progress-bar progress-bar-striped progress-bar-animated" 
+          role="progressbar" 
+          [style.width.%]="progress"
+        ></div>
+      </div>
+  
+      <!-- Question -->
+      <div class="question-container mb-4">
+        <h5 class="question-text">
+          Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}:
+        </h5>
+        <p class="fs-5">{{ currentQuestion.texte }}</p>
+      </div>
+  
+      <!-- Options -->
+      <div class="options-container">
+        <div 
+          *ngFor="let option of options; let i = index"
+          class="option-card mb-3"
+          [class.selected]="userAnswers[currentQuestion.quesId!] === option"
+          (click)="selectAnswer(option)"
+        >
+          <div class="option-letter">
+            {{ getOptionLetter(i) }}
+          </div>
+          <div class="option-text">
+            {{ option }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button 
+          class="btn btn-outline-primary"
+          (click)="prevQuestion()"
+          [disabled]="currentQuestionIndex === 0"
+        >
+          <i class="bx bx-chevron-left"></i> Previous
+        </button>
+        <button 
+          class="btn btn-primary"
+          (click)="nextQuestion()"
+        >
+          {{ currentQuestionIndex === questions.length - 1 ? 'Submit Quiz' : 'Next' }}
+          <i class="bx bx-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Results Section -->
+    <div *ngIf="quizCompleted && showResults" class="card-body text-center">
+      <div class="quiz-result">
+        <div class="result-icon">
+          <i class="bx bx-trophy"></i>
+        </div>
+        <h3 class="result-title">Quiz Completed!</h3>
+        <div class="score-display">
+          Your Score: <span class="score-value">{{ score }}/{{ questions.length }}</span>
+          ({{ scorePercentage }}%)
+        </div>
+        
+        <div class="result-actions mt-4">
+          <button 
+            class="btn btn-primary me-3"
+            (click)="restartQuiz()"
+          >
+            <i class="bx bx-refresh"></i> Restart Quiz
+          </button>
+          <button 
+            class="btn btn-outline-secondary"
+            (click)="exitQuiz()"
+          >
+            <i class="bx bx-exit"></i> Exit to Evaluations
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

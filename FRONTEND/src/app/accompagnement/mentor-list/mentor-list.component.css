@@ -1,0 +1,42 @@
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(67, 89, 113, 0.12);
+  border-radius: 12px;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+  color: #34495e;
+  font-weight: 600;
+  font-size: 1.1rem;
+  max-width: 80%;
+}
+
+.project-description {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.students-section i {
+  font-size: 0.85rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+}
+
+@media (max-width: 768px) {
+  .projects-list .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .project-title {
+    max-width: 100%;
+  }
+}

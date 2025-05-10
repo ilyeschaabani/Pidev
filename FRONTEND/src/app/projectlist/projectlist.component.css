@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+/* Général */
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #f5f3fe;
+  color: #44355b;
+  margin: 0;
+  padding: 0;
+}
+
+/* Conteneur principal */
+.container-fluid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(45deg, #a084dc, #8a6dc1);
+  color: white;
+  padding: 50px 0;
+  border-radius: 15px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.hero-section .display-5 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-section .lead {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.hero-section .text-gradient {
+  background: linear-gradient(45deg, #d88df2, #a084dc);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Card de Projet */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(160, 132, 220, 0.15);
+  margin-bottom: 30px;
+}
+
+.card-header {
+  background-color: #ebe5f7;
+  border-bottom: 1px solid #d3c5f0;
+}
+
+.card-header h3 {
+  color: #8e4c9a;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Table */
+.table-responsive {
+  border-radius: 12px;
+}
+
+.table th {
+  background-color: #f0e9fb;
+  color: #964c9a;
+  padding: 12px;
+}
+
+.table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f6f0fc;
+  cursor: pointer;
+}
+
+/* Badge de statut */
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 25px;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-badge.badge-en-attente {
+  background-color: #f6c177;
+  color: #5a3e2b;
+}
+
+.status-badge.badge-en-cours {
+  background-color: #63c69b;
+  color: white;
+}
+
+.status-badge.badge-termine {
+  background-color: #9583d1;
+  color: white;
+}
+
+/* Icônes */
+.btn-icon i,
+.dropdown-item i {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 12px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dcd2ee;
+}
+
+.modal-footer button {
+  border-radius: 25px;
+  font-weight: 600;
+}
+
+.modal-footer .btn-danger {
+  background-color: #e57373;
+  border-color: #e57373;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #b39ddb;
+  border-color: #b39ddb;
+}
+
+/* Offcanvas */
+.offcanvas {
+  background-color: #f5f0fb;
+  border-left: 1px solid #dcd2ee;
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid #dcd2ee;
+}
+
+.offcanvas-body .form-section {
+  margin-top: 20px;
+}
+
+/* Formulaires */
+.form-floating {
+  margin-bottom: 15px;
+}
+
+.form-floating input,
+.form-floating textarea,
+.form-floating select {
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #c8b5ec;
+  transition: border 0.3s ease;
+  background-color: #ffffff;
+}
+
+.form-floating input:focus,
+.form-floating textarea:focus,
+.form-floating select:focus {
+  border-color: #a084dc;
+  box-shadow: 0 0 6px rgba(160, 132, 220, 0.4);
+}
+
+.form-floating label {
+  font-size: 1rem;
+  color: #6b4c9a;
+}
+
+/* Boutons */
+.btn-primary {
+  background: linear-gradient(135deg, #a084dc, #8a6dc1);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #8a6dc1, #a084dc);
+  transform: translateY(-2px);
+}
+
+.btn-light-primary {
+  background-color: #ebe5f7;
+  border-color: #ebe5f7;
+}
+
+.btn-light-primary:hover {
+  background-color: #d8c6f1;
+}
+
+.btn-success {
+  background-color: #63c69b;
+  border-color: #63c69b;
+}
+
+.btn-success:hover {
+  background-color: #4bb389;
+  border-color: #4bb389;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  border-radius: 10px;
+}
+
+.dropdown-menu a {
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f6f0fc;
+}
+
+/* Section formulaire */
+.form-section h5 {
+  font-size: 1.2rem;
+  color: #6b4c9a;
+}

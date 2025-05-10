@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<div class="section-py landing-hero position-relative" >
+  <div style="margin-top: 100px;">
+    <!-- Your tab navigation and formations list here -->
+  </div>
+
+<div class="hero-section position-relative overflow-hidden rounded-4 mb-5 shadow-lg" style="background: linear-gradient(135deg, #f0f4ff, #d4e2ff);">
+  <div class="position-absolute w-100 h-100" style="background: radial-gradient(circle at top left, rgba(255,255,255,0.3), rgba(0,123,255,0.1)); opacity: 0.2;"></div>
+  <div class="container position-relative py-9">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-4 fw-bold text-primary mb-3" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.1);">
+          🚀 Forum de Discussion
+        </h1>
+        <p class="lead text-dark mb-4" style="font-weight: 500; letter-spacing: 0.4px; font-size: 1.2rem;">
+          Partagez vos idées et collaborez avec la communauté        </p>
+          <div class="action-buttons">
+            <button (click)="createEventTopic()" class="btn btn-primary">
+              <i class="fas fa-plus-circle"></i> Créer Nouveau Sujet
+            </button>
+            <button routerLink="/predictsou" class="btn btn-secondary">
+              <i class="fas fa-chart-line"></i> Prédiction
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Project List Card -->
+<div class="card shadow-lg border-0">
+  <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
+   
+
+    <!-- Topics Grid -->
+    <div class="topics-grid">
+      <div *ngFor="let eventTopic of eventTopics" class="topic-column">
+        <app-topic [eventTopic]="eventTopic" (notifyParent)="onGetNotification()"></app-topic>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

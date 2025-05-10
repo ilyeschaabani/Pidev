@@ -1,0 +1,54 @@
+<div class="layout-wrapper layout-content-navbar layout-without-menu">
+    <div class="layout-container">
+        <div class="layout-page">
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="user-profile-header-banner">
+                                    <!-- <img [src]="bannerImage" alt="Banner image" class="rounded-top"> -->
+                                </div>
+                                <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                                    <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                                        <!-- <img [src]="user.image" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img"> -->
+                                    </div>
+                                    <div class="flex-grow-1 mt-3 mt-sm-5">
+                                        <div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                                            <div class="user-profile-info">
+                                                <h4>{{ user?.nom }} {{ user?.prenom }}</h4>
+                                                <div class="user-details-vertical">
+                                                   
+                                                    <div class="detail-item">
+                                                        <i class="bx bx-envelope"></i>
+                                                        <span>{{user?.email}}</span>
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <i class="bx bx-phone"></i>
+                                                        <span>{{user?.telephone}}</span>
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <i class="bx bx-map"></i>
+                                                        <span>{{user?.adresse}}</span>
+                                                    </div>
+                                                    <div class="detail-item">
+                                                        <i class="bx bx-group"></i>
+                                                        <span>
+                                                            <span class="badge bg-label-primary me-1">
+                                                                {{user?.roles}}
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

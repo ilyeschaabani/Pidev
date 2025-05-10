@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignore local sensitive config
+**/application.properties
+

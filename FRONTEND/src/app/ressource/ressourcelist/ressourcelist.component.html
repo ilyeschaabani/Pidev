@@ -1,0 +1,127 @@
+
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme shadow-sm">
+      <app-dashbordadmin></app-dashbordadmin>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="layout-page">
+<!-- ESPACE ENTRE LA NAVBAR ET LE FILTRE -->
+<div class="modern-container mt-5 position-relative py-5 px-3 px-md-5">
+  <img src="../assets/img/front-pages/backgrounds/hero-bg.png" alt="Background" class="modern-bg" />
+
+  <!-- Section Filtres -->
+  <div class="card shadow-sm p-4 mb-5 bg-light border-0 rounded-4 filter-card">
+    <h4 class="fw-semibold mb-4 text-dark fs-4 text-mauve">🔍 Filtrer les ressources</h4>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-6">
+        <label class="form-label">Recherche</label>
+        <input type="text" class="form-control"
+               [(ngModel)]="searchKeyword"
+               (input)="onSearch()"
+               placeholder="Entrez un mot-clé...">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Type</label>
+        <select class="form-select"
+                [(ngModel)]="searchType"
+                (change)="onSearch()">
+          <option value="">Tous les types</option>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 d-flex gap-2">
+        <button class="btn btn-outline-dark w-100" (click)="changeSort('titre')">
+          Titre
+          <i class="mdi"
+             [class.mdi-arrow-up]="sortBy === 'titre' && sortDirection === 'asc'"
+             [class.mdi-arrow-down]="sortBy === 'titre' && sortDirection === 'desc'"></i>
+        </button>
+        <button class="btn btn-outline-dark w-100" (click)="changeSort('type')">
+          Type
+          <i class="mdi"
+             [class.mdi-arrow-up]="sortBy === 'type' && sortDirection === 'asc'"
+             [class.mdi-arrow-down]="sortBy === 'type' && sortDirection === 'desc'"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ressources -->
+  <div class="card shadow-sm p-4 rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+      <h2 class="fw-semibold m-0 text-mauve">📚 Ressources Disponibles</h2>
+      <button class="btn btn-mauve" [routerLink]="['/addressources']">
+        <i class="bx bx-plus"></i> Ajouter une ressource
+      </button>
+      <button class="btn btn-mauve" [routerLink]="['/predict']">
+        <i class="bx bx-bulb"></i> Prediction
+      </button>
+    </div>
+
+    <div class="table-responsive rounded-3 overflow-hidden">
+      <table class="table table-hover align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Fichier</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ressource of ressources">
+            <td>{{ ressource.titre }}</td>
+            <td>{{ ressource.description }}</td>
+            <td>{{ ressource.type }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <!-- Téléchargement -->
+                <button class="btn btn-sm btn-outline-primary"
+                        *ngIf="ressource.fileName"
+                        (click)="downloadFile(ressource.type, ressource.fileName)">
+                  <i class="bx bx-download"></i>
+                </button>
+
+                <!-- Résumé (remplacé par "document-search") -->
+                <button class="btn btn-sm btn-outline-secondary"
+                        *ngIf="ressource.fileName && isApdfWordDocument(ressource.fileName)"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasResumeRessource"
+                        (click)="resumeFile(ressource.fileName)">
+                  <i class="bx bx-book-content"></i>
+                </button>
+
+                <!-- Prévisualisation (remplacé par "eye") -->
+                <a class="btn btn-sm btn-outline-mauve"
+                   *ngIf="ressource.fileName"
+                   [routerLink]="['/preview', ressource.idRessource]">
+                  <i class="bx bx-show-alt"></i>
+                </a>
+              </div>
+            </td>
+            <td>{{ ressource.category }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-outline-warning btn-sm"
+                [routerLink]="['/addressources']">
+                  ✏️
+                </button>
+                <button class="btn btn-outline-danger btn-sm"
+                        (click)="deleteRessource(ressource.idRessource)">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

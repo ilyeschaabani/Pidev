@@ -1,0 +1,131 @@
+/* Conteneur principal */
+.interface-container {
+    padding: 20px;
+    background-color: #f4f4f9;
+  }
+  
+  /* En-tête de section */
+  .en-tete-section {
+    background: #afbcca;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .titre-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icone-titre {
+    font-size: 30px;
+    margin-right: 10px;
+  }
+  
+  .titre-principal {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+  
+  .retour-btn {
+    margin-left: auto;
+    font-size: 14px;
+  }
+  
+  /* Séparateur */
+  .separateur-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Projets */
+  .projets-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .carte-projet {
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: 100%;
+  }
+  
+  .projet-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titre de carte */
+  .titre-projet {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .sous-titre-projet {
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  /* Panneaux interactifs */
+  .panneaux-interactifs .mat-expansion-panel {
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  
+  /* Boutons */
+  .bouton-upload {
+    margin-top: 10px;
+  }
+  
+  .bouton-generation {
+    width: 100%;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  
+  /* Module de génération de sujets */
+  .module-generation {
+    margin-top: 30px;
+  }
+  
+  .entete-module {
+    background: #3f51b5;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .titre-module {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icone-module {
+    margin-right: 10px;
+  }
+  
+  .interface-generation {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Résultats de génération */
+  .resultats-generation {
+    margin-top: 20px;
+    background-color: #f4f4f9;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .titre-resultats {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .contenu-resultats {
+    font-size: 1rem;
+    color: #333;
+  }
+  
