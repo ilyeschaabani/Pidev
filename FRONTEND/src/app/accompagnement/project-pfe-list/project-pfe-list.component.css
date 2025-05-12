@@ -1,0 +1,181 @@
+/* Style général */
+body {
+    background: linear-gradient(120deg, #e9e8ea, #ccc3e1);
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2e3b55;
+    margin: 0;
+    padding: 0;
+}
+
+/* Typographie */
+h3, h4, h5 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Liens */
+a {
+    text-decoration: none;
+}
+
+/* Boutons */
+button, .btn {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Container principal */
+.container-fluid {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 50px;
+}
+
+.container-fluid img {
+    max-height: 300px;
+    object-fit: cover;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Carte */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    padding: 24px;
+}
+
+/* Bouton Ajouter Projet */
+.btn-gradient {
+    background: #af4cac; /* Green for Predicition button */
+    color: #fff; 
+    border: 1px solid #8f45a0; 
+    border: none;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 12px 24px;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #8f6eb1, #e0539e);
+}
+
+/* Table stylisée */
+.table {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #9c6aff;
+    color: white;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f8ff;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* Boutons Actions */
+.btn-info {
+    background-color: #7c4dff;
+    color: white;
+    border-radius: 6px;
+}
+
+.btn-warning {
+    background-color: #ff9e62;
+    color: white;
+    border-radius: 6px;
+}
+
+.btn-danger {
+    background-color: #d32f2f;
+    color: white;
+    border-radius: 6px;
+}
+
+.btn-info:hover {
+    background-color: #6a1b9a;
+}
+
+.btn-warning:hover {
+    background-color: #e65100;
+}
+
+.btn-danger:hover {
+    background-color: #c62828;
+}
+
+/* Offcanvas Panel */
+.offcanvas {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.offcanvas-header {
+    background: linear-gradient(135deg, #9c6aff, #6f42c1);
+    color: white;
+    border-top-left-radius: 20px;
+}
+
+.offcanvas-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* Formulaires */
+.form-label {
+    font-weight: 600;
+    color: #3f3f3f;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #ccd1e0;
+    box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #9c6aff;
+    box-shadow: 0 0 0 0.2rem rgba(156, 106, 255, 0.15);
+}
+
+/* Bouton Créer */
+.btn-success {
+    background: linear-gradient(135deg, #9c6aff, #6f42c1);
+    border: none;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #7e38c2, #573091);
+}
+
+/* Bouton Générer Sujet */
+.btn-secondary {
+    background-color: #9e9e9e;
+    color: white;
+    font-weight: 500;
+    border-radius: 50px;
+}
+
+.btn-secondary:hover {
+    background-color: #757575;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .btn span.d-none.d-sm-inline-block {
+      display: none;
+    }
+}

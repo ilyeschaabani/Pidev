@@ -24,7 +24,11 @@ export class ShopFormationComponent {
       this.formations = data;
     });
   }
- 
+  goToRecommendation(): void {
+    this.router.navigate(['/Recommandation']);
+  }
+  
+  
   goToCart(): void {
     this.router.navigate(['/panier']);
   }

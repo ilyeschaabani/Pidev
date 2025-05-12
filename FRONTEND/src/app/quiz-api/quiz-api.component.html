@@ -1,71 +1,73 @@
+<app-navbar></app-navbar>
+<div style="margin-top: 100px;">
+  <!-- Your tab navigation and formations list here -->
+</div>
+<div class="quiz-wrapper container mt-5">
+  <h2 class="title mb-4 text-center">🎯 Générer un Quiz</h2>
 
-<div class="quiz-container card p-4">
-    <h2 class="card-title mb-4">Générer un Quiz</h2>
-  
-    <!-- Sélection du sujet et de la difficulté -->
-    <div class="mb-4">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label for="category" class="form-label">Choisir un sujet :</label>
-          <select
-            id="category"
-            class="form-select"
-            [(ngModel)]="selectedCategory"
-          >
-            <option value="Linux">Linux</option>
-            <option value="Code">Programmation</option>
-            <option value="DevOps">DevOps</option>
-            <option value="Cloud">Cloud Computing</option>
-          </select>
-        </div>
-  
-        <div class="col-md-6">
-          <label for="difficulty" class="form-label">Difficulté :</label>
-          <select
-            id="difficulty"
-            class="form-select"
-            [(ngModel)]="selectedDifficulty"
-          >
-            <option value="Easy">Facile</option>
-            <option value="Medium">Moyen</option>
-            <option value="Hard">Difficile</option>
-          </select>
-        </div>
+  <!-- Sélection -->
+  <div class="selection-box mb-5 p-4 rounded shadow-sm">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="category" class="form-label fw-semibold">Sujet :</label>
+        <select
+          id="category"
+          class="form-select custom-select"
+          [(ngModel)]="selectedCategory"
+        >
+          <option value="Linux">Linux</option>
+          <option value="Code">Programmation</option>
+          <option value="DevOps">DevOps</option>
+          <option value="Cloud">Cloud Computing</option>
+        </select>
       </div>
-  
-      <button class="btn btn-primary mt-3" (click)="loadQuiz()">Générer</button>
+
+      <div class="col-md-6">
+        <label for="difficulty" class="form-label fw-semibold">Difficulté :</label>
+        <select
+          id="difficulty"
+          class="form-select custom-select"
+          [(ngModel)]="selectedDifficulty"
+        >
+          <option value="Easy">Facile</option>
+          <option value="Medium">Moyen</option>
+          <option value="Hard">Difficile</option>
+        </select>
+      </div>
     </div>
-  
-    <!-- Affichage des questions -->
-    <div *ngIf="quizQuestions.length > 0" class="card p-4">
-      <h3 class="card-title mb-4">Quiz sur : {{ selectedCategory }}</h3>
-      <ul class="list-unstyled">
-        <li *ngFor="let question of quizQuestions; let i = index" class="mb-4">
-          <strong class="d-block mb-2">{{ i + 1 }}. {{ question.question }}</strong>
-          <ul class="list-unstyled">
-            <li *ngFor="let option of getAnswerOptions(question.answers)">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="{{ question.id }}"
-                  [value]="option"
-                  [(ngModel)]="selectedAnswers[i]"
-                />
-                <label class="form-check-label">{{ option }}</label>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
-  
-      <!-- Bouton pour soumettre le quiz -->
-      <button class="btn btn-success mt-3" (click)="submitQuiz()">Soumettre</button>
-    </div>
-  
-    <!-- Affichage des résultats -->
-    <div *ngIf="showResult" class="card p-4 mt-4">
-      <h3 class="card-title mb-3">Résultats du Quiz</h3>
-      <p class="lead">Votre score : {{ score }} / {{ quizQuestions.length }}</p>
-    </div>
+
+    <button class="btn btn-generate mt-4" (click)="loadQuiz()">🚀 Générer</button>
   </div>
+
+  <!-- Quiz Questions -->
+  <div *ngIf="quizQuestions.length > 0" class="card p-4 shadow quiz-card">
+    <h3 class="card-title mb-4 text-primary">📘 Quiz : {{ selectedCategory }}</h3>
+    <ul class="list-unstyled">
+      <li *ngFor="let question of quizQuestions; let i = index" class="mb-4 question-block">
+        <strong class="d-block mb-2 text-dark">{{ i + 1 }}. {{ question.question }}</strong>
+        <ul class="list-unstyled">
+          <li *ngFor="let option of getAnswerOptions(question.answers)">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="{{ question.id }}"
+                [value]="option"
+                [(ngModel)]="selectedAnswers[i]"
+              />
+              <label class="form-check-label">{{ option }}</label>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <button class="btn btn-submit mt-3" (click)="submitQuiz()">✅ Soumettre</button>
+  </div>
+
+  <!-- Résultat -->
+  <div *ngIf="showResult" class="card p-4 mt-4 shadow-sm result-card">
+    <h3 class="card-title mb-3 text-success">🎉 Résultat du Quiz</h3>
+    <p class="lead">Score : <strong>{{ score }}</strong> / {{ quizQuestions.length }}</p>
+  </div>
+</div>

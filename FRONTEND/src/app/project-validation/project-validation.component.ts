@@ -5,7 +5,9 @@ import { AuthService } from '../services/Auth/auth.service';
 import * as bootstrap from 'bootstrap';
 import { Router } from '@angular/router';
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend, Title } from 'chart.js';
+import { ToastrService } from 'ngx-toastr'; // Importez ToastrService
 
+import { StatutProjet } from '../Models/projet.model';
 // Correction: Enregistrement des composants corrects pour le doughnut chart
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title);
 
@@ -21,8 +23,9 @@ export class ProjectValidationComponent {
   encadrants: any[] = [];
   selectedEncadrant: string = '';
   searchEncadrant: string = '';
-  
 
+
+  statutProjet = StatutProjet;
   // Statistiques des projets
   totalProjets: number = 0;
   projetsEnAttente: number = 0;
@@ -33,13 +36,21 @@ export class ProjectValidationComponent {
   constructor(
     private projetService: ProjetService,
     private userService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService // Injectez ToastrService
+
   ) {}
 
   ngOnInit(): void {
     this.loadProjets();
     this.loadEncadrants();
   }
+  stats = [
+    { title: 'Total Projets', value: 25, icon: 'fas fa-tasks', bg: 'bg-primary-hover' },
+    { title: 'Projets Validés', value: 12, icon: 'fas fa-check-circle', bg: 'bg-success-hover' },
+    { title: 'Projets Rejetés', value: 4, icon: 'fas fa-times-circle', bg: 'bg-danger' }
+  ];
+  
 
   loadProjets(): void {
     this.projetService.getAllProjets().subscribe((data) => {
@@ -197,27 +208,33 @@ openRejectionModal(projet: Projet): void {
       alert('Aucun projet sélectionné.');
       return;
     }
-
+  
     if (!this.selectedEncadrant) {
       alert('Veuillez sélectionner un encadrant.');
       return;
     }
-
+  
     this.projetService.assignEncadrant(this.selectedProjet.idProjet, this.selectedEncadrant)
       .subscribe({
         next: () => {
-          alert('Encadrant assigné avec succès');
+          // Affichage de la notification de succès
+          this.toastr.success('Encadrant assigné avec succès!', 'Succès');
+  
+          // Fermeture du modal
           const modalElement = document.getElementById('assignEncadrantModal')!;
           const modal = bootstrap.Modal.getInstance(modalElement);
           modal?.hide();
+  
+          // Mettre à jour l'état des projets
           this.loadProjets();
         },
         error: (err) => {
           console.error('Erreur:', err);
+          this.toastr.error('Erreur lors de l\'assignation', 'Erreur');
           alert('Erreur lors de l\'assignation');
         }
       });
   }
-
+  
 
 }

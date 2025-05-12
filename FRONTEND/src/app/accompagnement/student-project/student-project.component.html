@@ -1,16 +1,19 @@
 <app-navbar></app-navbar>
-<br> <br>
+<br> <br><br> <br> <br>
+
 <!-- Conteneur principal -->
 <main class="interface-container">
   <!-- Ajouter dans l'en-tête -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
   <!-- En-tête de section -->
   <header class="en-tete-section">
     <div class="titre-section">
       <mat-icon aria-hidden="true" class="icone-titre">library_books</mat-icon>
       <h1 class="titre-principal">Gestion des Projets de Fin d'Études</h1>
-      <br> <a routerLink="/PfeList" class="btn btn-secondary ms-2">
+      <br>
+      <a routerLink="/PfeList" class="btn btn-secondary ms-2 retour-btn">
         <i class="bx bx-group icon-sm"></i> <span class="d-none d-sm-inline-block">Retour</span>
       </a>      
     </div>
@@ -21,7 +24,7 @@
   <!-- Section des projets -->
   <section class="projets-section">
     <article *ngFor="let projet of projects" class="carte-projet">
-      <mat-card>
+      <mat-card class="projet-card">
         <!-- En-tête de carte -->
         <mat-card-header class="entete-carte">
           <mat-card-title class="titre-projet">{{ projet.title }}</mat-card-title>
@@ -117,13 +120,13 @@
         <!-- Interface de génération -->
         <section class="interface-generation">
           <mat-form-field appearance="outline" class="champ-recherche">
-            <mat-label>Thématiques de recherche    </mat-label>
+            <mat-label>Thématiques de recherche</mat-label>
             <input matInput [(ngModel)]="keywords" 
                   placeholder="Exemple : Intelligence Artificielle, Systèmes distribués...">
-            <mat-icon matSuffix class="icone-recherche">  search</mat-icon>
+            <mat-icon matSuffix class="icone-recherche">search</mat-icon>
           </mat-form-field>
     
-           <button mat-flat-button color="accent" 
+          <button mat-flat-button color="accent" 
                   (click)="generateTopicsFromKeywords()" 
                   class="bouton-generation">
                   <mat-icon>rocket_launch</mat-icon>Lancer la génération
@@ -141,4 +144,4 @@
       </mat-card-content>
     </mat-card>
   </aside>
-</main>
+</main>  

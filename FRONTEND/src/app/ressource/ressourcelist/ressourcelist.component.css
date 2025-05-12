@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Style général */
 .modern-container {
   background-color: #f9f9fb;
@@ -5,6 +6,17 @@
   margin-top: 1rem;
   padding: 1rem !important;
   position: relative;
+=======
+/* ========== GENERAL LAYOUT ========== */
+.modern-container {
+  background-color: #f9f9fb;
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 2rem 1rem;
+  z-index: 1;
+  border-radius: 1rem;
+  overflow: hidden;
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
 }
 
 .modern-bg {
@@ -15,14 +27,23 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+<<<<<<< HEAD
   opacity: 0.1;
 }
 
 /* Couleurs et typographie */
+=======
+  opacity: 0.08;
+  filter: blur(1px);
+}
+
+/* ========== TYPOGRAPHY & COLORS ========== */
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
 .text-mauve {
   color: #9f6ee8;
 }
 
+<<<<<<< HEAD
 /* Sections compactes */
 .compact-section {
   position: relative;
@@ -46,16 +67,68 @@
   border: none;
   padding: 0.375rem 0.75rem;
   font-size: 0.9rem;
+=======
+h2, h4 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ========== CARDS ========== */
+.card {
+  border-radius: 1rem;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ========== FORMS ========== */
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #9f6ee8;
+  box-shadow: 0 0 0 0.15rem rgba(159, 110, 232, 0.25);
+}
+
+/* ========== BUTTONS ========== */
+.btn-mauve {
+  background-color: #9f6ee8;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
 }
 
 .btn-mauve:hover {
   background-color: #844cd3;
+<<<<<<< HEAD
   color: #fff;
+=======
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
 }
 
 .btn-outline-mauve {
   border: 1px solid #9f6ee8;
   color: #9f6ee8;
+<<<<<<< HEAD
+=======
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
 }
 
 .btn-outline-mauve:hover {
@@ -63,6 +136,7 @@
   color: #fff;
 }
 
+<<<<<<< HEAD
 /* Tableau compact */
 .compact-table {
   font-size: 0.85rem;
@@ -100,3 +174,117 @@
     font-size: 0.8rem;
   }
 }
+=======
+/* Icons inside buttons */
+button i {
+  vertical-align: middle;
+}
+
+/* Small Buttons */
+.btn-sm {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border-radius: 0.4rem;
+}
+
+/* ========== TABLE DESIGN ========== */
+.table-responsive {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+table.table {
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.table thead {
+  background-color: #f1f3f5;
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.table td button,
+.table td a {
+  transition: transform 0.2s ease;
+}
+
+.table td button:hover,
+.table td a:hover {
+  transform: scale(1.05);
+}
+
+/* ========== ACTION BUTTONS FLEX ========== */
+.d-flex.gap-2 {
+  gap: 0.5rem !important;
+}
+
+/* ========== MEDIA QUERIES ========== */
+@media (max-width: 768px) {
+  .modern-container {
+    padding: 1rem !important;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 0.85rem;
+  }
+
+  .btn-mauve {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.7rem;
+  }
+
+  table.table {
+    font-size: 0.85rem;
+  }
+}
+:root {
+  --mauve: #9f6ee8;
+  --mauve-dark: #844cd3;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+}
+/* ========== FILTRE SECTION - VIOLET CLAIR ========== */
+.filter-card {
+  background: linear-gradient(135deg, #f4ebfa, #e9dcf8);
+  border-left: 5px solid var(--mauve);
+}
+
+.filter-card h4 {
+  color: var(--mauve-dark);
+}
+
+.filter-card .form-label {
+  color: #6d4ca3;
+}
+
+.filter-card .form-control,
+.filter-card .form-select {
+  border: 1px solid #d1bce9;
+  background-color: #fffafc;
+}
+
+.filter-card .form-control:focus,
+.filter-card .form-select:focus {
+  border-color: var(--mauve-dark);
+  box-shadow: 0 0 0 0.15rem rgba(159, 110, 232, 0.2);
+}
+
+.filter-card .btn-outline-dark {
+  border-color: #b39ddb;
+  color: #5e35b1;
+}
+
+.filter-card .btn-outline-dark:hover {
+  background-color: #d1bce9;
+  color: #4a148c;
+}
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc

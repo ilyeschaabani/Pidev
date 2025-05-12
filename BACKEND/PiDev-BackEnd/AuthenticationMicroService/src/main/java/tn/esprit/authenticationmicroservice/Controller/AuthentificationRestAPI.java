@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.authenticationmicroservice.Entity.User;
 import tn.esprit.authenticationmicroservice.Repository.UserRepository;
 import tn.esprit.authenticationmicroservice.Service.Authentication.AuthenticationServiceImpl;
+import tn.esprit.authenticationmicroservice.Service.User.UserService;
 import tn.esprit.authenticationmicroservice.dto.JwtAuthenticationResponse;
 import tn.esprit.authenticationmicroservice.dto.RefreshTokenrequest;
 import tn.esprit.authenticationmicroservice.dto.SignInRequest;
@@ -23,6 +24,8 @@ public class AuthentificationRestAPI {
 
     private final AuthenticationServiceImpl authenticationService;
     private final UserRepository userRepository;
+    private final UserService userService;
+
 
 
     @PostMapping("/signup")
@@ -44,5 +47,19 @@ public class AuthentificationRestAPI {
     @GetMapping("/encadrants")
     public List<User> getEncadrants() {
         return userRepository.findByRole("ENCADRANT");
+    }
+
+    @GetMapping("/getuser")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+        return ResponseEntity.ok(userService.updateUser(id, updatedUser));
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

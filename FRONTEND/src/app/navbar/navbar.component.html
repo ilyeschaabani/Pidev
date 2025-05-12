@@ -46,11 +46,9 @@
 			<li class="nav-item">
 				<a class="nav-link fw-medium" routerLink="/PfeList">AccompagnementPFE</a>
 			  </li>
+		
 			<li class="nav-item">
-			  <a class="nav-link fw-medium" routerLink="#">Event</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link fw-medium" routerLink="#">Blog</a>
+			  <a class="nav-link fw-medium" routerLink="/forum">Blog</a>
 			</li>
 		  </ul>
 		</div>
@@ -69,7 +67,7 @@
 			<li class="nav-item navbar-dropdown dropdown-user dropdown">
 			  <a class="nav-link dropdown-toggle hide-arrow" href="#" data-bs-toggle="dropdown">
 				<div class="avatar">
-				  <img src="assets/img/user-avatar.png" alt="User" class="w-px-40 rounded-circle" />
+				  <img src="assets/img/avatars/6.png" alt="User" class="w-px-40 rounded-circle" />
 				</div>
 			  </a>
 			  <ul class="dropdown-menu dropdown-menu-end">
@@ -77,7 +75,7 @@
 				  <div class="d-flex">
 					<div class="flex-shrink-0 me-3">
 					  <div class="avatar">
-						<img src="assets/img/user-avatar.png" alt="User" class="w-px-40 rounded-circle" />
+						<img src="assets/img/avatars/6.png" alt="User" class="w-px-40 rounded-circle" />
 					  </div>
 					</div>
 					<div class="flex-grow-1">
@@ -91,6 +89,9 @@
 				<li *ngIf="user.roles?.includes('ADMIN')">
 				  <a class="dropdown-item" routerLink="/dashbord"><i class="bx bxs-dashboard me-2"></i>Panel Admin</a>
 				</li>
+				<li *ngIf="user.roles?.includes('ADMIN')">
+					<a class="dropdown-item" routerLink="/predictionTimespent"><i class="bx bxs-dashboard me-2"></i>Time Spent Online Prediction </a>
+				  </li>
 				<li><a class="dropdown-item" routerLink="#"><i class="bx bx-cog me-2"></i>Parametres</a></li>
 				<li><div class="dropdown-divider"></div></li>
 				<li><a class="dropdown-item" (click)="logout()"><i class="bx bx-power-off me-2"></i>Deconnection</a></li>

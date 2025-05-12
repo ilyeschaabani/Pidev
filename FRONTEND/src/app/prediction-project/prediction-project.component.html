@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
-<br> <br> <br>
+<br><br><br>
+
 <div class="prediction-container">
   <mat-card class="prediction-card">
     <mat-card-header>
@@ -7,19 +8,32 @@
     </mat-card-header>
 
     <mat-card-content>
+      <!-- Message d'erreur -->
+      <div *ngIf="validationError" class="error-message">
+        {{ validationError }}
+      </div>
+
+      <!-- GIF de chargement -->
+      <div *ngIf="loading" class="loading-gif">
+        <img src="https://i.gifer.com/ZKZg.gif" alt="Chargement..." />
+      </div>
+
       <form class="prediction-form" (ngSubmit)="envoyerPrediction()">
         <div class="form-row">
+
           <!-- Section Projet -->
           <div class="form-group">
             <mat-form-field appearance="outline">
               <mat-label>Nom du projet</mat-label>
               <input matInput [(ngModel)]="inputData['Project Name']" name="projectName" required>
             </mat-form-field>
+<mat-form-field appearance="outline">
+  <mat-label>Type de projet</mat-label>
+  <mat-select [(ngModel)]="inputData['Project Type']" name="projectType" required>
+    <mat-option *ngFor="let type of projectTypes" [value]="type">{{ type }}</mat-option>
+  </mat-select>
+</mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Type de projet</mat-label>
-              <input matInput [(ngModel)]="inputData['Project Type']" name="projectType" required>
-            </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Localisation</mat-label>
@@ -65,7 +79,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Budget</mat-label>
               <input matInput type="number" [(ngModel)]="inputData['Budget']" name="budget" required>
-              <span matSuffix>€</span>
+              <span matSuffix>DT</span>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -95,7 +109,7 @@
         </div>
 
         <div class="button-container">
-          <button mat-raised-button color="primary" type="submit" class="submit-button">
+          <button mat-raised-button color="primary" type="submit" class="submit-button" [disabled]="loading">
             <mat-icon>calculate</mat-icon>
             📊 Prédire
           </button>
@@ -103,9 +117,23 @@
       </form>
     </mat-card-content>
   </mat-card>
+  <!-- Roue de la Fortune IA -->
+<div class="wheel-container" [class.active]="showWheel && loading">
+  <div class="fortune-pointer">🔻</div>
+  <div class="fortune-wheel"></div>
 </div>
 
-<div *ngIf="predictionResult !== null" class="result-card">
-  <h3>Résultat de la prédiction</h3>
-  <p>Coût estimé : {{ predictionResult | currency:'EUR':'symbol':'1.2-2' }}</p>
 </div>
+
+<div class="chat-box">
+  <div class="chat-message user">
+    <p>Donne-moi le coût estimé du projet 🙏</p>
+  </div>
+  <div class="chat-message bot" *ngIf="predictionResult !== null">
+    <p>🔮 Estimation : <strong>{{ predictionResult | currency:'EUR' }}</strong></p>
+    <p>{{ explication }}</p>
+  </div>
+</div>
+
+
+

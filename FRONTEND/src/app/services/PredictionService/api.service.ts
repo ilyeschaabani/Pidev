@@ -6,7 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
+<<<<<<< HEAD
   private apiUrl = 'http://127.0.0.1:5001'; // Update if your Flask server is hosted elsewhere
+=======
+  private apiUrl = 'http://localhost:5006'; // <-- Corrigé
+>>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
 
   constructor(private http: HttpClient) { }
 

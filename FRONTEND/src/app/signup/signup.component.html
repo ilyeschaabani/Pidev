@@ -1,78 +1,245 @@
-<body>
-	<div class="container-xxl">
-	  <div class="authentication-wrapper authentication-basic container-p-y">
-		<div class="authentication-inner" style="max-width: 540px">
-		  <div class="card">
-			<div class="card-body">
-			  <a href="#">
-				<div class="app-brand justify-content-center">
-				  <img src="" alt="CodingFactory" class="app-brand-logo me-2">
-				</div>
-			  </a>
-			  <h4 class="mb-2">L'aventure commence ici 🚀</h4>
-			  <p class="mb-2">Apprendre, Créer et découvrir Le Monde De Coding</p>
-			  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" id="formAuthentication" class="mb-3" enctype="multipart/form-data" method="POST">
-				<div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message">
-				  {{ message }}
-				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-				<div class="row g-2 mb-3">
-				  <div class="col mb-0">
-					<label for="name" class="form-label">Nom</label>
-					<input type="text" class="form-control" id="name" formControlName="nom" placeholder="Nom" autofocus/>
-				  </div>
-				  <div class="col mb-0">
-					<label for="prename" class="form-label">Prenom</label>
-					<input type="text" class="form-control" id="prename" formControlName="prenom" placeholder="Prénom" autofocus/>
-				  </div>
-				</div>
-				<div class="row g-2 mb-3">
-				  <div class="col mb-0">
-					<label for="phone" class="form-label">Telephone</label>
-					<input type="text" class="form-control" id="phone" formControlName="telephone" placeholder="Téléphone" autofocus/>
-				  </div>
-				  <div class="col mb-0">
-					<label for="address" class="form-label">Address</label>
-					<input type="text" class="form-control" id="address" formControlName="adresse" placeholder="Address" autofocus/>
-				  </div>
-				</div>
-				<div class="mb-3">
-				  <label for="email" class="form-label">Email</label>
-				  <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter votre Email" autofocus/>
-				</div>
-				<!-- Add this section before the submit button -->
-				<!--div class="mb-3">
-					<label for="profileImage" class="form-label">Profile Image</label>
-					<input type="file" 
-						class="form-control" 
-						id="profileImage" 
-						(change)="onFileSelected($event)"
-						accept="image/*">
-				</div-->
-				<div class="mb-4">
-					<label for="defaultSelect" class="form-label">Role</label>
-					<select id="defaultSelect" formControlName="role" class="form-select">
-					  <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-					</select>
-				  </div>
-				<div class="mb-2 form-password-toggle">
-				  <label for="password" class="form-label">Mot de passe</label>
-				  <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter votre mot de passe" aria-describedby="password"/>
-				</div>
-				<div class="progress mb-3">
-				  <div id="PwdMeter" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-				</div>
-				<button type="submit" class="btn btn-primary mb-3 d-grid w-100" id="signupButton">S'inscrire</button>
-				<p class="text-center">
-				  <span>Vous avez déjà un compte?</span>
-				  <a routerLink="/login" class="fw-medium">
-					<span>Connectez-vous</span>
-				  </a>
-				</p>
-			  </form>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inscription - Coding Factory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        animation: fadeIn 1.2s ease-in-out;
+        padding: 20px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .signup-card {
+        background: #ffffff;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 3rem;
+        width: 100%;
+        max-width: 600px;
+        animation: fadeIn 1.5s ease;
+      }
+
+      .signup-card h4 {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .signup-card p {
+        color: #666;
+        margin-bottom: 2rem;
+      }
+
+      .form-label {
+        font-weight: 600;
+      }
+
+      .form-control:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+      }
+
+      .btn-primary {
+        background-color: #4a90e2;
+        border: none;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #357ab7;
+        transform: scale(1.02);
+      }
+
+      .app-logo {
+        height: 60px;
+        margin-bottom: 15px;
+        animation: popIn 0.8s ease;
+      }
+
+      @keyframes popIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: #4a90e2;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #357ab7;
+      }
+
+      .progress {
+        height: 8px;
+        border-radius: 4px;
+        background-color: #e9ecef;
+      }
+
+      .progress-bar {
+        background-color: #4a90e2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-card">
+      <div class="text-center">
+        <img src="../assets/img/images/Logo.png" alt="Coding Factory" class="app-logo" />
+        <h4>L'aventure commence ici 🚀</h4>
+        <p>Apprendre, créer et découvrir le monde du code</p>
+      </div>
+
+      <form
+        [formGroup]="signupForm"
+        (ngSubmit)="onSubmit()"
+        enctype="multipart/form-data"
+        method="POST"
+      >
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          role="alert"
+          *ngIf="message"
+        >
+          {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col">
+            <label for="name" class="form-label">Nom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              formControlName="nom"
+              placeholder="Nom"
+            />
+          </div>
+          <div class="col">
+            <label for="prename" class="form-label">Prénom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="prename"
+              formControlName="prenom"
+              placeholder="Prénom"
+            />
+          </div>
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col">
+            <label for="phone" class="form-label">Téléphone</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              formControlName="telephone"
+              placeholder="Téléphone"
+            />
+          </div>
+          <div class="col">
+            <label for="address" class="form-label">Adresse</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              formControlName="adresse"
+              placeholder="Adresse"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Adresse Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="Entrez votre email"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="role" class="form-label">Rôle</label>
+          <select id="role" class="form-select" formControlName="role">
+            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            placeholder="Entrez votre mot de passe"
+          />
+        </div>
+
+        <div class="progress mb-3">
+          <div
+            id="PwdMeter"
+            class="progress-bar"
+            role="progressbar"
+            style="width: 0%"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-3">
+          S'inscrire
+        </button>
+
+        <p class="text-center">
+          Déjà inscrit ?
+          <a routerLink="/login" class="fw-bold">Connectez-vous</a>
+        </p>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
+</html>

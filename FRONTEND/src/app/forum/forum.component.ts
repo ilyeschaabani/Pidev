@@ -22,7 +22,7 @@ export class ForumComponent {
     this.eventTopicService.getAll().subscribe((data) => (this.eventTopics = data));
   } 
   createEventTopic(): void {
-    this.router.navigate(['/forum/create']);  // Redirect to /forum/create
+    this.router.navigate(['/createtopic']);  // Redirect to /forum/create
   }
   onGetNotification():void{
     this.loadEventTopics();

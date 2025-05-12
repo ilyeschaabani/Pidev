@@ -33,11 +33,10 @@ export class MentorListComponent {
   ngOnInit(): void {
     this.fetchProjects();
   }
+ 
   goToMentorProject(projectId: string): void {
     this.router.navigate(['/mentor/project', projectId]);
   }
-  
-
 
   fetchProjects(): void {
     this.projectService.getProjects().subscribe((projects) => {

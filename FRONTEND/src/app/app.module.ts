@@ -1,6 +1,7 @@
 import { NgModule  } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -76,7 +77,11 @@ import { PredictcoursComponent } from './predictcours/predictcours.component';
 import { PredictionProjectComponent } from './prediction-project/prediction-project.component';
 import { PredictionResultDialogComponent } from './prediction-result-dialog/prediction-result-dialog.component';
 import { PredictionComponent } from './prediction/prediction.component';
-
+import { PredictsourourComponent } from './predictsourour/predictsourour.component';
+import { RecommendationComponent } from './recommendation/recommendation.component';
+import { PredictionFormTimespentComponent } from './prediction-form-timespent/prediction-form-timespent.component';
+import { UseradmineComponent } from './useradmine/useradmine.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,9 +138,12 @@ import { PredictionComponent } from './prediction/prediction.component';
     PredictcoursComponent,
     PredictionProjectComponent,
     PredictionResultDialogComponent,
-    PredictionComponent
-    
-
+    PredictionComponent,
+    PredictsourourComponent,
+RecommendationComponent,
+PredictionFormTimespentComponent,
+UseradmineComponent,
+EditUserComponent
   ],
   imports: [
     BrowserModule,

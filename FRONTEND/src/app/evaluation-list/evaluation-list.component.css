@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+body {
+  background-color: #f5f3fe;
+  font-family: 'Nunito', sans-serif;
+  color: #44355b;
+}
+
+.main-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header-section h2 {
+  color: #6b4c9a;
+  font-weight: 700;
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #a084dc, #8a6dc1);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  border: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #8a6dc1, #a084dc);
+  transform: translateY(-2px);
+}
+
+.btn-pink {
+  background-color: #f29ae8;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  border: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-pink:hover {
+  background-color: #f298ec;
+  transform: translateY(-2px);
+}
+
+.quiz-card {
+  background-color: #ffffff;
+  border: 1px solid #ded2f3;
+  border-radius: 16px;
+}
+
+.custom-header {
+  background-color: #f1eef8;
+  border-bottom: 3px solid #a084dc;
+  padding: 10px 20px;
+  color: #6b4c9a;
+}
+
+.quiz-item {
+  background-color: #f6f2fc;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #e0d1f0;
+  transition: background-color 0.3s;
+}
+
+.quiz-item:hover {
+  background-color: #ece2fa;
+}
+
+.list-group-item {
+  padding: 10px 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #e0d1f0;
+}
+
+.list-group-item:hover {
+  background-color: #f6f2fc;
+}
+
+.btn-outline-primary {
+  border-color: #a084dc;
+  color: #a084dc;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-outline-primary:hover {
+  background-color: #a084dc;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+  background-color: #5e35b1;
+  transform: translateY(-2px);
+}

@@ -1,0 +1,76 @@
+/* Table Styling */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9fafb;
+  }
+  
+  .table-striped tbody tr:hover {
+    background-color: #f1f5f9;
+    cursor: pointer;
+  }
+  
+  /* Card Header */
+  .card-header {
+    padding: 1rem 1.25rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .card-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .card-header .btn-primary {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Badge Styles */
+  .badge.bg-success {
+    background-color: #28a745;
+  }
+  
+  .badge.bg-secondary {
+    background-color: #6c757d;
+  }
+  
+  /* Button Group Styling */
+  .btn-group button {
+    margin-right: 0.5rem;
+  }
+  
+  .btn-group button:last-child {
+    margin-right: 0;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .table th, .table td {
+      font-size: 0.875rem;
+      padding: 0.5rem;
+    }
+  
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .card-header .btn-primary {
+      margin-top: 0.5rem;
+    }
+  
+    .table-responsive {
+      overflow-x: auto;
+    }
+  }
+  

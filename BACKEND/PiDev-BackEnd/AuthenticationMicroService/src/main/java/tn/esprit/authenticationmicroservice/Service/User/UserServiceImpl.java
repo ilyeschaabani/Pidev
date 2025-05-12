@@ -8,6 +8,9 @@ import tn.esprit.authenticationmicroservice.Entity.Enum.Role;
 import tn.esprit.authenticationmicroservice.Entity.User;
 import tn.esprit.authenticationmicroservice.Repository.UserRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +42,36 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User updateUser(String id, User updatedUser) {
+        Optional<User> existingUserOpt = userRepository.findById(id);
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+            existingUser.setNom(updatedUser.getNom());
+            existingUser.setPrenom(updatedUser.getPrenom());
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setTelephone(updatedUser.getTelephone());
+            existingUser.setAdresse(updatedUser.getAdresse());
+            existingUser.setRole(updatedUser.getRole());
+            return userRepository.save(existingUser);
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
 
 }

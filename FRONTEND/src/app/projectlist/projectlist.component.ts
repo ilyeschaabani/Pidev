@@ -23,6 +23,7 @@ export class ProjectlistComponent {
     espaceCollaboratif: false,
     statutProjet: StatutProjet.EN_ATTENTE, // Statut initial
   };
+  idProjetASupprimer: string | null = null;
 
   constructor(private projetService: ProjetService, private http: HttpClient, private router: Router) { }
 
@@ -68,47 +69,29 @@ export class ProjectlistComponent {
     this.router.navigate(['/projet', id]); // Navigate to project details page using project ID
   }
 
-  // Fonction pour afficher la boîte de dialogue de confirmation
-  confirmDelete(id: string): void {
-    this.selectedProjet = this.projets.find(projet => projet.idProjet === id) || null;
-    if (this.selectedProjet) {
-      const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal')!);
-      modal.show();
-    } else {
-      console.error("Projet non trouvé pour l'ID:", id);
+  confirmDelete(id: string) {
+    this.idProjetASupprimer = id;
+    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal')!);
+    modal.show();
+  }
+
+  supprimerProjet() {
+    if (this.idProjetASupprimer) {
+      this.projetService.deleteProjet(this.idProjetASupprimer).subscribe(() => {
+        this.projets = this.projets.filter(p => p.idProjet !== this.idProjetASupprimer);
+        this.idProjetASupprimer = null;
+
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')!);
+        modal?.hide();
+      });
     }
   }
   
- 
 
-  // Fonction pour supprimer un projet après confirmation
-supprimerProjet(): void {
-  if (this.selectedProjet) {
-    this.projetService.deleteProjet(this.selectedProjet.idProjet).subscribe({
-      next: () => {
-        console.log('Projet supprimé');
-        alert('Projet supprimé avec succès'); // Message de succès
-
-        // Recharger la liste après suppression
-        this.loadProjets();
-
-        // Fermer la modal après la suppression
-        const modalElement = document.getElementById('confirmDeleteModal');
-        if (modalElement) {
-          const modal = new bootstrap.Modal(modalElement);
-          modal.hide(); // Ferme la modal
-        }
-      },
-      error: (err) => {
-        console.error('Erreur lors de la suppression du projet', err);
-        alert('Erreur lors de la suppression du projet'); // Message d'erreur
-      }
-    });
-  }
+modifierProjet(projet: any) {
+  this.newProjet = { ...projet }; // Préremplit le formulaire dans le offcanvas
+  const offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvasAddProject')!);
+  offcanvas.show();
 }
-
-  modifierProjet(projet: Projet): void {
-    // Implémenter la logique pour modifier le projet
-  }
 
 }

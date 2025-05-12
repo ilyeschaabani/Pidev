@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PredictionService } from '../../prediction.service';
-
+import { PredictionService } from '../project/prediction.service';
 describe('PredictionService', () => {
   let service: PredictionService;
 
