@@ -133,3 +133,68 @@
     padding: 1.2rem;
   }
 }
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.loading-gif {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.loading-gif img {
+  width: 60px;
+  height: 60px;
+}
+.explication {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(120deg, #f0f4ff, #e3f2fd);
+  border-radius: 15px;
+  border: 1px solid #d0e2ff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  color: #1a237e;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  position: relative;
+}
+
+.explication::before {
+  content: '🧠 Explication IA';
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  background: #3f51b5;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.explication p {
+  margin: 0;
+  white-space: pre-line;
+}
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: #f4f6fb;
+}
+
+.mat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+button.submit-button:disabled {
+  background: #90caf9 !important;
+  cursor: not-allowed;
+}
