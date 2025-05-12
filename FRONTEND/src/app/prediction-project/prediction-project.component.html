@@ -117,7 +117,14 @@
       </form>
     </mat-card-content>
   </mat-card>
+  <!-- Roue de la Fortune IA -->
+<div class="wheel-container" [class.active]="showWheel && loading">
+  <div class="fortune-pointer">🔻</div>
+  <div class="fortune-wheel"></div>
 </div>
+
+</div>
+
 <div class="chat-box">
   <div class="chat-message user">
     <p>Donne-moi le coût estimé du projet 🙏</p>

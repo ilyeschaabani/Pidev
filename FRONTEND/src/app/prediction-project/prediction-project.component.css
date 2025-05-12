@@ -264,3 +264,38 @@ button.submit-button:disabled {
   background-color: #e8eaf6;
   border-left: 5px solid #3f51b5;
 }
+.fortune-wheel {
+  width: 250px;
+  height: 250px;
+  margin: 3rem auto;
+  border: 10px solid #3f51b5;
+  border-radius: 50%;
+  position: relative;
+  animation: spinWheel 3s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  background: conic-gradient(
+    #e3f2fd 0% 25%, 
+    #bbdefb 25% 50%, 
+    #90caf9 50% 75%, 
+    #64b5f6 75% 100%
+  );
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: none;
+}
+
+.fortune-pointer {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #f44336;
+}
+
+@keyframes spinWheel {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1440deg); } /* 4 tours */
+}
+
+.wheel-container.active .fortune-wheel {
+  display: block;
+}

@@ -26,10 +26,15 @@ export class PredictionProjectComponent {
     "End Date": ""
   };
 explication: string | null = null;
+showWheel = false;
 
   predictionResult: number | null = null;
   loading = false;
   validationError: string | null = null;
+
+showRoulette = false;
+spinning = false;
+segments = ['Traitement...', 'Analyse IA...', 'Calcul...', 'Réflexion...', 'Révélation...'];
 
   projectTypes = ['Renovation', 'Innovation',  'Other'];
   taskStatuses = ['Completed', 'On track', 'Behind'];
@@ -136,22 +141,29 @@ genererExplication(data: any, cout: number): string {
   if (!this.validerChamps()) return;
 
   this.loading = true;
- this.predictionService.predict(this.inputData).subscribe(
-  (response) => {
-    this.loading = false;
-    this.predictionResult = response.predicted_cost;
-    this.explication = this.genererExplication(this.inputData, response.predicted_cost);
+  this.showWheel = true;
 
-    this.dialog.open(PredictionResultDialogComponent, {
-      data: { predicted_cost: response.predicted_cost }
-    });
-  },
-    (error) => {
-      this.loading = false;
-      console.error('❌ Erreur:', error);
-      alert('Erreur lors de la prédiction.');
-    }
-  );
+  setTimeout(() => {
+    this.showWheel = false;
+    this.loading = false;
+
+    this.predictionService.predict(this.inputData).subscribe(
+      (response) => {
+        this.loading = false;
+        this.predictionResult = response.predicted_cost;
+        this.explication = this.genererExplication(this.inputData, response.predicted_cost);
+
+        this.dialog.open(PredictionResultDialogComponent, {
+          data: { predicted_cost: response.predicted_cost }
+        });
+      },
+      (error) => {
+        this.loading = false;
+        console.error('❌ Erreur:', error);
+        alert('Erreur lors de la prédiction.');
+      }
+    );
+  }, 3000);
 }
 
   }
