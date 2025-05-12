@@ -1,10 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-predictsourour',
   templateUrl: './predictsourour.component.html',
-  styleUrls: ['./predictsourour.component.css']
+  styleUrls: ['./predictsourour.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', [animate('600ms ease-in')]),
+    ])
+  ]
 })
 export class PredictsourourComponent {
   formData = {
