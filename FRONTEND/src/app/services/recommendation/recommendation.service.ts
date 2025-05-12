@@ -6,13 +6,21 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RecommendationService {
-  private apiUrl = 'http://localhost:5003/recommend';
+  private baseUrl = 'http://localhost:5003';
 
   constructor(private http: HttpClient) {}
 
   getRecommendations(level: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.baseUrl}/recommend`, { instructional_level: level }, { headers });
+  }
 
-    return this.http.post(this.apiUrl, { instructional_level: level }, { headers });
+  predictLevel(data: {
+    headline: string,
+    objectives: string,
+    curriculum: string
+  }): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.baseUrl}/predict_level`, data, { headers });
   }
 }
