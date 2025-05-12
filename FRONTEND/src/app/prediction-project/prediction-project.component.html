@@ -118,11 +118,15 @@
     </mat-card-content>
   </mat-card>
 </div>
-<div *ngIf="predictionResult !== null" class="result-card">
-  <h3>Résultat de la prédiction</h3>
-  <p>Coût estimé : {{ predictionResult | currency:'EUR':'symbol':'1.2-2' }}</p>
-  <div *ngIf="explication" class="explication">
+<div class="chat-box">
+  <div class="chat-message user">
+    <p>Donne-moi le coût estimé du projet 🙏</p>
+  </div>
+  <div class="chat-message bot" *ngIf="predictionResult !== null">
+    <p>🔮 Estimation : <strong>{{ predictionResult | currency:'EUR' }}</strong></p>
     <p>{{ explication }}</p>
   </div>
 </div>
+
+
 
