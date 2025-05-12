@@ -1,58 +1,3 @@
-<<<<<<< HEAD
-/* Couleur mauve principale */
-.text-mauve {
-    color: #9f6ee8;
-  }
-  
-  /* Bouton rempli mauve */
-  .btn-mauve {
-    background-color: #9f6ee8;
-    color: #fff;
-    border: none;
-  }
-  .btn-mauve:hover {
-    background-color: #844cd3;
-    color: #fff;
-  }
-  
-  /* Bouton contour mauve */
-  .btn-outline-mauve {
-    border: 1px solid #9f6ee8;
-    color: #9f6ee8;
-  }
-  .btn-outline-mauve:hover {
-    background-color: #9f6ee8;
-    color: #fff;
-  }
-  
-  /* Input group texte mauve */
-  .input-group-text.bg-mauve {
-    background-color: #9f6ee8;
-    color: white;
-    border: none;
-  }
-  
-  /* Harmonisation des champs de formulaire */
-  input.form-control,
-  textarea.form-control,
-  select.form-select {
-    border-radius: 0.5rem;
-    font-size: 0.95rem;
-  }
-  
-  /* Formulaire dans une carte claire */
-  .card {
-    background-color: #f9f9fb;
-  }
-  
-  /* Bordure douce pour l’en-tête */
-  .card-header {
-    background-color: transparent;
-    border-bottom: 1px solid #dee2e6;
-  }
-  
-  
-=======
 /* Define a soft gradient background for the sidebar */
 .bg-mauve {
   background-color: #6f42c1;
@@ -143,4 +88,3 @@ input[type="file"] {
 input[type="file"]:invalid {
   border-color: red;
 }
->>>>>>> bf9b88a5d3cff4af8701a6bd70861613575cebbc
