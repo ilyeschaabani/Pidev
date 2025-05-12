@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://127.0.0.1:5000'; // Update if your Flask server is hosted elsewhere
+  private apiUrl = 'http://127.0.0.1:5001'; // Update if your Flask server is hosted elsewhere
 
   constructor(private http: HttpClient) { }
 
@@ -20,4 +20,10 @@ export class ApiService {
     });
     return this.http.post(`${this.apiUrl}/predict`, data, { headers });
   }
+  chatWithBot(message: string, context: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/chat`, {
+    message,
+    context
+  });
+}
 }
