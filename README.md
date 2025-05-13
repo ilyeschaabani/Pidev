@@ -100,5 +100,3 @@ Let me know if you'd like me to:
 - Translate this into English,
 - Add badges (like Build Passing, License, etc.),
 - Help with the `LICENSE` file.
-
-Do you want a version in English as well?
