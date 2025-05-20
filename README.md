@@ -87,7 +87,7 @@ CodingFactory/
 
 🧑‍💻 Sourour Noumri – Responsable Base de Données
 
-🧑‍💻 Amira Laffet  – Rédacteur de contenu / Documentaliste
+🧑‍💻 Amira Laffet – Testeuse fonctionnelle
 
 🧑‍💻 Rawene Labaoui – Chef de projet / Coordinateur
 
