@@ -54,16 +54,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/Consultant/**").hasAnyAuthority("CONSULTANT")
                         .anyRequest().authenticated() // Require authentication for all other endpoints
                 )
-                .oauth2Login(oauth -> oauth // Add OAuth2 configuration
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService) // Use custom OAuth2 user service
-                        )
-                        .successHandler((request, response, authentication) -> {
-                            // Redirect to frontend with JWT token after OAuth2 login
-                            String jwtToken = jwtUtils.generateJwtTokenForOAuthUser(authentication);
-                            response.sendRedirect("http://localhost:4200?token=" + jwtToken);
-                        })
-                )
                 .authenticationProvider(authentificationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
