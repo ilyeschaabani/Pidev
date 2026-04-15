@@ -10,6 +10,6 @@ public interface JWTService {
     String generateToken(UserDetails userDetails);
     boolean validateToken(String token , UserDetails userDetails);
     String generateRefreshToken(Map<String,Object> claims, UserDetails userDetails);
-    String generateJwtTokenForOAuthUser(Authentication authentication);
+
 
 }
