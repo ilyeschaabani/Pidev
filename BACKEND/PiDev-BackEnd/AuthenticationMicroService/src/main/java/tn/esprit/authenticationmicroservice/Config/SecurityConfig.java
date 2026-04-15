@@ -14,14 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import tn.esprit.authenticationmicroservice.Service.JWT.JWTService;
-import tn.esprit.authenticationmicroservice.Service.OAuth2.CustomOAuth2UserService;
-import tn.esprit.authenticationmicroservice.Service.User.UserService;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 
+import tn.esprit.authenticationmicroservice.Service.User.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -30,51 +24,67 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final UserService userService;
-    private final CustomOAuth2UserService customOAuth2UserService;
-    private final JWTService jwtUtils;
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/oauth2/**", // Allow OAuth2 endpoints
-                                "/login/oauth2/code/**" // OAuth2 redirect URL
-                        ).permitAll()
-                        .requestMatchers("api/auth/**").permitAll()
-                        .requestMatchers("AuthenticationMicroService/**").permitAll()
-                        .requestMatchers("/forgotPassword/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll() // Allow access to H2 console
-                        .requestMatchers("/api/Admin/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/api/Etudiant/**").hasAnyAuthority("ETUDIANT")
-                        .requestMatchers("/api/Encadrant/**").hasAnyAuthority("ENCADRANT")
-                        .requestMatchers("/api/Consultant/**").hasAnyAuthority("CONSULTANT")
-                        .anyRequest().authenticated() // Require authentication for all other endpoints
+                // Disable CSRF for stateless REST API
+                .csrf(csrf -> csrf.disable())
+
+                // Stateless session (JWT based auth)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authenticationProvider(authentificationProvider())
+
+                // Authorization rules
+                .authorizeHttpRequests(auth -> auth
+                        // Public endpoints
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/forgotPassword/**",
+                                "/h2-console/**"
+                        ).permitAll()
+
+                        // Role-based access
+                        .requestMatchers("/api/Admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/Etudiant/**").hasAuthority("ETUDIANT")
+                        .requestMatchers("/api/Encadrant/**").hasAuthority("ENCADRANT")
+                        .requestMatchers("/api/Consultant/**").hasAuthority("CONSULTANT")
+
+                        // Everything else requires authentication
+                        .anyRequest().authenticated()
+                )
+
+                // Authentication provider
+                .authenticationProvider(authenticationProvider())
+
+                // JWT filter before Spring Security auth filter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // Disable frame options for H2 console
-        http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
+        // Allow H2 console frames (if used)
+        http.headers(headers ->
+                headers.frameOptions(frame -> frame.disable())
+        );
+
         return http.build();
     }
 
+    // DAO Authentication Provider (uses DB users)
     @Bean
-    public AuthenticationProvider authentificationProvider() {
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userService.userDetailsService());
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
+    // Password encoder (BCrypt recommended)
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Authentication manager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
