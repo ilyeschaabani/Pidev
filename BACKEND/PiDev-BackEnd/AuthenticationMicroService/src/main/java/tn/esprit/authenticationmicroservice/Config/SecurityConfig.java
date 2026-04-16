@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/forgotPassword/**",
                                 "/h2-console/**"
+                                "/error"
                         ).permitAll()
 
                         // Role-based access
