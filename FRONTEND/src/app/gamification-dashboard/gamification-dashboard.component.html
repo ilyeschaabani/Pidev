@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">🌟 Tableau de Bord Gamification</h2>
+
+  <div class="row text-center mb-4">
+    <div class="col-md-4">
+      <div class="card p-3 shadow-sm">
+        <h5>Niveau</h5>
+        <h2>{{ level }}</h2>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3 shadow-sm">
+        <h5>Points Totaux</h5>
+        <h2>{{ totalPoints }}</h2>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3 shadow-sm">
+        <h5>Progression</h5>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [style.width.%]="progression" aria-valuemin="0" aria-valuemax="100">
+            {{ progression }}%
+          </div>
+        </div>
+        <small>Vers le niveau {{ level + 1 }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h4>🏁 Historique des Quiz</h4>
+    <ul class="list-group">
+      <li *ngFor="let result of quizResults" class="list-group-item">
+        <strong>Quiz :</strong> {{ result.titre }} |
+        <strong>Score :</strong> {{ result.score }}/100 |
+        <strong>Date :</strong> {{ result.date }}
+      </li>
+    </ul>
+    <p *ngIf="quizResults.length === 0" class="text-muted">Aucun quiz complété pour le moment.</p>
+  </div>
+
+  <div class="mb-4">
+    <h4>🏅 Badges Obtenus</h4>
+    <ul class="list-inline">
+      <li *ngFor="let badge of badges" class="list-inline-item badge bg-success p-2 m-1">{{ badge }}</li>
+    </ul>
+    <p *ngIf="badges.length === 0" class="text-muted">Aucun badge débloqué pour l’instant.</p>
+  </div>
+  <div class="text-end mt-2">
+    <button class="btn btn-info btn-sm"
+        (click)="openCertif(userId.id)"
+        title="Voir le certificat">
+  <i class="fas fa-certificate me-1"></i> Voir Certificat
+</button>
+
+
+
+  </div>
+  
+  <div class="text-center">
+    <button class="btn btn-danger" (click)="resetProgression()">🔁 Réinitialiser ma progression</button>
+  </div>
+</div>

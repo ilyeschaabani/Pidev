@@ -1,0 +1,74 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+              <i class="fas fa-tasks me-2"></i>Assign Questions to Quiz
+            </h3>
+          </div>
+  
+          <div class="card-body">
+            <!-- Quiz Selection -->
+            <div class="mb-4">
+              <h5 class="card-title">1. Select a Quiz</h5>
+              <select class="form-select" [(ngModel)]="selectedEvaluationId" 
+                      [disabled]="isLoading.evaluations">
+                <option [ngValue]="null">-- Select a Quiz --</option>
+                <option *ngFor="let eval of evaluations" [ngValue]="eval.idEvaluation">
+                  {{ eval.titre }} 
+                  <span *ngIf="eval.questions?.length">({{ eval.questions?.length ?? 0 }} questions)</span>
+                </option>
+              </select>
+              
+              <div *ngIf="isLoading.evaluations" class="mt-2">
+                <div class="spinner-border spinner-border-sm text-primary"></div>
+                <span class="ms-2">Loading quizzes...</span>
+              </div>
+            </div>
+  
+            <!-- Questions Selection -->
+            <div class="mb-4">
+              <h5 class="card-title">2. Select Questions</h5>
+              
+              <div *ngIf="isLoading.questions" class="text-center py-4">
+                <div class="spinner-border text-primary"></div>
+                <p class="mt-2">Loading questions...</p>
+              </div>
+  
+              <div *ngIf="!isLoading.questions && allQuestions.length === 0" class="alert alert-info">
+                No questions available
+              </div>
+  
+              <div class="list-group">
+                <div *ngFor="let question of allQuestions" class="list-group-item">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" 
+                           [id]="'question-' + question.quesId"
+                           [checked]="selectedQuestionIds.has(question.quesId ?? '')"
+                           (change)="toggleQuestionSelection(question.quesId ?? '')">
+                    <label class="form-check-label" [for]="'question-' + question.quesId">
+                      {{ getShortContent(question) }}
+                      <span class="badge bg-secondary ms-2" *ngIf="question.answer">
+                        Answer: {{ question.answer }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Submit Button -->
+            <div class="d-grid gap-2 mt-4">
+              <button class="btn btn-success btn-lg" 
+                      (click)="assignQuestionsToEvaluation()"
+                      [disabled]="!selectedEvaluationId || selectedQuestionIds.size === 0 || isLoading.assignment">
+                <i class="fas fa-save me-2"></i>
+                {{ isLoading.assignment ? 'Assigning...' : 'Assign Selected Questions' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

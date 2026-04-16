@@ -1,0 +1,242 @@
+<app-navbar></app-navbar>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<div class="section-py landing-hero position-relative" >
+<br> <br> <br> <br>
+<div class="container-fluid px-4 py-5">
+  <!-- Hero Section -->
+  <div class="hero-section position-relative overflow-hidden rounded-4 mb-5 shadow-lg" style="background: linear-gradient(135deg, #f0f4ff, #d4e2ff);">
+    <div class="position-absolute w-100 h-100" style="background: radial-gradient(circle at top left, rgba(255,255,255,0.3), rgba(0,123,255,0.1)); opacity: 0.2;"></div>
+    <div class="container position-relative py-9">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="display-4 fw-bold text-primary mb-3" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.1);">
+            🚀 Gestion des Projets
+          </h1>
+          <p class="lead text-dark mb-4" style="font-weight: 500; letter-spacing: 0.4px; font-size: 1.2rem;">
+            Planifiez, organisez et suivez vos projets en toute simplicité.
+          </p>
+          <a href="#features" class="btn btn-primary btn-lg rounded-pill shadow-sm px-4">
+            Découvrir les fonctionnalités
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Project List Card -->
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
+      <h3 class="mb-0 text-primary"><i class="bx bx-folder-open me-2"></i>Projets en cours</h3>
+      <button class="btn btn-success rounded-pill px-4 d-flex align-items-center" (click)="allerPrediction()">
+        <i class="bx bx-line-chart me-2"></i> Prédiction
+      </button>
+      <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProject">
+        <i class="bx bx-plus me-2"></i>Nouveau Projet
+      </button>
+    </div>
+
+    <div class="card-body p-0">
+      <div class="table-responsive rounded-3">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light-primary">
+            <tr>
+              <th class="ps-4 py-3 fw-semibold text-start" style="min-width: 250px;">Projet</th>
+              <th class="py-3 fw-semibold">Porteur</th>
+              <th class="py-3 fw-semibold">Statut</th>
+              <th class="py-3 fw-semibold text-end pe-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let projet of projets" class="position-relative hover-shadow">
+              <td class="ps-4">
+                <div class="d-flex align-items-center">
+                  <div class="symbol symbol-40px me-3">
+                    <span class="symbol-label bg-light-primary">
+                      <i class="bx bx-folder text-primary fs-4"></i>
+                    </span>
+                  </div>
+                  <div>
+                    <div class="fw-bold text-dark">{{ projet.titre }}</div>
+                    <small class="text-muted">{{ projet.technologies }}</small>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm me-2">
+                    <span class="avatar-initial rounded-circle bg-label-primary">{{ projet.porteurProjet[0] }}</span>
+                  </div>
+                  {{ projet.porteurProjet }}
+                </div>
+              </td>
+
+              <td>
+                <div class="status-badge badge-{{ projet.statutProjet }}">
+                  <i class="bx bx-time"></i>
+                  {{ projet.statutProjet | titlecase }}
+                </div>
+              </td>
+
+              <td class="pe-4 text-end">
+                <div class="d-flex justify-content-end gap-2">
+                  <!-- Voir détails -->
+                  <button class="btn btn-sm btn-outline-primary rounded-circle shadow-sm"
+                          (click)="afficherDetailsProjet(projet.idProjet)"
+                          data-bs-toggle="tooltip" title="Voir détails">
+                    <i class="fas fa-eye"></i>
+                  </button>
+          
+                  <!-- Modifier -->
+                  <button class="btn btn-sm btn-outline-warning rounded-circle shadow-sm"
+                          (click)="modifierProjet(projet)"
+                          data-bs-toggle="tooltip" title="Modifier le projet">
+                    <i class="fas fa-edit"></i>
+                  </button>
+          
+                  <!-- Supprimer -->
+                  <button class="btn btn-sm btn-outline-danger rounded-circle shadow-sm"
+                          (click)="confirmDelete(projet.idProjet)"
+                          data-bs-toggle="tooltip" title="Supprimer le projet">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="projets?.length === 0" class="text-center py-9">
+        <div class="mb-3">
+          <i class="bx bx-folder-open text-muted display-5"></i>
+        </div>
+        <h5 class="text-muted mb-2">Aucun projet trouvé</h5>
+        <p class="text-muted">Commencez par créer votre premier projet</p>
+        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddProject">
+          <i class="bx bx-plus me-2"></i>Ajouter un projet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmation de suppression</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir supprimer ce projet ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="supprimerProjet()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas pour l'ajout de projet -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddProject">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Ajouter un Projet</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+      <div class="form-section mb-4">
+        <div class="d-flex align-items-center mb-4">
+          <div class="icon-wrapper bg-primary me-3">
+            <i class="bx bx-file text-white"></i>
+          </div>
+          <h5 class="mb-0 text-dark">Nouveau Projet</h5>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control border-primary" id="titre" 
+                     [(ngModel)]="newProjet.titre" name="titre" required>
+              <label for="titre"><i class="bx bx-rename me-2"></i>Nom du projet</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <textarea class="form-control border-primary" id="description" 
+                        [(ngModel)]="newProjet.description" name="description" 
+                        style="height: 120px"></textarea>
+              <label for="description"><i class="bx bx-detail me-2"></i>Description</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control border-primary" 
+                     [(ngModel)]="newProjet.porteurProjet" name="porteurProjet" required>
+              <label for="porteurProjet"><i class="bx bx-user me-2"></i>Porteur de projet</label>
+            </div>
+
+            <div class="form-floating">
+              <select class="form-select border-primary" 
+                      [(ngModel)]="newProjet.statutProjet" name="statutProjet">
+                <option value="EN_ATTENTE">En attente</option>
+                <option value="EN_COURS">En cours</option>
+                <option value="TERMINE">Terminé</option>
+              </select>
+              <label><i class="bx bx-category me-2"></i>Statut du projet</label>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control border-primary" 
+                     [(ngModel)]="newProjet.email" name="email" required>
+              <label for="email"><i class="bx bx-envelope me-2"></i>Email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="tel" class="form-control border-primary" 
+                     [(ngModel)]="newProjet.telephone" name="telephone">
+              <label for="telephone"><i class="bx bx-phone me-2"></i>Téléphone</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control border-primary" 
+                     [(ngModel)]="newProjet.technologies" name="technologies">
+              <label for="technologies"><i class="bx bx-chip me-2"></i>Technologies</label>
+            </div>
+
+            <div class="form-floating">
+              <select class="form-select border-primary" 
+                      [(ngModel)]="newProjet.espaceCollaboratif" name="espaceCollaboratif">
+                <option [value]="true">Espace collaboratif activé</option>
+                <option [value]="false">Espace collaboratif désactivé</option>
+              </select>
+              <label><i class="bx bx-group me-2"></i>Collaboration</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="form-floating">
+            <textarea class="form-control border-primary" 
+                      [(ngModel)]="newProjet.objectifs" name="objectifs" 
+                      style="height: 100px"></textarea>
+            <label for="objectifs"><i class="bx bx-target-lock me-2"></i>Objectifs stratégiques</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg fw-semibold py-3">
+          <i class="bx bx-check-shield me-2"></i>Enregistrer le projet
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

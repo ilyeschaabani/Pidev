@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+body {
+  background-color: #f5f3fe;
+  font-family: 'Nunito', sans-serif;
+  color: #44355b;
+}
+
+.quiz-wrapper {
+  max-width: 900px;
+}
+
+.title {
+  color: #6b4c9a;
+  font-weight: 700;
+}
+
+.selection-box {
+  background-color: #ebe5f7;
+  border-left: 6px solid #a084dc;
+}
+
+.custom-select {
+  border-radius: 10px;
+  border: 1px solid #c8b5ec;
+  padding: 8px 12px;
+}
+
+.btn-generate {
+  background: linear-gradient(135deg, #a084dc, #8a6dc1);
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-generate:hover {
+  background: linear-gradient(135deg, #8a6dc1, #a084dc);
+  transform: translateY(-2px);
+}
+
+.quiz-card {
+  background-color: #ffffff;
+  border: 1px solid #ded2f3;
+  border-radius: 16px;
+}
+
+.question-block {
+  background-color: #f6f2fc;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #e0d1f0;
+  transition: 0.3s;
+}
+
+.question-block:hover {
+  background-color: #ece2fa;
+}
+
+.btn-submit {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-submit:hover {
+  background-color: #5e35b1;
+  transform: translateY(-2px);
+}
+
+.result-card {
+  background-color: #e7f5ec;
+  border: 1px solid #b4e2cc;
+  border-left: 6px solid #63c69b;
+  border-radius: 12px;
+}

@@ -1,0 +1,25 @@
+<div *ngIf="loading">Chargement...</div>
+
+<div *ngFor="let certif of certifs" class="certif-card">
+  <div class="certif-info">
+    <h3>{{ certif.fileName }}</h3>
+    <p>ID: {{ certif.id }}</p>
+  </div>
+
+  <div class="assignment-section">
+    <select [(ngModel)]="selectedUser" [disabled]="loading">
+      <option value="">-- Sélectionner utilisateur --</option>
+      <option *ngFor="let user of users" [value]="user.id">
+        {{ user.name }} ({{ user.email }})
+      </option>
+    </select>
+
+    <button (click)="assignCertif(certif.id)" [disabled]="!selectedUser || loading">
+      {{ certif.assignedTo ? 'Réassigner' : 'Assigner' }}
+    </button>
+  </div>
+
+  <div *ngIf="certif.assignedTo" class="assignment-info">
+    <span>Assigné à: {{ getAssignedUserName(certif.assignedTo) }}</span>
+  </div>
+</div>

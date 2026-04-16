@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<div style="margin-top: 100px;">
+  <!-- Your tab navigation and formations list here -->
+</div>
+<div class="container mt-5 pt-5">
+  <div class="card shadow-lg rounded-4 p-4 bg-light">
+    <h2 class="text-center text-primary mb-4">🤖 Prédire le niveau & Recommander</h2>
+
+    <!-- Formulaire de saisie -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Titre du cours (headline)</label>
+      <input type="text" class="form-control" [(ngModel)]="headline" placeholder="Ex: Master Python in 30 Days" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-bold">Objectifs</label>
+      <textarea class="form-control" rows="2" [(ngModel)]="objectives" placeholder="Ce que vous apprendrez..."></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-bold">Curriculum</label>
+      <textarea class="form-control" rows="3" [(ngModel)]="curriculum" placeholder="Contenu du cours..."></textarea>
+    </div>
+
+    <button class="btn btn-success w-100 fw-bold mb-4" (click)="onPredictAndRecommend()">
+      🧠 Prédire le niveau & recommander
+    </button>
+
+    <!-- Résultats -->
+    <div *ngIf="recommendations.length > 0">
+      <h4 class="text-success mb-3">
+        ✅ Formations recommandées pour le niveau :
+        <span class="text-dark">{{ level }}</span>
+      </h4>
+      <ul class="list-group">
+        <li *ngFor="let reco of recommendations" class="list-group-item d-flex justify-content-between align-items-start">
+          <div>
+            <div class="fw-bold">{{ reco.title }}</div>
+            <small class="text-muted">Catégorie : {{ reco.category }}</small>
+          </div>
+          <span class="badge bg-success rounded-pill">⭐ {{ reco.rating }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

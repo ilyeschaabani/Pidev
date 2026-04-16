@@ -1,0 +1,96 @@
+/* Container général */
+.authentication-wrapper {
+    background-color: #f4f7fc;
+    border-radius: 20px;
+    padding: 40px;
+  }
+  
+  /* Card avec ombre et bord arrondi */
+  .card {
+    border-radius: 20px;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Logo et titre */
+  .app-brand img {
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .app-brand h4 {
+    color: #0056b3;
+    font-size: 26px;
+    font-weight: 600;
+  }
+  
+  .card-body {
+    background-color: #ffffff;
+    border-radius: 20px;
+  }
+  
+  /* Titre et sous-titre */
+  h5 {
+    color: #343a40;
+    font-weight: bold;
+  }
+  
+  p {
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  /* Formulaire input */
+  .form-control {
+    border-radius: 50px;
+    padding-left: 45px;
+    font-size: 16px;
+    border-color: #ced4da;
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Icône dans le champ */
+  .input-group-text {
+    background-color: #f1f1f1;
+    border: 1px solid #ced4da;
+    border-radius: 50px;
+  }
+  
+  /* Bouton de soumission */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 12px 0;
+    font-size: 18px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .error-message {
+    font-size: 13px;
+  }
+  
+  /* Texte du lien de connexion */
+  .text-primary {
+    color: #007bff;
+  }
+  
+  .text-primary:hover {
+    color: #0056b3;
+  }
+  
+  /* Effet de survol sur les liens */
+  .text-decoration-none:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,35 @@
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme shadow-sm">
+      <app-dashbordadmin></app-dashbordadmin>
+    </aside>
+<br><br> <br>
+
+  <!-- Main Content -->
+    <div class="layout-page">
+<!-- ESPACE ENTRE LA NAVBAR ET LE FILTRE -->
+<div class="modern-container mt-5 position-relative py-5 px-3 px-md-5">
+
+<div class="container">
+    <h2>Course Difficulty Predictor - Chatbot</h2>
+    
+    <div class="chat-container" #chatContainer>
+        <div *ngFor="let message of chatMessages" class="message" [class.bot]="message.sender === 'bot'">
+            <div class="message-content">{{message.text}}</div>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" [(ngModel)]="userInput" (keyup.enter)="sendMessage()" 
+               placeholder="Type your message here..." class="chat-input">
+        <button (click)="sendMessage()" class="send-button">Send</button>
+    </div>
+
+    <div *ngIf="predictionResult" class="result-container mt-3">
+        <h3>Prediction Result</h3>
+        <div class="alert alert-success">
+            Predicted Difficulty Level: <strong>{{ predictionResult.predicted_difficulty_level }}</strong>
+        </div>
+    </div>
+</div>

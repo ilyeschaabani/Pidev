@@ -1,0 +1,140 @@
+package tn.esprit.accompagnementpfemicroservice.Services;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.accompagnementpfemicroservice.Entities.*;
+import tn.esprit.accompagnementpfemicroservice.Repositories.PFEProjectRepository;
+
+import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PFEProjectService {
+    @Autowired
+    private PFEProjectRepository projectRepository;
+
+    public List<PFEProject> getAllProjects() {
+        return projectRepository.findAll();
+    }
+    public PFEProject createProject(PFEProject project) {
+        System.out.println("Saving project: " + project.getTitle());
+        return projectRepository.save(project);
+    }
+
+
+
+    public Optional<PFEProject> getProjectById(String id) {
+        return projectRepository.findById(id);
+    }
+
+    public PFEProject updateProjectStage(String id, ProjectStage stage) {
+        PFEProject project = projectRepository.findById(id).orElseThrow();
+        project.setStage(stage);
+        return projectRepository.save(project);
+    }
+
+    public PFEProject addCommentToProject(String projectId, Comment comment) throws AccessDeniedException {
+        PFEProject project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvé"));
+
+
+        if (project.getComments() == null) {
+            project.setComments(new ArrayList<>());
+        }
+
+        if (comment.getCreatedAt() == null) {
+            comment.setCreatedAt(new Date());
+        }
+
+        project.getComments().add(comment);
+        return projectRepository.save(project);
+    }
+
+    @Value("${app.upload.dir:${user.home}}")
+    private String uploadDir;
+
+    public PFEProject addDocumentToProject(String projectId, MultipartFile file) throws AccessDeniedException {
+        PFEProject project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvé"));
+
+        // Vérifie si l'étudiant est associé au projet en utilisant studentIds
+        if (project.getStudentIds() == null || project.getStudentIds().isEmpty()) {
+            throw new SecurityException("Le projet ne possède pas d'étudiant associé.");
+        }
+
+
+        // Enregistrement du fichier
+        try {
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            String filePath = uploadDir + "/" + fileName;
+
+            // Créer le dossier de stockage si nécessaire
+            java.nio.file.Files.createDirectories(java.nio.file.Paths.get(uploadDir));
+
+            // Sauvegarder le fichier
+            file.transferTo(new java.io.File(filePath));
+
+            // Créer un document pour le projet
+            DocumentFile document = new DocumentFile();
+            document.setFileName(fileName);
+            document.setFilePath(filePath);
+
+            // Ajouter le document au projet
+            if (project.getDocuments() == null) {
+                project.setDocuments(new ArrayList<>());
+            }
+            project.getDocuments().add(document);
+            return projectRepository.save(project);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de l'enregistrement du fichier", e);
+        }
+    }
+
+
+    public PFEProject evaluateProject(String id, Evaluation evaluation) {
+        PFEProject project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvé"));
+
+        // Logique pour obtenir le mentor, tu peux utiliser un mécanisme comme la session utilisateur
+        String mentorId = project.getMentorId(); // Vérifier si l'utilisateur actuel est le mentor associé
+
+        // Ici, tu devras peut-être utiliser un service de sécurité pour récupérer l'utilisateur actuel
+        // par exemple, via Spring Security, ou vérifier que l'utilisateur qui fait la requête est bien le mentor du projet.
+
+
+        project.setEvaluation(evaluation);
+        return projectRepository.save(project);
+    }
+
+
+    public PFEProject updateProject(String id, PFEProject updatedProject) {
+        PFEProject existingProject = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvé"));
+
+        existingProject.setTitle(updatedProject.getTitle());
+        existingProject.setDescription(updatedProject.getDescription());
+        existingProject.setStudentIds(updatedProject.getStudentIds());
+        existingProject.setMentorId(updatedProject.getMentorId());
+        existingProject.setStage(updatedProject.getStage());
+        existingProject.setDocuments(updatedProject.getDocuments());
+        existingProject.setComments(updatedProject.getComments());
+        existingProject.setEvaluation(updatedProject.getEvaluation());
+
+        return projectRepository.save(existingProject);
+    }
+
+    public void deleteProject(String id) {
+        if (!projectRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Projet non trouvé");
+        }
+        projectRepository.deleteById(id);
+    }
+
+}

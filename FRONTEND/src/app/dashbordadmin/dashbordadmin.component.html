@@ -1,0 +1,129 @@
+
+<body>
+    
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+         
+<!-- HTML Menu Structure (simplified for focus) -->
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand-wrapper d-flex align-items-center justify-content-center py-3">
+      <a href="#" class="app-brand-link d-flex align-items-center text-decoration-none">
+        <img src="../assets/img/images/Logo.png" alt="Logo" class="logo-img me-2" />
+        <span class="app-brand-text">CodingFactory</span>
+      </a>
+    </div>
+  
+    <ul class="menu-inner py-1">
+      <li class="menu-item">
+        <a routerLink="" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div>Accueil</div>
+        </a>
+      </li>
+      <li class="menu-header small text-uppercase gestion-section">
+        <span class="menu-header-text">Les gestions</span>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/useradmin" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-calendar-event"></i>
+          <div>Utilisateurs</div>
+        </a>
+      </li>
+ 
+      <li class="menu-item">
+        <a routerLink="/formations/list" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-store-alt"></i>
+          <div>Formation</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/validationsProjet" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+          <div>Consulting projets</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/mentor/project" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-support"></i>
+          <div>Accompagnement PFE</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/ressources" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-folder"></i>
+          <div>Ressource</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/evaluationdashbord" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+          <div>Évaluation</div>
+        </a>
+      </li>
+    </ul>
+  </aside>
+  
+            <div class="layout-page">
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                            <i class="bx bx-menu bx-sm"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item d-flex align-items-center">
+                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <input type="text" id="search" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <ng-container *ngIf="isLoggedIn && user; ">
+                                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                  <a class="nav-link dropdown-toggle hide-arrow" href="#" data-bs-toggle="dropdown">
+                                    <div class="avatar">
+                                      <img src="assets/img/avatars/6.png" alt="User" class="w-px-40 rounded-circle" />
+                                    </div>
+                                  </a>
+                                  <ul class="dropdown-menu dropdown-menu-end">
+                                    <li class="dropdown-item">
+                                      <div class="d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                          <div class="avatar">
+                                            <img src="assets/img/avatars/6.png" alt="User" class="w-px-40 rounded-circle" />
+                                          </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                          <span class="fw-semibold d-block">{{ user.nom }} {{ user.prenom }}</span>
+                                          <small class="text-muted">{{ user.roles }}</small>
+                                        </div>
+                                      </div>
+                                    </li>
+                                    <li><div class="dropdown-divider"></div></li>
+                                    <li><a class="dropdown-item" routerLink="/profile"><i class="bx bx-user me-2"></i>Mon profile</a></li>
+                                    <li *ngIf="user.roles?.includes('ADMIN')">
+                                      <a class="dropdown-item" routerLink="/dashbord"><i class="bx bxs-dashboard me-2"></i>Panel Admin</a>
+                                    </li>
+                                    <li *ngIf="user.roles?.includes('ADMIN')">
+                                        <a class="dropdown-item" routerLink="/predictionTimespent"><i class="bx bxs-dashboard me-2"></i>Time Spent Online Prediction </a>
+                                      </li>
+                                    <li><a class="dropdown-item" routerLink="#"><i class="bx bx-cog me-2"></i>Parametres</a></li>
+                                    <li><div class="dropdown-divider"></div></li>
+                                    <li><a class="dropdown-item" (click)="logout()"><i class="bx bx-power-off me-2"></i>Deconnection</a></li>
+                                  </ul>
+                                </li>
+                              </ng-container>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Main Content -->
+                <div class="content-wrapper">
+                    <img src="../nav/img/front-pages/backgrounds/cta-bg-light.png" class="position-absolute top-0 start-50 translate-middle-x object-fit-contain w-100 h-100" style="height: 104% !important;"/>
+                    <!-- Your page content goes here -->
+                </div>
+            </div>
+        </div>
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+</body>

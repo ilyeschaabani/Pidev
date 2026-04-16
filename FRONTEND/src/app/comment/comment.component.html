@@ -1,0 +1,49 @@
+<div *ngIf="loading">Loading comments...</div>  <!-- Show loading message while data is being fetched -->
+<!-- Comments list -->
+<div *ngIf="!loading">
+    <div *ngIf="comments.length > 0; else noComments">
+      <div *ngFor="let comment of comments" class="card mb-2">
+        <div *ngIf="selectedComment===null || selectedComment.id!=comment.id">
+        <div class="card-header " *ngIf="isOwnerOfComment(comment)">
+          <button class="btn btn-primary me-2" (click)="changeSelectedComment(comment)">Modifier</button>
+          <button class="btn btn-danger" (click)="deleteComment(comment?.id ||'')">Supprimer</button>
+        </div>
+        <div class="card-header "
+        *ngIf="!isOwnerOfComment(comment)">
+          <button class="btn btn-danger p-2" (click)="report(comment)">Report</button>
+
+        </div>
+        <div class="card-body" *ngIf="!commentToReport || commentToReport.id!=comment.id">
+
+          <p>{{ comment.content }}</p>  <!-- Display each comment content -->
+        </div>
+        <div class="card-body" *ngIf="commentToReport && commentToReport.id===comment.id">
+
+           <app-reportform [commentId]="commentToReport.id!" (formSubmitted)="closeReport()"></app-reportform>
+        </div>
+
+      </div>
+      <div *ngIf="selectedComment && selectedComment.id==comment.id" class="p-4">
+        <form (ngSubmit)="updateComment()" class="form-inline">
+          <div class="form-group mb-2 w-75">
+            <textarea [(ngModel)]="selectedComment.content" name="content" class="form-control w-100" placeholder="Enter your comment" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2 ml-2" [disabled]="!selectedComment.content.trim()">Modifier </button>
+        </form>
+      </div>
+      
+      </div>
+    </div>
+  
+    <ng-template #noComments>
+      <p>No comments available.</p>
+    </ng-template>
+  </div>
+<div class="mt-4 p-4">
+     <form (ngSubmit)="addComment()" class="form-inline">
+      <div class="form-group mb-2 w-75">
+        <textarea [(ngModel)]="newCommentContent" name="newCommentContent" class="form-control w-100" placeholder="Enter your comment" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary mb-2 ml-2" [disabled]="!newCommentContent.trim()">Add Comment</button>
+    </form>
+  </div>

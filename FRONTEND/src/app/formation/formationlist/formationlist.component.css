@@ -1,0 +1,62 @@
+/* En-tête avec dégradé professionnel */
+.header-gradient {
+    background: linear-gradient(90deg, #4e54c8, #8f94fb);
+    padding: 1rem 1.5rem;
+  }
+  
+  /* Badge catégorie avec un joli gradient */
+  .bg-gradient-category {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+  }
+  
+  /* Bouton Statistiques */
+  .btn-statistics {
+    background: linear-gradient(90deg, #43cea2, #185a9d);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-statistics:hover {
+    background: linear-gradient(90deg, #185a9d, #43cea2);
+    color: #fff;
+    transform: scale(1.02);
+  }
+  
+  /* Table hover */
+  .table-hover tbody tr:hover {
+    background-color: #f1f3f8;
+  }
+  
+  /* Boutons d'action */
+  .btn-outline-primary:hover {
+    background-color: #4e54c8;
+    color: white;
+    border-color: #4e54c8;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card-header h4 {
+      font-size: 1rem;
+    }
+  
+    .btn.btn-lg {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+
+  }
+
+  /* Exemple avec violet foncé */
+.custom-title {
+    color: #f6edf9 !important;
+  }
+  
+  

@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<div style="margin-top: 100px;">
+  <!-- Your tab navigation and formations list here -->
+</div>
+<div class="container mt-5">
+  <div class="card shadow p-4 rounded-4">
+    <h2 class="mb-4 text-center text-primary">🎯 Formulaire de Prédiction</h2>
+
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group mb-3">
+        <label>Total Posts</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.total_posts" name="total_posts" required />
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Helpful Post</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.helpful_post" name="helpful_post" required />
+      </div>
+
+      <div class="form-group mb-3">
+        <label>Nice Code Post</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.nice_code_post" name="nice_code_post" required />
+      </div>
+
+      <div class="form-group mb-4">
+        <label>Time Online (en secondes)</label>
+        <input type="number" class="form-control" [(ngModel)]="formData.timeonline" name="timeonline" required />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">🚀 Prédire</button>
+    </form>
+  </div>
+
+  <!-- Résultat de prédiction -->
+  <div *ngIf="result" class="mt-4" [@fadeIn]>
+    <div class="alert alert-info text-center">
+      <h5><strong>📊 Résultat :</strong> {{ result.prediction }}</h5>
+      <p><strong>Probabilité :</strong> {{ result.probability | number:'1.2-2' }}</p>
+    </div>
+  </div>
+
+  <!-- Si Approved -->
+  <div *ngIf="result?.prediction === 'Approved'" class="alert alert-success text-center mt-3" [@fadeIn]>
+    <h4>🎉 Bravo !</h4>
+    <p>Tu es approuvé(e) ! Continue ton excellent travail 👏</p>
+    <img src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif" alt="Approved" width="160">
+  </div>
+
+  <!-- Si Not Approved -->
+  <div *ngIf="result?.prediction === 'Not Approved'" class="alert alert-warning text-center mt-3" [@fadeIn]>
+    <h4>📌 Pas encore !</h4>
+    <p>Augmente tes contributions pour avoir plus de chances 🙌</p>
+    <img src="https://media.giphy.com/media/3o7TKU8RvQuomFfUUU/giphy.gif" alt="Try Again" width="160">
+  </div>
+</div>

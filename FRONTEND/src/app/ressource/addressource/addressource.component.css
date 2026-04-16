@@ -1,0 +1,90 @@
+/* Define a soft gradient background for the sidebar */
+.bg-mauve {
+  background-color: #6f42c1;
+  background: linear-gradient(to right, #6f42c1, #5c32a8);
+}
+
+/* Button styles with hover effects */
+.btn-mauve {
+  background-color: #6f42c1;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-mauve:hover {
+  background-color: #5c32a8;
+  color: white;
+}
+
+/* File upload button styles */
+.btn-outline-mauve {
+  border-color: #6f42c1;
+  color: #6f42c1;
+  border-radius: 30px;
+  padding: 8px 16px;
+}
+
+.btn-outline-mauve:hover {
+  background-color: #6f42c1;
+  color: white;
+}
+
+/* Card shadow and border-radius */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add soft shadows */
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+}
+
+/* Input styling for a cleaner look */
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Add spacing between form inputs */
+.row.g-3 .col-md-6, .col-12 {
+  margin-bottom: 15px;
+}
+
+/* Title and description styling */
+.card-header h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Success and error message styling */
+.alert {
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 15px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+input[type="file"]:invalid {
+  border-color: red;
+}

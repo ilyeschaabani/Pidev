@@ -1,0 +1,31 @@
+.container {
+    max-width: 800px;
+  }
+  
+  .card {
+    background: #ffffff;
+    border: none;
+  }
+  
+  input::placeholder {
+    font-style: italic;
+    color: #aaa;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #003d80);
+  }
+  
+  .list-group-item {
+    background-color: #f9f9f9;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f1f1f1;
+  }
+  

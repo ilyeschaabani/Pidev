@@ -1,0 +1,58 @@
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Sidebar -->
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <app-dashbordadmin></app-dashbordadmin>
+      </aside>
+  
+      <!-- Main Content -->
+      <div class="layout-page">
+        <div class="content-wrapper" style="position: relative;">
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Gestion des Utilisateurs</h2>
+                <button class="btn btn-primary" (click)="navigateToAddUser()">Ajouter un utilisateur</button>
+              </div>
+  
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Prénom</th>
+                      <th>Email</th>
+                      <th>Rôle</th>
+                      <th>Téléphone</th>
+                      <th>Adresse</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users">
+                      <td>{{ user.nom }}</td>
+                      <td>{{ user.prenom }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>
+                        <span class="badge bg-info text-dark">{{ user.roles }}</span>
+                      </td>
+                      <td>{{ user.telephone }}</td>
+                      <td>{{ user.adresse }}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-primary" (click)="editUser(user.idUser)">Modifier</button>
+                          <button class="btn btn-sm btn-danger" (click)="deleteUser(user.idUser)">Supprimer</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

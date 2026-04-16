@@ -1,0 +1,224 @@
+/* Updated Color Palette */
+:root {
+    --primary-color: #6C4EC9; 
+    --secondary-color: #8D6BED;
+    --hover-color: #4D3796;
+    --background-color: #f8f9fe;
+    --card-bg-color: #ffffff;
+    --text-color: #2d2d3a;
+    --muted-text: #6c757d;
+    --border-radius: 12px;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --button-primary-bg: #6C4EC9;
+    --button-secondary-bg: #F0F2F6;
+    --button-primary-hover-bg: #8D6BED;
+    --button-secondary-hover-bg: #E3E6EC;
+    --button-text-color: #FFFFFF;
+}
+
+/* Base Styles */
+body {
+    background-color: var(--background-color);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.content-wrapper {
+    padding: 100px 0 60px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Header Styles */
+.page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-header .lead {
+    font-size: 1.1rem;
+    color: var(--muted-text);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Button Enhancements */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.action-buttons .btn {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    padding: 0.9rem 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--button-text-color);
+}
+
+.action-buttons .btn-primary {
+    background: var(--button-primary-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-buttons .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    transition: left 0.6s;
+}
+/* Custom Button Styles */
+
+/* Change for Prédiction Button (Secondary) */
+.action-buttons .btn-secondary {
+    background: #4CAF50; /* Green for Predicition button */
+    color: #fff; /* White text */
+    border: 1px solid #45a049; /* Darker green border */
+}
+
+.action-buttons .btn-secondary:hover {
+    background: #45a049; /* Darker green on hover */
+    border-color: #388e3c; /* Darker border on hover */
+}
+
+/* Change for Créer Nouveau Sujet Button (Primary) */
+.action-buttons .btn-primary {
+    background: #f200ff; /* Orange for Create Topic button */
+    color: #fff; /* White text */
+    border: 1px solid #fb8c00; /* Darker orange border */
+}
+
+.action-buttons .btn-primary:hover {
+    background: #fb8c00; /* Darker orange on hover */
+    border-color: #f57c00; /* Darker border on hover */
+}
+
+/* Topics Grid Layout */
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+/* Topic Card Enhancements */
+app-topic {
+    display: block;
+    background: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+app-topic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+app-topic:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+app-topic:hover::before {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .page-header .lead {
+        font-size: 1rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .topics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Conteneur principal */
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(45deg, #a084dc, #8a6dc1);
+    color: white;
+    padding: 50px 0;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08);
+  }
+  
+  .hero-section .display-5 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+  
+  .hero-section .lead {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  
+  .hero-section .text-gradient {
+    background: linear-gradient(45deg, #d88df2, #a084dc);
+    -webkit-background-clip: text;
+    color: transparent;
+  }

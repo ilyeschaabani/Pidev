@@ -1,0 +1,107 @@
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Sidebar -->
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <app-dashbordadmin></app-dashbordadmin>
+      </aside>
+  
+      <!-- Main Content -->
+      <div class="layout-page">
+        <div class="content-wrapper" style="position: relative;">
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-header">
+                <h2>Modifier l'utilisateur</h2>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="onSubmit()" #editUserForm="ngForm">
+                  <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input
+                      type="text"
+                      id="nom"
+                      class="form-control"
+                      [(ngModel)]="user.nom"
+                      name="nom"
+                      required
+                      #nom="ngModel"
+                    />
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input
+                      type="text"
+                      id="prenom"
+                      class="form-control"
+                      [(ngModel)]="user.prenom"
+                      name="prenom"
+                      required
+                      #prenom="ngModel"
+                    />
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      class="form-control"
+                      [(ngModel)]="user.email"
+                      name="email"
+                      required
+                      #email="ngModel"
+                    />
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="role">Rôle</label>
+                    <select
+                      id="role"
+                      class="form-control"
+                      [(ngModel)]="user.roles"
+                      name="role"
+                      required
+                    >
+                      <option value="admin">Admin</option>
+                      <option value="user">Utilisateur</option>
+                      <option value="encadrant">Encadrant</option>
+                    </select>
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input
+                      type="tel"
+                      id="telephone"
+                      class="form-control"
+                      [(ngModel)]="user.telephone"
+                      name="telephone"
+                      required
+                    />
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="adresse">Adresse</label>
+                    <input
+                      type="text"
+                      id="adresse"
+                      class="form-control"
+                      [(ngModel)]="user.adresse"
+                      name="adresse"
+                      required
+                    />
+                  </div>
+  
+                  <button type="submit" class="btn btn-primary" [disabled]="!editUserForm.form.valid">
+                    Sauvegarder
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
