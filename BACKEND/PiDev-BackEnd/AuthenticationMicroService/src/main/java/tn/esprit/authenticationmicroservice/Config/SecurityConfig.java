@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/forgotPassword/**",
-                                "/h2-console/**"
+                                "/h2-console/**",
                                 "/error"
                         ).permitAll()
 
